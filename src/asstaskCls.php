@@ -61,7 +61,7 @@ class AssignedTask{
 				if(!mysql_num_rows($result))
 				{
 					$row = mysql_fetch_array($result);
-					mysql_query("update assignedtask set status=4 where status=3 and Id=".$asstaskId);
+					mysql_query("update assignedtask set status=4,updatedId=NOW() where status=3 and Id=".$asstaskId);
 				}
 				return array("status"=>"Success","clipId"=>$clipId,"errorMessage"=>"");
 			}	
@@ -88,9 +88,10 @@ class AssignedTask{
 				return array("status"=>"Error","errorMessage"=>"Assigned: ".$updatedTask["assignedTaskId"].". not updated");
 			}
 			
-			$updatedSoundClipIds = $this->addSoundClips($updatedTask["soundClips"],$updatedTask["assignedTaskId"]);
+			//This function will insert check soundclips existing, insert if itsnot and return existing and inserted IDS
+			$soundClipDetails = $this->addSoundClips($updatedTask["soundClips"],$updatedTask["assignedTaskId"]);
 			
-			return array("status"=>"Success","taskStatus"=>array("status"=>"Success","updatedTasks"=>array()),"assignedTaskStatus"=>array("status"=>"Success","updatedAssTask"=>array()),"soundClipStatus"=>array("status"=>"Success","updatedSoundClips"=>$updatedSoundClipIds));
+			return array("status"=>"Success","taskStatus"=>array("status"=>"Success","updatedTasks"=>array("oldTaskId"=>"","newTaskId"=>"")),"assignedTaskStatus"=>array("status"=>"Success","updatedAssTask"=>array("oldAssTask"=>"","newAssTaskId"=>"")),"soundClipStatus"=>array("status"=>"Success","updatedSoundClips"=>$soundClipDetails[0],"extingSoundClips"=>$soundClipDetails[1]));
 			//return array("status"=>"Success","updatedSoundClips"=>$updatedSoundClipIds);
 		}
 		else
@@ -116,8 +117,10 @@ class AssignedTask{
 				{
 					$assTaskId = mysql_insert_id();
 					$updatedAssTaskIds = array("status"=>"Success","updatedAssTask"=>array("oldAssTask"=>$updatedTask["assignedTaskId"],"newAssTaskId"=>$assTaskId));
-					$updatedSoundClipIds = $this->addSoundClips($updatedTask["soundClips"],$assTaskId);
-					return array("status"=>"Success","taskStatus"=>$updatedTaskIds,"assignedTaskStatus"=>$updatedAssTaskIds,"soundClipStatus"=>array("status"=>"Success","updatedSoundClips"=>$updatedSoundClipIds));
+					
+					//This function will insert check soundclips existing, insert if itsnot and return existing and inserted IDS
+					$soundClipDetails = $this->addSoundClips($updatedTask["soundClips"],$assTaskId);
+					return array("status"=>"Success","taskStatus"=>$updatedTaskIds,"assignedTaskStatus"=>$updatedAssTaskIds,"soundClipStatus"=>array("status"=>"Success","updatedSoundClips"=>$soundClipDetails[0],"extingSoundClips"=>$soundClipDetails[1]));
 				}
 				else
 				{
@@ -132,20 +135,39 @@ class AssignedTask{
 	function addSoundClips($soundClips,$assTaskId)
 	{
 		$updatedIds = array();
+		$existingClips =array();
+		$clipDetails = array();
+		//Getting all the soundclips in the assigned task to avoid duplicated soundclips
+		
+
+		
 		foreach($soundClips as $soundClip){
-				$result = mysql_query("insert into soundclip (assignedTaskId,clipName,updatedId,createdDate) values(".$assTaskId.",'".$soundClip["name"]."','".$soundClip["dateCreated"]."','".$soundClip["dateCreated"]."')");
-				if($result)
-				{
-					$id = mysql_insert_id();
-					array_push($updatedIds,array("oldClipId"=>$soundClip["clipId"],"newClipId"=>$id));
-				}
-				else
-				{
-					return array("status"=>"Error","errorMessage"=>"Error on updating clipId: ".$soundClip["clipId"], "updatedClipIds"=>$updatedIds);
-				}
 				
+				//echo  "select clipId from soundclip where clipName='".$soundClip["name"]."' and assignedTaskId=".$assTaskId;	
+				$result = mysql_query("select clipId from soundclip where clipName='".$soundClip["name"]."' and assignedTaskId=".$assTaskId);
+				if(!mysql_num_rows($result))
+				{
+					$result = mysql_query("insert into soundclip (assignedTaskId,clipName,updatedId,createdDate) values(".$assTaskId.",'".$soundClip["name"]."','".$soundClip["dateCreated"]."','".$soundClip["dateCreated"]."')");
+					if($result)
+					{
+						$id = mysql_insert_id();
+						array_push($updatedIds,array("oldClipId"=>$soundClip["clipId"],"newClipId"=>$id));
+					}
+					else
+					{
+						return array("status"=>"Error","errorMessage"=>"Error on updating clipId: ".$soundClip["clipId"], "updatedClipIds"=>$updatedIds);
+					}
+				}
+				else{
+					
+					array_push($existingClips,$soundClip["clipId"]);
+				}								
 			}
-		return 	$updatedIds;	
+			
+			
+		array_push($clipDetails,$updatedIds);	
+		array_push($clipDetails,$existingClips);
+		return $clipDetails;
 	}
 	
 	function getDetails($id)
