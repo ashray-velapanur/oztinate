@@ -44,7 +44,7 @@
 											<td><?php echo $row["details"] ?></td>
 											<td><?php echo $row["createdDate"] ?></td>
                                             <td class="center">Edit</td>
-                                            <td class="center"><a href="<?php echo $basepath_admin."deletetask/".$row["taskId"] ?>" style="text-decoration:none;"><i class="fa fa-trash fa-fw"></i></a></td>
+                                            <td class="center"><a onClick="return confirm('Are you sure you want to delete this Task?')" href="<?php echo $basepath_admin."deletetask/".$row["taskId"] ?>" style="text-decoration:none;"><i class="fa fa-trash fa-fw"></i></a></td>
                                         </tr>
 										<?php } ?>
                                     </tbody>
