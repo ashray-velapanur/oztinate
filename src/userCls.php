@@ -106,6 +106,25 @@ class User{
 		 return array("status"=>"Error","message"=>"Query Error");	
 	}
 	
+	function changePassword($data)
+	{
+		$query = "select userId from users where userId=".$data["userId"]." and password='".$data["currentPassword"]."'";
+		$result = mysql_query($query);
+		if(mysql_num_rows($result))
+		{
+			if(mysql_query("update users set password='".$data["newPassword"]."' where userId=".$data["userId"]))
+			{
+				return array("status"=>"Success","message"=>"","userId"=>$data["userId"]);
+			}
+			else{
+				return array("status"=>"Error","message"=>"Password is not changed");
+			}
+		}
+		else{
+			return array("status"=>"Error","message"=>"Incorrect current password");
+		}
+	}
+	
 	function generateToken($username)
 	{
 		return md5(uniqid($username, true));

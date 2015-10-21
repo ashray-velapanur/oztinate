@@ -8,7 +8,7 @@
 					<?php } else if($status==2) {?>	
 						<div class="alert alert-danger">Error...!!! Exercise can't delete</div>
 					<?php } else if($status==3) {?>	
-						<div class="alert alert-danger">Sorry...!!! Exercise is assigned to a user</div>
+						<div class="alert alert-danger">Cannot delete. This exercise is assigned to many users and not yet completed or aborted</div>
 					<?php } ?>	
 
 					</div>

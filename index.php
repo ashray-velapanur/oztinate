@@ -6,10 +6,12 @@ require 'Slim/Slim.php';
 $app = new \Slim\Slim();
 
 function response($data)
-{
+{	//var_dump($data); die;
 	$data = json_encode($data);
+	//echo  $data; die;
 	header('Content-Type: application/json;charset=UTF-8');
 	echo $data;
+	exit;
 }
 
 $app->post('/login', function (){
@@ -19,21 +21,24 @@ $app->post('/login', function (){
  
 });
 
+$app->post('/changePassword', function(){
+	$user = new User();
+	$data=file_get_contents('php://input');
+	$data = json_decode($data, true);
+	$userId=checkLoginStatus($data["sessionToken"]);
+	$data["userId"] = $userId;
+	response($user->changePassword($data));
+});
+
 $app->post('/update', function(){
 	$data = file_get_contents('php://input');
 	$data = json_decode($data, true);
 	//var_dump($data); die;
 	$userId=checkLoginStatus($data["sessionToken"]);
 	
-	if($userId)
-	{
-			$assTasks = new AssignedTask();
-			response($assTasks->updateAssignedTasks($data));
-	}
-	else
-	{
-		response(array("{'status':'Error','ErrorMessage':'Session not valid... Please login'}"));
-	}
+	$assTasks = new AssignedTask();
+	response($assTasks->updateAssignedTasks($data));
+	
 });
 
 $app->post('/sync', function(){
@@ -43,21 +48,12 @@ $app->post('/sync', function(){
 	//var_dump($data);
 	$userId=checkLoginStatus($data["sessionToken"]);
 	
-	if($userId)
-	{
-		$data["sessionToken"]=$userId;
+	$data["sessionToken"]=$userId;
 		$task = new Task();
 		$taskList = $task->sync($data);
 	//	header('Content-Type: application/json;charset=UTF-8');
 		response($taskList);
-		//echo json_encode($taskList);
-		
-		//echo "{'status':'Success','ErrorMessage':$userId}";
-	}
-	else
-	{
-		response(array("{'status':'Error','ErrorMessage':'Session not valid... Please login'}"));
-	}
+	
 
 });
 
@@ -65,15 +61,10 @@ $app->post('/uploadSoundsClip', function(){
 	
 	$userId=checkLoginStatus($_SERVER["HTTP_SESSIONTOKEN"]);
 	
-	if($userId)
-	{
-		$assTasks = new AssignedTask();
+	$assTasks = new AssignedTask();
 		response($assTasks->uploadSoundClip($_SERVER["HTTP_CLIPID"]));
-	}	
-	else
-	{
-		response(array("{'status':'Error','ErrorMessage':'Session not valid... Please login'}"));
-	}
+	
+	
 	
 });
 
@@ -286,7 +277,12 @@ function isAdminLoggedin($app)
 function checkLoginStatus($token)
 {
 	$user= new User();
-	return $user->checkLoginStatus($token);
+	$userId = $user->checkLoginStatus($token);
+	
+	if($userId)
+		return $userId;
+	else
+		response(array("{'status':'Error','ErrorMessage':'Session not valid... Please login'}"));
 }
 
 $app->run();
