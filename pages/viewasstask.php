@@ -9,16 +9,31 @@
 		?>
 			function addComment(){
 				var comment = $("#commentTxt").val();
+				if(comment==""){ alert("Please add comment text."); return false;}
+				
 				$.ajax({
 				  method: "POST",
 				  url: basepath+"addComment",
-				  data: {assTaskId:assTaskId, comment: comment, userId: userId }
+				  data: {assTaskId:assTaskId, comment: comment, userId: userId },
+				  beforeSend: function(){
+					 // Handle the beforeSend event
+					  var $this = $("#commentButton");
+						$this.button('loading');
+				   }
+				  
 				}).done(function( data ) {
+					  var $this = $("#commentButton");
+						 $this.button('reset');
+						
 					var status  = eval('(' + data + ')');
 					$("#comment_ul").prepend('<li class="left clearfix"><div class="chat-body clearfix"><div class="header"><strong class="primary-font">'+userName+'</strong><small class="pull-right text-muted"><i class="fa fa-clock-o fa-fw"></i>'+status.createddate+'</small></div><p>'+status.commentText+'</p></div></li>');
+					 //var offset = $('#comment_ul li').first().position().top;
+					 //alert(offset);
 					$('#comment_ul').animate({
-						 scrollTop: $('#comment_ul li:nth-child(14)').position().top
+						 //scrollTop: $('#comment_ul li:nth-child(14)').position().top 
+						 scrollTop: $('#comment_ul li').position().top
 					}, 'slow');
+					$("#commentTxt").val("");
 				 });
 			  }
 			  
@@ -130,7 +145,7 @@
 										<div class="input-group">
 											<input id="commentTxt" type="text" class="form-control input-sm" placeholder="Type your message here...">
 											<span class="input-group-btn">
-												<button class="btn btn-warning btn-sm" id="commentButton" id="btn-chat" onClick="addComment();">
+												<button type="button" class="btn btn-warning btn-sm" id="commentButton" id="btn-chat" onClick="addComment();" data-loading-text="Sending...<i class='fa fa-upload fa-fw'></i>">
 													Send
 												</button>
 											</span>
