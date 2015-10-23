@@ -32,10 +32,13 @@ function sync($data){
 
 function addTask($data)
 {
+	
 	if($this->checkTaskExist($data["taskName"])=="true")
 	{
 			return "Exist";
 	}
+	
+	//var_dump($data);
 	
 	if(!isset($data["createdUserId"]))
 		$data["createdUserId"]  = $_SESSION["userId"];
@@ -49,7 +52,8 @@ function addTask($data)
 	if(!isset($data["details"]))
 		$data["details"]="";
 			
-	$query = "INSERT INTO task (taskName,instruction,minDuration,practiceDuration,details,createdDate,createdUser,updatedId) values('".$data["taskName"]."','".$data["instruction"]."',".$data["minDuration"].",".$data["practiceDuration"].",'".$data["details"]."','".$data["dateOfCreation"]."',".$data["createdUserId"].",'".$data["updatedId"]."')";
+	$query = "INSERT INTO task (taskName,instruction,minDuration,practiceDuration,details,createdDate,createdUser,updatedId) values('".mysql_real_escape_string($data["taskName"])."','".mysql_real_escape_string($data["instruction"])."',".$data["minDuration"].",".$data["practiceDuration"].",'".mysql_real_escape_string($data["details"])."','".$data["dateOfCreation"]."',".$data["createdUserId"].",'".$data["updatedId"]."')";
+	// die;
 	$result = mysql_query($query);
 	$id = mysql_insert_id();
 	if($result)
