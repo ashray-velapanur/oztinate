@@ -24,7 +24,8 @@ class AssignedTask{
 		$newformat = date('Y-m-d',$time);	
 		
 		$query="INSERT INTO assignedtask (taskId,userId,status,createdUserId,assignedDate,completionDate,isCreatedByUser,updatedId,createdDate) values(".$data["taskId"].",".$data["userId"].",".$data["status"].",".$data["createdUserId"].",'".$data["dateOfAssign"]."','".$newformat."','".$createdByUser."','".$data["updatedId"]."',NOW())";
-	
+		//die; 
+		
 		if(mysql_query($query)) 
 			return "Success";
 		else
@@ -221,6 +222,7 @@ class AssignedTask{
 		if(mysql_query($query)) 
 		{
 			$id = mysql_insert_id();
+			mysql_query("update assignedtask set updatedId=NOW() where Id=".$data["assTaskId"]);
 			return json_encode(mysql_fetch_array(mysql_query("select commentText,createddate from comments where commentId=".$id)));
 			
 			//return "Success";
