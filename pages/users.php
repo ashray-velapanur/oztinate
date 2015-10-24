@@ -29,6 +29,7 @@
                                             <th>#Id</th>
                                             <th>User Name</th>
                                             <th>User Type</th>
+											<th>Reset Password</th>
 											<th>Created at</th>
 											<th>Edit</th>
 											<th>Delete</th>
@@ -40,6 +41,7 @@
 											<td><?php echo $row["userId"] ?></td>
                                             <td><?php echo $row["userName"] ?></td>
                                             <td><?php if($row["userType"]=="0"){echo "Administrator";}else{echo "User";} ?></td>
+											 <td><?php if($row["userType"]=="2"){?> <a id="password-reset-<?php echo  $row['userId'] ?>" type="button" onClick="return resetPassword(<?php echo $row['userId'] ?>)" href="#" data-loading-text="Generating Password...">Reset Password</a> <?php }?></td>
                                            	<td><?php echo $row["createdDate"] ?></td>
                                             <td class="center">Edit</td>
                                             <td class="center"><a onClick="return confirm('Are you sure you want to delete this User?')" href="<?php echo $basepath_admin."deleteuser/".$row["userId"] ?>" style="text-decoration:none;" data-method="destroy"><i class="fa fa-trash fa-fw"></i></a> </td>
@@ -75,13 +77,34 @@
     <script src="../dist/js/sb-admin-2.js"></script>
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    <!--<script>
-    $(document).ready(function() {
+	
+    <script>
+		<?php echo "var basepath='".$basepath_admin."';";  ?>
+		function resetPassword(userId)
+		{
+			$.ajax({
+				  method: "POST",
+				  url: basepath+"resetUserPassword",
+				  data: {userId:userId},
+				  beforeSend: function(){
+					 // Handle the beforeSend event
+					 //alert("asdas");
+					  var $this = $("#password-reset-"+userId);
+						$this.button('loading');  
+				   }	  
+				}).done(function(data){
+						var data  = eval('(' + data + ')');
+						var $this = $("#password-reset-"+userId);
+						$("#password-reset-"+userId).text(data.message);  
+					});
+			//alert(userId);
+		}
+    /*$(document).ready(function() {
         $('#dataTables-example').DataTable({
                 responsive: true
         });
-    });
-    </script>-->
+    });*/
+    </script>
 
 </body>
 

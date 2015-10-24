@@ -79,6 +79,38 @@ class User{
 			return "4";
 	}
 	
+	function resetPassword($userId)
+	{
+		$userName = $this->getUserById($userId);
+		if($userName){
+			$newPassword = substr($this->generateToken($userName),0,8);
+			if(mysql_query("update users set password='".$newPassword."' where userId=".$userId))
+			{
+				echo json_encode(array("status"=>"Success","message"=>"new password is:".$newPassword,"newPassword"=>$newPassword));
+				
+			}else{
+			
+				echo json_encode(array("status"=>"Error","message"=>"Some error on getting user data"));
+			}
+			
+		}else{
+		
+			echo json_encode(array("status"=>"Error","message"=>"Some error on getting user data"));
+		}	
+	}
+	
+	function getUserById($id)
+	{
+		$result = mysql_query("select userName from users where userId=".$id);
+		if(mysql_num_rows($result))
+		{
+			$data =mysql_fetch_array($result);
+			return $data["userName"];
+		}else{
+			return false;
+		}
+		
+	}
 	
 	function getUserNames()
 	{

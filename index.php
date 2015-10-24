@@ -21,6 +21,8 @@ $app->post('/login', function (){
  
 });
 
+
+
 $app->post('/changePassword', function(){
 	$user = new User();
 	$data=file_get_contents('php://input');
@@ -76,6 +78,19 @@ $app->get('/:admin', function()use($app){
 		$app->redirect($app->urlFor('admin_login'));	
 })->name('admin')->conditions((array("admin"=>("/*|admin/|admin"))));
 
+
+$app->post('/admin/resetUserPassword', function(){
+	if(isset($_SESSION)){
+	
+		$user = new User();
+	 	echo $user->resetPassword($_POST["userId"]);
+	//	echo json_encode(array("status"=>"Success"));
+		
+	 }else{
+		echo json_encode(array("status"=>"Error","message"=>"Invalid Session"));
+	 }
+		
+});
 
 $app->map('/admin/login', function ()use($app){
  if($_SERVER['REQUEST_METHOD']=="POST")
