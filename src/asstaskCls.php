@@ -22,15 +22,30 @@ class AssignedTask{
 		
 		$time = strtotime($data["dateOfCompletion"]);
 		$newformat = date('Y-m-d',$time);	
-		
+		if($newformat<=date('Y-m-d'))
+			return array("status"=>"Error","message"=>"Error...!!! Invalid Completion date");
+			
 		$query="INSERT INTO assignedtask (taskId,userId,status,createdUserId,assignedDate,completionDate,isCreatedByUser,updatedId,createdDate) values(".$data["taskId"].",".$data["userId"].",".$data["status"].",".$data["createdUserId"].",'".$data["dateOfAssign"]."','".$newformat."','".$createdByUser."','".$data["updatedId"]."',NOW())";
 		//die; 
 		
 		if(mysql_query($query)) 
-			return "Success";
+			return array("status"=>"Success","message"=>"Exercise Assigned Successfully..!!!");
 		else
-			return "Error";
+			return array("status"=>"Error","message"=>"Error...!!! Exercise is not assigned");
 		
+	}
+	
+	function updateAssignedTask($data)
+	{
+		$time = strtotime($data["dateOfCompletion"]);
+		$newformat = date('Y-m-d',$time);	
+		if($newformat<=date('Y-m-d'))
+			return array("status"=>"Error","message"=>"Error...!!! Invalid Completion date");
+			
+		if(mysql_query("update assignedtask set completionDate='".$newformat."' where Id=".$data["txtAssTaskId"]))
+			return array("status"=>"Success","message"=>"Assignment Updated Successfully..!!!");
+		else
+			return array("status"=>"Error","message"=>"Error...!!! Assignment cannot update..!!!");
 	}
 	
 	function uploadSoundClip($clipId)
@@ -173,7 +188,7 @@ class AssignedTask{
 	
 	function getDetails($id)
 	{
-		$query = "SELECT Id,task.taskName,users.userName,status,assignedDate,completionDate FROM assignedtask as asstask JOIN task ON asstask.taskId=task.taskId LEFT JOIN users ON asstask.userId=users.userId WHERE Id=".$id;
+		$query = "SELECT Id,task.taskId,task.taskName,users.userId,users.userName,status,assignedDate,completionDate FROM assignedtask as asstask JOIN task ON asstask.taskId=task.taskId LEFT JOIN users ON asstask.userId=users.userId WHERE Id=".$id;
 		$result = mysql_query($query);
 		if($result)
 		{

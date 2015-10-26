@@ -12,44 +12,48 @@
 							
                             <div class="row">
                                 <div class="col-lg-6">
-									<?php if($status=="Success") {?>
-										<div class="alert alert-success">Exercise Assigned Successfully..!!!</div>
-									<?php } else if($status=="Error") {?>	
-										<div class="alert alert-danger">Error...!!! Exercise is not assigned</div>
-									<?php } ?>	
+								
+									<?php if($status["status"]=="Success"){ ?>
+										<div class="alert alert-success"><?php echo $status["message"]; ?></div>		
+									<?php }else if($status["status"]=="Error"){?>
+										<div class="alert alert-danger"><?php echo $status["message"]; ?></div>
+									<?php } ?>
+									
+									
                                     <form role="form" method="post">
+										<input type="hidden" name="txtAssTaskId" value="<?php if(isset($assTask["Id"])){ echo $assTask["Id"]; $submitButton = "Update"; }else{ echo "0"; $submitButton = "Save";} ?>" />
                                         <div class="form-group">
                                             <label>Choose Exercise</label>
-                                            <select class="form-control" name="taskId" required>
+                                            <select <?php if(isset($assTask["taskId"])){ echo "disabled='disabled'"; }else{$assTask["taskId"]="";} ?> class="form-control" name="taskId" required>
 													<?php while($row=mysql_fetch_array($tasks)){?>
-														<option value="<?php echo $row["taskId"] ?>"><?php echo $row["taskName"] ?></option>
+														<option <?php if($assTask["taskId"]==$row["taskId"]) {echo 'selected="selected"'; }?> value="<?php echo $row["taskId"] ?>"><?php echo $row["taskName"] ?></option>
 													<?php } ?>
 											</select>
                                             <!--<p class="help-block">Example block-level help text here.</p>-->
                                         </div>
                                         <div class="form-group">
                                             <label>Choose User</label>
-                                             <select class="form-control" name="userId" required>
+                                             <select <?php if(isset($assTask["userId"])){ echo "disabled='disabled'"; }else{$assTask["userId"]="";} ?> class="form-control" name="userId" required>
 													<?php while($row=mysql_fetch_array($users)){?>
-														<option value="<?php echo $row["userId"] ?>"><?php echo $row["userName"] ?></option>
+														<option <?php if($assTask["userId"]==$row["userId"]) {echo 'selected="selected"'; }?> value="<?php echo $row["userId"] ?>"><?php echo $row["userName"] ?></option>
 													<?php } ?>
 											</select>
                                         </div>
 										<div class="form-group">
 											<label>Completion Date</label>
-											<input class="form-control" name="dateOfCompletion" type="date" required/>
+											<input class="form-control" name="dateOfCompletion" type="date" <?php if(isset($assTask["completionDate"])){ echo 'value="'.$assTask["completionDate"].'"';} ?> required/>
 										</div>
 																						
 										<div class="row">
 											
 											<div class="col-lg-6">
 												<div class="form-group col-centered">
-													<button type="submit" href="addtask" style="width:160px" class="btn btn-primary">Save</button>		
+													<button type="submit" href="addtask" style="width:160px" class="btn btn-primary"><?php echo $submitButton; ?></button>		
 												</div>
 											</div>
 											<div class="col-lg-6">
 												<div class="form-group col-centered">
-													<a href="tasks" style="width:160px" class="btn btn-danger">cancel</a>		
+													<a href="asstasks" style="width:160px" class="btn btn-danger">cancel</a>		
 												</div>
 											</div>	
 																						

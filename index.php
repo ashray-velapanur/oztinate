@@ -203,7 +203,8 @@ $app->get('/admin/deleteasstask/:id', function($id) use($app){
 
 $app->map('/admin/addasstask', function ()use($app){
 	isAdminLoggedin($app);
-	$status="";
+	$status=array();
+	$status["status"]="";
 	$users = array();
 	$tasks = array();
 	if($_SERVER['REQUEST_METHOD']=="POST")
@@ -217,6 +218,32 @@ $app->map('/admin/addasstask', function ()use($app){
 	$tasks=$task->getTaskNames();
 	$app->render("../pages/addasstask.php",array("status"=>$status,"users"=>$users,"tasks"=>$tasks));
 })->via('GET', 'POST')->name('addasstask');
+
+$app->map('/admin/editasstask/:id', function ($id)use($app){
+	isAdminLoggedin($app);
+	$status=array();
+	$status["status"]="";
+	$users = array();
+	$tasks = array();
+	
+	$assTask=new AssignedTask();
+	
+	if(isset($_POST["txtAssTaskId"])&& $_POST["txtAssTaskId"]!=0)
+	{	
+		$status = $assTask->updateAssignedTask($_POST);
+	}	
+
+	$user = new User();
+	$task = new Task(); 
+	$users=$user->getUserNames();
+	$tasks=$task->getTaskNames();
+	$assTasks = $assTask->getDetails($id);
+	//var_dump($assTasks); die;
+	if(isset($assTasks["status"])&& $assTasks["status"]<2)
+		$app->render("../pages/addasstask.php",array("status"=>$status,"users"=>$users,"tasks"=>$tasks,"assTask"=>$assTasks));
+	else
+		$app->redirect("../../admin/asstasks/");		
+})->via('GET','POST')->name('editasstask');
 
 $app->map('/admin/viewasstask/:id', function($id)use($app){
 	isAdminLoggedin($app);
