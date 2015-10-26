@@ -42,7 +42,7 @@ class AssignedTask{
 		if($newformat<=date('Y-m-d'))
 			return array("status"=>"Error","message"=>"Error...!!! Invalid Completion date");
 			
-		if(mysql_query("update assignedtask set completionDate='".$newformat."' where Id=".$data["txtAssTaskId"]))
+		if(mysql_query("update assignedtask set completionDate='".$newformat."',updatedId=NOW() where Id=".$data["txtAssTaskId"]))
 			return array("status"=>"Success","message"=>"Assignment Updated Successfully..!!!");
 		else
 			return array("status"=>"Error","message"=>"Error...!!! Assignment cannot update..!!!");
