@@ -1,4 +1,5 @@
 <?php include("includes/header.php") ?>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
@@ -41,7 +42,7 @@
                                         </div>
 										<div class="form-group">
 											<label>Completion Date</label>
-											<input class="form-control" name="dateOfCompletion" type="date" <?php if(isset($assTask["completionDate"])){ echo 'value="'.$assTask["completionDate"].'"';} ?> required/>
+											<input class="form-control" id="dateOfCompletion" name="dateOfCompletion" <?php if(isset($assTask["completionDate"])){ echo 'value="'.date("m/d/Y",strtotime($assTask["completionDate"])).'"';} ?> required/>
 										</div>
 																						
 										<div class="row">
@@ -76,17 +77,29 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="<?php echo $basePath ?>bower_components/jquery/dist/jquery.min.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="<?php echo $basePath ?>bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+    <script src="<?php echo $basePath ?>bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
-
+    <script src="<?php echo $basePath ?>dist/js/sb-admin-2.js"></script>
+	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<script>
+		$(function () {
+            $("#dateOfCompletion").datepicker();
+			/*{
+                changeMonth: true,
+                changeYear: true,
+                yearRange: "1900:2015",
+                dateFormat: "yy-mm-dd",
+                defaultDate: '1900-01-01'
+            }*/
+        });
+	</script>
 </body>
 
 </html>
