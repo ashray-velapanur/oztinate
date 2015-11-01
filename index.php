@@ -43,6 +43,8 @@ $app->post('/update', function(){
 	
 });
 
+
+
 $app->post('/sync', function(){
 	
 	$data = file_get_contents('php://input');
@@ -68,6 +70,14 @@ $app->post('/uploadSoundsClip', function(){
 	
 	
 	
+});
+
+$app->post('/uploadTablature', function(){
+$userId=checkLoginStatus($_SERVER["HTTP_SESSIONTOKEN"]);
+	
+	$tab = new Tab();
+		response($tab->uploadTablature($_SERVER["HTTP_TABID"]));
+
 });
 
 

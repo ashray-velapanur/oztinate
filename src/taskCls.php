@@ -19,6 +19,7 @@ function sync($data){
 	$i=0;
 	
 		$query = "SELECT Id AS assTaskId,userId,assignedtask.updatedId,status,createdUserId,assignedDate AS dateOfAssign,completionDate AS dateOfCompletion,assignedtask.createdDate AS dateOfCreation,task.taskId,taskName,details,instruction,minDuration,practiceDuration,task.createdDate FROM assignedtask JOIN task ON assignedtask.taskId=task.taskId WHERE assignedtask.userId=".$data["sessionToken"]." AND assignedtask.updatedId>'".$data["latestAssignedTaskUpdatedId"]."'";
+		//die;
 		$result = mysql_query($query);
 		if($result)
 		{
@@ -33,10 +34,7 @@ function sync($data){
 function addTask($data)
 {
 	
-	if($this->checkTaskExist($data["taskName"])=="true")
-	{
-			return "Exist";
-	}
+	
 	
 	//var_dump($data);
 	
@@ -61,13 +59,17 @@ function addTask($data)
 		if(isset($data["tabIds"]))
 		{
 			$tabs = explode(",",$data["tabIds"]);
-			unset($tabs[0]);
+			if($tabs[0]=="")
+				unset($tabs[0]);
+				
 			foreach($tabs as $tab)
 			{
+				//echo  "INSERT INTO tasktablatures (taskId,tablatureId) values(".$id.",".$tab.")";
+				
 				mysql_query("INSERT INTO tasktablatures (taskId,tablatureId) values(".$id.",".$tab.")");
 				
-			}
-		}		
+			} 
+		}		 
 		return "Success";
 	}	
 	else

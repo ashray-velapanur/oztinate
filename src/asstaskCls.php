@@ -90,9 +90,15 @@ class AssignedTask{
 	
 	function updateAssignedTasks($data)
 	{
+		
 		$updatedTask = $data["assignedTask"];
 		if($data["newTask"]==0)
 		{
+			//get the assigned task status from db to check it is aborted already
+			$row=mysql_fetch_array(mysql_query("select status from assignedtask where Id=".$updatedTask["assignedTaskId"]));
+			if($row["status"]==6)
+				return array("status"=>"Error","errorMessage"=>"This Exercise is already aborted by admin. Please sync the app to update the data.");
+				
 			$i=0;
 			$updatedIds= array();
 			
@@ -115,9 +121,28 @@ class AssignedTask{
 	
 			$task = new Task();
 			
+			$time = strtotime($updatedTask["dateOfCompletion"]);
+			$newformat = date('Y-m-d',$time);	
+			if($newformat<=date('Y-m-d'))
+				return array("status"=>"Error","message"=>"Completion date is less than current date");
+				
+			
+			if($task->checkTaskExist($updatedTask["task"]["taskName"])=="true")
+			{
+					return array("status"=>"Error", "errorMessage"=>"Task already exist please change the task name");
+			}
+			
+			
+			
+			//Insert tablatures
+			$resultTabs = $this->addTabs($updatedTask["task"]["tabs"]);
+			$newTabids = implode(",",$resultTabs["newIds"]);
+		
+			$updatedTask["task"]["tabIds"] = $newTabids;
+			
 			$taskStatus = $task->addTask($updatedTask["task"]);			
-			if($taskStatus=="Exist")
-				return array("status"=>"Error", "errorMessage"=>"Task already exist please change the task name");
+			
+			
 			if($taskStatus=="Error")
 				return array("status"=>"Error", "errorMessage"=>"Error on updating taskId: ".$updatedTask["task"]["taskId"]);
 			elseif($taskStatus=="Success")
@@ -126,26 +151,66 @@ class AssignedTask{
 				$task = $row["taskId"];	
 				$updatedTaskIds = array("status"=>"Success","updatedTasks"=>array("oldTaskId"=>$updatedTask["task"]["taskId"], "newTaskId"=>intval($task)));
 				
-				$updatedTask["taskId"]= $task;
+				$updatedTask["taskId"]= $task; 
+			
 				
 				$assTaskStatus = $this->assignTask($updatedTask,"Y");
-				if($assTaskStatus=="Success")
+				//var_dump($assTaskStatus); die;
+				if($assTaskStatus["status"]=="Success")
 				{
 					$assTaskId = mysql_insert_id();
 					$updatedAssTaskIds = array("status"=>"Success","updatedAssTask"=>array("oldAssTask"=>$updatedTask["assignedTaskId"],"newAssTaskId"=>$assTaskId));
 					
 					//This function will insert check soundclips existing, insert if itsnot and return existing and inserted IDS
 					$soundClipDetails = $this->addSoundClips($updatedTask["soundClips"],$assTaskId);
-					return array("status"=>"Success","taskStatus"=>$updatedTaskIds,"assignedTaskStatus"=>$updatedAssTaskIds,"soundClipStatus"=>array("status"=>"Success","updatedSoundClips"=>$soundClipDetails[0],"extingSoundClips"=>$soundClipDetails[1]));
+					return array("status"=>"Success","taskStatus"=>$updatedTaskIds,"assignedTaskStatus"=>$updatedAssTaskIds,"soundClipStatus"=>array("status"=>"Success","updatedSoundClips"=>$soundClipDetails[0],"extingSoundClips"=>$soundClipDetails[1]),"tabStatus"=>array("status"=>"Success","updatedTabs"=>$resultTabs["insertedTabs"],/*"extingTabs"=>$resultTabs["existingTabs"],*/"failedTabs"=>$resultTabs["failedTabs"]));
 				}
 				else
 				{
-					$updatedAssTaskIds = array("status"=>"Error on updating assignedTask Id:".$updatedTask["assignedTaskId"]);
+					return $updatedAssTaskIds = array("status"=>"Error","errorMessage"=> "Error on updating assignedTask Id:".$updatedTask["assignedTaskId"]);
 				}
 						
 			}	
 			
 		}	
+	}
+	
+/*	function addTabIdsToTask($taskTabs,$newtabs)
+	{
+		foreach($tasks)
+		foreach($tabs as $tab)
+		{
+			
+		}		
+	}*/
+	function addTabs($tabs)
+	{
+		$tabclass = new Tab();
+		//$result = array();
+		$newTabIds = array();
+		$insertedTabs = array();
+		$failedIds= array();
+		$existingTabs =array();
+		foreach($tabs as $tab)
+		{	
+			/*if($tabclass->checkTabExistForTask($tab["name"])=="true")
+			{
+				array_push($existingTabs,$tab["tabId"]);
+				continue;
+			}*/
+			
+			$query = "insert into tablature (name,updatedId,createdDate) values('".$tab["name"]."',NOW(),'".$tab["dateCreated"]."')";
+			
+			$result = mysql_query($query);
+			if($result){
+				$newId=mysql_insert_id();
+				array_push($insertedTabs,array("oldTabId"=>$tab["tabId"],"newTabId"=>$newId));
+				array_push($newTabIds,$newId);
+				}else{
+				array_push($failedIds,$tab["tabId"]);
+			}
+		}	
+		return array("newIds"=>$newTabIds,"insertedTabs"=>$insertedTabs,"failedTabs"=>$failedIds/*,"existingTabs"=>$existingTabs*/);
 	}
 	
 	function addSoundClips($soundClips,$assTaskId)
