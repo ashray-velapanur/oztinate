@@ -18,7 +18,7 @@ function sync($data){
 	$taskList["updatedAssignedTasks"]= array();
 	$i=0;
 	
-		$query = "SELECT Id AS assTaskId,userId,assignedtask.updatedId,status,createdUserId,assignedDate AS dateOfAssign,completionDate AS dateOfCompletion,assignedtask.createdDate AS dateOfCreation,task.taskId,taskName,details,instruction,minDuration,practiceDuration,task.createdDate FROM assignedtask JOIN task ON assignedtask.taskId=task.taskId WHERE assignedtask.userId=".$data["sessionToken"]." AND assignedtask.updatedId>'".$data["latestAssignedTaskUpdatedId"]."'";
+		 $query = "SELECT Id AS assTaskId,userId,assignedtask.updatedId,status,createdUserId,assignedDate AS dateOfAssign,completionDate AS dateOfCompletion,assignedtask.createdDate AS dateOfCreation,task.taskId,taskName,details,instruction,minDuration,practiceDuration,task.createdDate FROM assignedtask JOIN task ON assignedtask.taskId=task.taskId WHERE assignedtask.userId=".$data["sessionToken"]." AND assignedtask.updatedId>'".$data["latestAssignedTaskUpdatedId"]."'";
 		//die;
 		$result = mysql_query($query);
 		if($result)
@@ -163,7 +163,8 @@ function getAssignTaskData($row)
 			$assTask["task"]["tabs"][$i]=array();
 			$assTask["task"]["tabs"][$i]["tabId"]=  $row["tabId"];
 			$assTask["task"]["tabs"][$i]["name"]=	$row["name"];
-			$assTask["task"]["tabs"][$i]["tabUrl"]= $row["tabUrl"];
+			//$assTask["task"]["tabs"][$i]["tabUrl"]=$row["tabUrl"];
+			$assTask["task"]["tabs"][$i]["tabUrl"]=($row["tabUrl"])?$row["tabUrl"]:"";
 			$i++;
 		}
 	}	
