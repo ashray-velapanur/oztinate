@@ -10,5 +10,6 @@ include_once('userCls.php');
 include_once('tabCls.php');
 include_once('taskCls.php');
 include_once('asstaskCls.php');
+include_once('pnsCls.php');
 
 ?>

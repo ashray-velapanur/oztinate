@@ -80,6 +80,20 @@ $userId=checkLoginStatus($_SERVER["HTTP_SESSIONTOKEN"]);
 
 });
 
+$app->post('/registerDevice', function(){
+
+	$data = file_get_contents('php://input');
+	$data = json_decode($data, true);
+	
+	$userId=checkLoginStatus($_SERVER["HTTP_SESSIONTOKEN"]);
+
+	$data["userId"]=$userId;
+	
+	$pns = new PNS();
+
+	response($pns->registerDevice($data));
+});
+
 
 $app->get('/:admin', function()use($app){
 	if(isset($_SESSION["userId"]))
