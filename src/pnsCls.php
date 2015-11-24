@@ -13,7 +13,7 @@ class PNS{
 
 			$row=mysql_fetch_array($result);
 
-			$result = mysql_query("UPDATE mobilepns SET userId=".$data["userId"].", deviceToken='".$data["deviceToken"]."', updatedDate=NOW() WHERE id=".$row['id']);
+			$result = mysql_query("UPDATE mobilepns SET userId=".$data["userId"].", deviceToken='".$data["deviceToken"]."', channelId='".$data["channelId"]."', updatedDate=NOW() WHERE id=".$row['id']);
 
 			
 			if($result){
