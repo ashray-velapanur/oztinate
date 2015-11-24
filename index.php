@@ -85,7 +85,7 @@ $app->post('/registerDevice', function(){
 	$data = file_get_contents('php://input');
 	$data = json_decode($data, true);
 	
-	$userId=checkLoginStatus($_SERVER["HTTP_SESSIONTOKEN"]);
+	$userId=checkLoginStatus($data["sessionToken"]);
 
 	$data["userId"]=$userId;
 	
