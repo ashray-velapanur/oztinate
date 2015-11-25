@@ -29,7 +29,12 @@ class AssignedTask{
 		//die; 
 		
 		if(mysql_query($query)) 
+		{
+			$pns = new PNS();
+			$pns->push(array("type"=>"assign","userId"=>$data["userId"]));
+
 			return array("status"=>"Success","message"=>"Exercise Assigned Successfully..!!!");
+		}	
 		else
 			return array("status"=>"Error","message"=>"Error...!!! Exercise is not assigned");
 		
@@ -43,7 +48,20 @@ class AssignedTask{
 			return array("status"=>"Error","message"=>"Error...!!! Invalid Completion date");
 			
 		if(mysql_query("update assignedtask set completionDate='".$newformat."',updatedId=NOW() where Id=".$data["txtAssTaskId"]))
+		{
+			
+			$query = "SELECT users.userId from assignedtask JOIN users ON assignedtask.userId=users.userId WHERE assignedtask.Id=".$data["txtAssTaskId"];
+
+			$result = mysql_query($query);
+			if(mysql_num_rows($result)){
+				$row=mysql_fetch_array($result);
+				//echo $data["userId"];
+				$pns = new PNS();
+				$pns->push(array("type"=>"update","userId"=>$row["userId"]));	
+				//var_dump($response);
+			}	
 			return array("status"=>"Success","message"=>"Assignment Updated Successfully..!!!");
+		}	
 		else
 			return array("status"=>"Error","message"=>"Error...!!! Assignment cannot update..!!!");
 	}
@@ -159,6 +177,7 @@ class AssignedTask{
 				if($assTaskStatus["status"]=="Success")
 				{
 					$assTaskId = mysql_insert_id();
+
 					$updatedAssTaskIds = array("status"=>"Success","updatedAssTask"=>array("oldAssTask"=>$updatedTask["assignedTaskId"],"newAssTaskId"=>$assTaskId));
 					
 					//This function will insert check soundclips existing, insert if itsnot and return existing and inserted IDS
@@ -289,10 +308,42 @@ class AssignedTask{
 	{
 		$query="update assignedtask set status=".$status.",updatedId=NOW() where Id=".$id;
 		if(mysql_query($query))
+		{
+			$query = "SELECT users.userId,taskName from assignedtask JOIN users ON assignedtask.userId=users.userId JOIN task ON assignedtask.taskId=task.taskId  WHERE assignedtask.Id=".$id;
+			$result = mysql_query($query);
+			if(mysql_num_rows($result)){
+				$row=mysql_fetch_array($result);
+
+				$pns = new PNS();
+				$response =$pns->push(array("type"=>"status","userId"=>$row["userId"],"exercise"=>$row["taskName"],"newStatus"=> $this->getTaskStatus($status)));
+				//var_dump($response);
+			}	
+
 			return 1;
+		}
 		else
 			return 2;
 		
+	}
+
+	function getTaskStatus($status)
+	{
+		switch($status){
+		case 0:
+				return "Open";
+		case 1:
+				return "Reopen";
+		case 3:
+				return "ReadyForReviewButUploadPending";
+		case 4:
+				return "ReadyForReview";
+		case 5:
+				return "Completed";
+		case 6:
+				return "Aborted";		
+		default: 
+			return "Unknown Status";
+		}	
 	}
 	
 	function addComment($data)
@@ -303,6 +354,18 @@ class AssignedTask{
 		{
 			$id = mysql_insert_id();
 			mysql_query("update assignedtask set updatedId=NOW() where Id=".$data["assTaskId"]);
+
+			$query = "SELECT taskName,users.userId from assignedtask JOIN task ON assignedtask.taskId=task.taskId JOIN users ON assignedtask.userId=users.userId WHERE assignedtask.Id=".$data["assTaskId"];
+
+			$result = mysql_query($query);
+			if(mysql_num_rows($result)){
+				$row=mysql_fetch_array($result);
+				//echo $data["userId"];
+				$pns = new PNS();
+				$pns->push(array("type"=>"comment","userId"=>$row["userId"],"exercise"=> $row["taskName"]));
+				//var_dump($response);
+			}	
+
 			return json_encode(mysql_fetch_array(mysql_query("select commentText,createddate from comments where commentId=".$id)));
 			
 			//return "Success";

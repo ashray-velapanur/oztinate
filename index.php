@@ -37,7 +37,7 @@ $app->post('/update', function(){
 	$data = json_decode($data, true);
 	//var_dump($data); die;
 	$userId=checkLoginStatus($data["sessionToken"]);
-	
+	$data["userId"]=$userId;
 	$assTasks = new AssignedTask();
 	response($assTasks->updateAssignedTasks($data));
 	
@@ -94,6 +94,20 @@ $app->post('/registerDevice', function(){
 	response($pns->registerDevice($data));
 });
 
+$app->get('/pushtest', function(){
+
+	//$data = file_get_contents('php://input');
+	//$data = json_decode($data, true);
+	
+	//$userId=checkLoginStatus($data["sessionToken"]);
+
+	//$data["userId"]=$userId;
+	
+	$pns = new PNS();
+	$response = $pns->push();
+	var_dump($response);
+	//response($pns->registerDevice($data));
+});
 
 $app->get('/:admin', function()use($app){
 	if(isset($_SESSION["userId"]))
