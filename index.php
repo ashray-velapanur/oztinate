@@ -362,7 +362,7 @@ function checkLoginStatus($token)
 	if($userId)
 		return $userId;
 	else
-		response(array("{'status':'Error','ErrorMessage':'Session not valid... Please login'}"));
+		response(array('{"status":"Error","ErrorMessage":"Session not valid... Please login"}"));
 }
 
 $app->run();
