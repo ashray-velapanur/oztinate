@@ -232,6 +232,30 @@ $app->map('/:asstasks', function ($id)use($app){
 	$app->render("../pages/asstasks.php", array("assTasks"=>$assTasks,"status"=>$id));
 })->via('GET', 'POST')->name('assTasks')->conditions((array("asstasks"=>("admin/asstasks/.*|admin/asstasks"))));
 
+//return pagination and message params
+function getListParams($params)
+{
+	$paramArray = explode('/',$params);
+	$endParam = end($paramArray);
+	$status=$endParam;
+	$isPage = explode('=',$endParam);
+	if($isPage[0]!="page")
+	{	
+		$prevParam = prev($paramArray);
+		$isPage = explode('=',$prevParam);
+		if($isPage[0]!="page")
+			return array("page"=>"","status"=>$status);
+	} 
+	else
+	{
+		$status = "";
+	}
+	
+	if(!$isPage[1]) return array("page"=>"","status"=>$status);
+	
+	return array("page"=>$isPage[1],"status"=>$status);
+}
+
 $app->get('/admin/deleteasstask/:id', function($id) use($app){
 	isAdminLoggedin($app);
 	$assTasks = new AssignedTask();

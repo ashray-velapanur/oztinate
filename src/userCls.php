@@ -3,7 +3,8 @@ class User{
 
 	function login($data){
 		$data = json_decode($data, true);
-		$result = mysql_query("SELECT userId FROM users WHERE userName='".$data["userName"]."' AND password='".$data["password"]."'");
+		//echo sha1($data["password"]); die;
+		$result = mysql_query("SELECT userId FROM users WHERE userName='".$data["userName"]."' AND password='".sha1($data["password"])."'");
 		if(mysql_num_rows($result))
 		{
 			$row = mysql_fetch_array($result);
@@ -21,7 +22,7 @@ class User{
 	function adminLogin($post)
 	{
 	
-		$result = mysql_query("SELECT userId FROM users WHERE userType<2 AND userName='".$post["username"]."' AND password='".$post["password"]."'");
+		$result = mysql_query("SELECT userId FROM users WHERE userType<2 AND userName='".$post["username"]."' AND password='".sha1($post["password"])."'");
 		if($result)
 		if(mysql_num_rows($result))
 		{			
@@ -49,7 +50,8 @@ class User{
 	
 	function addUser($data)
 	{
-		$query = "INSERT INTO users (userName,password,userType,createdDate) values('".$data["userName"]."','".$data["password"]."',".$data["userType"].",NOW())";
+		$password = sha1($data["password"]);
+		$query = "INSERT INTO users (userName,password,userType,createdDate) values('".$data["userName"]."','".$password."',".$data["userType"].",NOW())";
 		$result = mysql_query($query)or die(mysql_error());
 		
 		if($result) 
@@ -84,7 +86,7 @@ class User{
 		$userName = $this->getUserById($userId);
 		if($userName){
 			$newPassword = substr($this->generateToken($userName),0,8);
-			if(mysql_query("update users set password='".$newPassword."' where userId=".$userId))
+			if(mysql_query("update users set password='".sha1($newPassword)."' where userId=".$userId))
 			{
 				echo json_encode(array("status"=>"Success","message"=>"new password is:".$newPassword,"newPassword"=>$newPassword));
 				
@@ -140,7 +142,7 @@ class User{
 	
 	function changePassword($data)
 	{
-		$query = "select userId from users where userId=".$data["userId"]." and password='".$data["currentPassword"]."'";
+		$query = "select userId from users where userId=".$data["userId"]." and password='".sha1($data["currentPassword"])."'";
 		$result = mysql_query($query);
 		if(mysql_num_rows($result))
 		{

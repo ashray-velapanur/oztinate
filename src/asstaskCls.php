@@ -315,7 +315,7 @@ class AssignedTask{
 				$row=mysql_fetch_array($result);
 
 				$pns = new PNS();
-				$response =$pns->push(array("type"=>"status","userId"=>$row["userId"],"exercise"=>$row["taskName"],"newStatus"=> $this->getTaskStatus($status)));
+				$pns->push(array("type"=>"status","userId"=>$row["userId"],"exercise"=>$row["taskName"],"newStatus"=> $this->getTaskStatus($status)));
 				//var_dump($response);
 			}	
 

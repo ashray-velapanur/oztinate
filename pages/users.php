@@ -40,7 +40,7 @@
                                         <tr class="odd gradeX">
 											<td><?php echo $row["userId"] ?></td>
                                             <td><?php echo $row["userName"] ?></td>
-                                            <td><?php if($row["userType"]=="0"){echo "Administrator";}else{echo "User";} ?></td>
+                                            <td><?php if($row["userType"]=="0"||$row["userType"]=="1"){echo "Administrator";}else{echo "User";} ?></td>
 											 <td><?php if($row["userType"]=="2"){?> <a id="password-reset-<?php echo  $row['userId'] ?>" type="button" onClick="return resetPassword(<?php echo $row['userId'] ?>)" href="#" data-loading-text="Generating Password...">Reset Password</a> <?php }?></td>
                                            	<td><?php echo $row["createdDate"] ?></td>
                                             <td class="center">Edit</td>
