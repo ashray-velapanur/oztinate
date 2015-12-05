@@ -89,7 +89,7 @@
 								<?php if($statusChange==1){ ?>
 									<label class="label label-success">Status Changed successfully</label>
 								<?php } elseif($statusChange==2) { ?>
-									<label class="label label-danger">Error... Status not changed</label>
+									<label class="label label-danger">Error... Status not changed. Please Load this page again and try</label>
 								<?php }?>
 							</div>
 						</div>

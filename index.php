@@ -290,7 +290,10 @@ $app->map('/admin/viewasstask/:id', function($id)use($app){
 	if($_SERVER['REQUEST_METHOD']=="POST")
 	{
 		$status = getStausId($_POST["statusTxt"]);
-		$statusChange = $assTasks->changeStatus($status,$id);
+		if($status>=0)
+			$statusChange = $assTasks->changeStatus($status,$id);
+		else
+			$statusChange=2;
 	}
 	
 	$assTask = $assTasks->getDetails($id);
