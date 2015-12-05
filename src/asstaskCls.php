@@ -293,7 +293,7 @@ class AssignedTask{
 	}
 	
 	function getAllAsstask(){
-		$query = "SELECT Id,task.taskName,users.userName,status,assignedDate,completionDate FROM assignedtask as asstask JOIN task ON asstask.taskId=task.taskId LEFT JOIN users ON asstask.userId=users.userId";
+		$query = "SELECT Id,task.taskName,users.userName,status,assignedDate,completionDate FROM assignedtask as asstask JOIN task ON asstask.taskId=task.taskId LEFT JOIN users ON asstask.userId=users.userId ORDER BY asstask.createdDate DESC";
 		$result = mysql_query($query);
 		if($result)
 		{

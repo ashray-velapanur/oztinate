@@ -121,7 +121,7 @@ function checkTaskExist($taskName)
 
 function getAllTasks()
 {
-	$query ="SELECT taskId,taskName,minDuration,practiceDuration,details,createdDate FROM task WHERE enabled=1";
+	$query ="SELECT taskId,taskName,minDuration,practiceDuration,details,createdDate FROM task WHERE enabled=1 ORDER BY createdDate DESC";
 	$result = mysql_query($query);
 	if($result)
 	{

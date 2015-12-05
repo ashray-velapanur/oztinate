@@ -1,7 +1,7 @@
 <?php
 Class Tab{
 	function getAllTabs(){
-		$query = "SELECT tabId,name,tabUrl,createdDate FROM tablature";
+		$query = "SELECT tabId,name,tabUrl,createdDate FROM tablature ORDER BY createdDate DESC";
 			$result = mysql_query($query);
 		if($result)
 		{

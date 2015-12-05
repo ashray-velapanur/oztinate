@@ -127,7 +127,7 @@ class User{
 	
 	function getAllUsers()
 	{
-		$query="SELECT userId,userName,userType,loginStatus,createdDate FROM users WHERE enabled=1";
+		$query="SELECT userId,userName,userType,loginStatus,createdDate FROM users WHERE enabled=1 ORDER BY createdDate DESC";
 		$result = mysql_query($query);
 		if($result)
 		{
