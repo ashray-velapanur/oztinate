@@ -72,11 +72,19 @@ $app->post('/uploadSoundsClip', function(){
 	
 });
 
-$app->post('/uploadTablature', function(){
+/*$app->post('/uploadTablature', function(){
 $userId=checkLoginStatus($_SERVER["HTTP_SESSIONTOKEN"]);
 	
 	$tab = new Tab();
 		response($tab->uploadTablature($_SERVER["HTTP_TABID"]));
+
+});*/
+
+$app->post('/uploadTablature', function(){
+//$userId=checkLoginStatus($_SERVER["HTTP_SESSIONTOKEN"]);
+	
+	$tab = new Tab();
+		response($tab->uploadTablature());
 
 });
 

@@ -58,7 +58,7 @@ Class Tab{
 			
 	}
 	
-	function uploadTablature($tabId)
+	/*function uploadTablature($tabId)
 	{
 		$uploads_dir = 'uploads/tabs';
 		//var_dump($_FILES); die;
@@ -88,6 +88,50 @@ Class Tab{
 		else{
 				return array("status"=>"Error","tabId"=>$tabId,"errorMessage"=>"File upload error. please upload again");
 			}	
+	}*/
+	
+	function uploadTablature()
+	{
+		$uploads_dir = 'uploads/tabs';
+		//var_dump($_FILES); die;
+		/*foreach($_FILES as $file){
+			var_dump($file); 
+		}die;*/
+		$log = fopen("tabupload_log.txt", "w");
+		fwrite($log,json_encode($_FILES));
+		$response = array();
+		foreach($_FILES as $file){
+			if (!$file["error"]) {
+				$tabId = explode('.',$file["name"]);
+				$tabId=$tabId[0];
+				$tmp_name = $file["tmp_name"];
+				$name = $file["name"];
+				//$id = explode(".",$name);
+				$fileUrl = "http://".$_SERVER['HTTP_HOST']."/oztinate/uploads/tabs/".$name;
+				move_uploaded_file($tmp_name, "$uploads_dir/$name");
+				$result = mysql_query("select tabId from tablature where tabId='".$tabId."'");
+				if(mysql_num_rows($result)<=0){
+					array_push($response,array("status"=>"Error","tabId"=>$tabId,"errorMessage"=>"Invalid clip Id. Please check your Clip Id"));
+					continue;	
+				}
+				//$asstaskId = mysql_fetch_array($result);
+				//$asstaskId = $asstaskId["assignedTaskId"];
+				
+				$query = "update tablature set tabUrl='$fileUrl' where tabId=".$tabId;
+				if(!mysql_query($query))
+				{
+					array_push($response,array("status"=>"Error","tabId"=>$tabId,"errorMessage"=>"Details update error.Please check file name"));
+				}
+				else{
+				
+					array_push($response,array("status"=>"Success","tabId"=>$tabId,"errorMessage"=>""));
+				}	
+			}
+			else{
+					array_push($response,array("status"=>"Error","tabId"=>$tabId,"errorMessage"=>"File upload error. please upload again"));
+				}
+		}
+			return $response;
 	}
 	
 	function checkTabExist($tabName)
