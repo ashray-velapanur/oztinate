@@ -124,7 +124,7 @@ Class Tab{
 				}
 				else{
 				
-					array_push($response,array("status"=>"Success","tabId"=>$tabId,"errorMessage"=>""));
+					array_push($response,array("status"=>"Success","tabId"=>$tabId,"tabUrl"=>$fileUrl,"errorMessage"=>""));
 				}	
 			}
 			else{
