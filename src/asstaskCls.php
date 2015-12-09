@@ -30,13 +30,17 @@ class AssignedTask{
 		
 		if(mysql_query($query)) 
 		{
-			$pns = new PNS();
-			$pns->push(array("type"=>"assign","userId"=>$data["userId"]));
-
-			return array("status"=>"Success","message"=>"Exercise Assigned Successfully..!!!");
+			$assTaskId = mysql_insert_id();
+			if($createdByUser=='N')
+			{
+				$pns = new PNS();
+				$pns->push(array("type"=>"assign","userId"=>$data["userId"]));
+			}
+			
+			return array("status"=>"Success","assTaskId"=>$assTaskId,"message"=>"Exercise Assigned Successfully..!!!");
 		}	
 		else
-			return array("status"=>"Error","message"=>"Error...!!! Exercise is not assigned");
+			return array("status"=>"Error","assTaskId"=>$assTaskId,"message"=>"Error...!!! Exercise is not assigned");
 		
 	}
 	
@@ -176,7 +180,7 @@ class AssignedTask{
 				//var_dump($assTaskStatus); die;
 				if($assTaskStatus["status"]=="Success")
 				{
-					$assTaskId = mysql_insert_id();
+					$assTaskId = $assTaskStatus["assTaskId"];
 
 					$updatedAssTaskIds = array("status"=>"Success","updatedAssTask"=>array("oldAssTask"=>$updatedTask["assignedTaskId"],"newAssTaskId"=>$assTaskId));
 					
