@@ -97,6 +97,7 @@ Class Tab{
 		/*foreach($_FILES as $file){
 			var_dump($file); 
 		}die;*/
+		$flag=false;
 		$log = fopen("tabupload_log.txt", "w");
 		fwrite($log,json_encode($_FILES));
 		$response = array();
@@ -123,7 +124,7 @@ Class Tab{
 					array_push($response,array("status"=>"Error","tabId"=>$tabId,"errorMessage"=>"Details update error.Please check file name"));
 				}
 				else{
-				
+					$flag=true;
 					array_push($response,array("status"=>"Success","tabId"=>$tabId,"tabUrl"=>$fileUrl,"errorMessage"=>""));
 				}	
 			}
@@ -131,7 +132,11 @@ Class Tab{
 					array_push($response,array("status"=>"Error","tabId"=>$tabId,"errorMessage"=>"File upload error. please upload again"));
 				}
 		}
-			return $response;
+			if($flag)
+				return array("status"=>"Success","uploadedTabs"=>$response);
+			else
+				return array("status"=>"Error","uploadedTabs"=>$response);
+			//return $response;
 	}
 	
 	function checkTabExist($tabName)
