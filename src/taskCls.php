@@ -179,7 +179,7 @@ function getAssignTaskData($row)
 			$assTask["comments"][$i]=array();
 			$assTask["comments"][$i]["commentId"]=  $row["commentId"];
 			$assTask["comments"][$i]["comment"]=	$row["commentText"];
-			$assTask["comments"][$i]["dateModified"]= $row["createdDate"];
+			$assTask["comments"][$i]["dateModified"]= $row["createdDate"]." +0000";
 			$i++;
 		}
 	}	
