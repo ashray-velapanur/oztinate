@@ -309,8 +309,12 @@ class AssignedTask{
 	}
 	
 	function changeStatus($status,$id)
-	{
-		$query="update assignedtask set status=".$status.",updatedId=NOW() where Id=".$id;
+	{   
+		$changeUser="";
+		if($status==1){
+				$changeUser = " createdUserId=".$_SESSION["userId"].", isCreatedByUser='N',";
+			}	
+		$query="update assignedtask set status=".$status.",".$changeUser." updatedId=NOW() where Id=".$id;
 		if(mysql_query($query))
 		{
 			$query = "SELECT users.userId,taskName from assignedtask JOIN users ON assignedtask.userId=users.userId JOIN task ON assignedtask.taskId=task.taskId  WHERE assignedtask.Id=".$id;
