@@ -70,10 +70,50 @@ function addTask($data)
 				
 			} 
 		}		 
-		return "Success";
-	}	
-	else
-		return "Error";
+		return array("status"=>"Success","message"=>"Exercises Added Successfully..!!!");
+	}
+	else{
+
+		return array("status"=>"Error","message"=>"Error...!!! Exercises Not Added..!!!");
+	}
+}
+
+function updateTask($data){
+
+	$query = "UPDATE task SET taskName='".$data["taskName"]."', instruction='".$data["instruction"]."' WHERE taskId=".$data["txtTaskId"];
+	if(mysql_query($query)){
+
+		if(isset($data["tabIds"]))
+		{
+			$tabs = explode(",",$data["tabIds"]);
+			if($tabs[0]=="")
+			{
+				unset($tabs[0]);
+				$tabsString = substr($data["tabIds"], 1);
+			}
+
+			$query = "DELETE FROM tasktablatures WHERE taskId=".$data["txtTaskId"]." AND tablatureId NOT IN(".$tabsString.")";
+			mysql_query($query);
+				
+			foreach($tabs as $tab)
+			{
+				//echo $query = "IF NOT EXIST(SELECT Id FROM tasktablatures WHERE taskId=".$data["txtTaskId"]." AND tablatureId=".$tab.") BEGIN INSERT INTO tasktablatures (taskId,tablatureId) values(".$data["txtTaskId"].",".$tab.") END"; die;
+				 $query = "INSERT INTO tasktablatures (taskId,tablatureId) SELECT * FROM (SELECT ".$data["txtTaskId"].",".$tab.") AS tmp WHERE NOT EXISTS (SELECT Id FROM tasktablatures WHERE taskId=".$data["txtTaskId"]." AND tablatureId=".$tab.") LIMIT 1";
+				//die;
+				//echo  "INSERT INTO tasktablatures (taskId,tablatureId) values(".$id.",".$tab.")";
+				mysql_query($query);
+
+				//mysql_query("INSERT INTO tasktablatures (taskId,tablatureId) values(".$id.",".$tab.")");
+				
+			} 
+		}		
+
+		return array("status"=>"Success","message"=>"Exercises Updated Successfully..!!!");
+	}
+	else{
+
+		return array("status"=>"Error","message"=>"Error...!!! Exercises cannot update..!!!");
+	}
 }
 
 function deleteTask($id)
@@ -118,6 +158,54 @@ function checkTaskExist($taskName)
 		else
 		 return array("status"=>"Error","message"=>"Query Error");	
 	}
+
+function getDetails($id)
+{
+	$query="SELECT taskId,taskName,instruction,minDuration,practiceDuration,details FROM task WHERE taskId=".$id." AND enabled=1 ORDER BY createdDate DESC";
+	$result = mysql_query($query);
+	if($result)
+		{
+			return $row=mysql_fetch_array($result);
+		}
+		else
+		 return array("status"=>"Error","errorMessage"=>"Query Error");	
+}
+
+function checkIsAssigned($id)
+{
+	$query = "select Id from assignedtask where taskId=".$id." and status between 0 and 4";
+	$result = mysql_query($query);
+		if(mysql_num_rows($result)>0)
+		{
+			return true;
+		}
+		else
+		 	return false;
+}
+
+function getTabulaturesByTask($taskId){
+	$query = "SELECT tabId,name,tabUrl,createdDate FROM tasktablatures JOIN tablature ON tablatureId=tabId WHERE taskId=$taskId";
+	$result = mysql_query($query);
+		if($result)
+		{
+			//while($row=mysql_fetch_array($result)){continue;}
+			return $result;
+		}
+		else
+		 return array("status"=>"Error","message"=>"Query Error");	
+}
+
+function getTabulaturesNotByTask($taskId){
+	$query = "SELECT tabId,name,tabUrl,createdDate FROM tablature WHERE tabId NOT IN(SELECT tabId FROM tasktablatures JOIN tablature ON tablatureId=tabId WHERE taskId=$taskId) ORDER BY createdDate DESC";
+	$result = mysql_query($query);
+		if($result)
+		{
+			//while($row=mysql_fetch_array($result)){continue;}
+			return $result;
+		}
+		else
+		 return array("status"=>"Error","message"=>"Query Error");	
+}
 
 function getAllTasks()
 {

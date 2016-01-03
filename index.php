@@ -184,8 +184,10 @@ $app->get('/admin/deletetask/:id', function($id) use($app){
 
 
 $app->map('/admin/addtask', function ()use($app){
-	isAdminLoggedin($app);
-	$status="";
+	//isAdminLoggedin($app);
+	
+		$status=array();
+	$status["status"]="";
 	if($_SERVER['REQUEST_METHOD']=="POST")
 	{
 		$task=new Task();
@@ -196,6 +198,42 @@ $app->map('/admin/addtask', function ()use($app){
 	$app->render("../pages/addtask.php",array("status"=>$status,"tabs"=>$tabs));
 	
 })->via('GET', 'POST')->name('addtask');
+
+$app->map('/admin/edittask/:id', function ($id)use($app){
+	isAdminLoggedin($app);
+	$status=array();
+	$status["status"]="";
+	$users = array();
+	$tasks = array();
+	$taskTablatures=null;
+	$isTaskAssigned = false;
+	
+	$taskClass=new Task();
+	
+	if(isset($_POST["txtTaskId"])&& $_POST["txtTaskId"]!=0)
+	{	
+		$status = $taskClass->updateTask($_POST);
+	}
+
+	$tab=new Tab();
+		
+	$task = $taskClass->getDetails($id);
+	$taskTablatures = $taskClass->getTabulaturesByTask($task["taskId"]);
+	$isTaskAssigned = $taskClass->checkIsAssigned($id); 
+
+	if(!$isTaskAssigned){
+		$tabs = $taskClass->getTabulaturesNotByTask($task["taskId"]);
+		//var_dump($taskTablatures);
+	}
+	else{
+
+		$tabs = $tab->getAllTabs();	
+	}
+
+		
+	$app->render("../pages/addtask.php",array("status"=>$status,"tabs"=>$tabs,"task"=>$task,"isTaskAssigned"=>$isTaskAssigned,"taskTablatures"=>$taskTablatures));
+	
+})->via('GET','POST')->name('edittask');
 
 $app->post('/admin/checkTaskExist', function() use($app){
 	isAdminLoggedin($app);
@@ -314,6 +352,8 @@ $app->map('/admin/editasstask/:id', function ($id)use($app){
 	else
 		$app->redirect("../../admin/asstasks/");		
 })->via('GET','POST')->name('editasstask');
+
+
 
 $app->map('/admin/viewasstask/:id', function($id)use($app){
 	isAdminLoggedin($app);
