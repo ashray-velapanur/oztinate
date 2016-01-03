@@ -296,8 +296,8 @@ class AssignedTask{
 					return "2";
 	}
 	
-	function getAllAsstask(){
-		$query = "SELECT Id,task.taskName,users.userName,status,assignedDate,completionDate FROM assignedtask as asstask JOIN task ON asstask.taskId=task.taskId LEFT JOIN users ON asstask.userId=users.userId ORDER BY asstask.createdDate DESC";
+	function getAllAsstask($limitFrom,$limitTo){
+		$query = "SELECT Id,task.taskName,users.userName,status,assignedDate,completionDate FROM assignedtask as asstask JOIN task ON asstask.taskId=task.taskId LEFT JOIN users ON asstask.userId=users.userId ORDER BY asstask.createdDate DESC LIMIT ".$limitFrom.",".$limitTo;
 		$result = mysql_query($query);
 		if($result)
 		{
@@ -306,6 +306,22 @@ class AssignedTask{
 		}
 		else
 		 return array("status"=>"Error","errorMessage"=>"Query Error");	
+	}
+
+	function getRecordCount(){
+		$query = "SELECT COUNT(*) as total_count FROM assignedtask as asstask JOIN task ON asstask.taskId=task.taskId LEFT JOIN users ON asstask.userId=users.userId";
+		$result = mysql_query($query);
+		if($result)
+		{
+			//while($row=mysql_fetch_array($result)){continue;}
+			$row=mysql_fetch_array($result);
+			return $row["total_count"];
+		}
+		else{
+			return 0;
+		}
+
+
 	}
 	
 	function changeStatus($status,$id)

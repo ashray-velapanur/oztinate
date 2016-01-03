@@ -1,5 +1,6 @@
 <?php
 include("src/includes.php");
+require("libs/paginator.php");
 require 'Slim/Slim.php';
  \Slim\Slim::registerAutoloader();
 //echo $approot = dirname(__FILE__); die;
@@ -169,10 +170,17 @@ $app->map('/admin/home', function ()use($app){
 $app->map('/:tasks', function ($id)use($app){
 	isAdminLoggedin($app);
 	$task = new Task();
-	$tasks=$task->getAllTasks();
+
+	$totalRecords=$task->getRecordCount();
+
+	$paginator = new Paginator("tasks");
+	$paginator->total = $totalRecords;
+	$paginator->paginate();
+
+	$tasks=$task->getAllTasks(($paginator->currentPage-1)*$paginator->itemsPerPage,$paginator->itemsPerPage);
 	$id = explode('/',$id);
 	$id = end($id);
-	$app->render("../pages/tasks.php", array("tasks"=>$tasks,"status"=>$id));
+	$app->render("../pages/tasks.php", array("tasks"=>$tasks,"status"=>$id,"pageNumbers"=>$paginator->pageNumbers(), "itemsPerPage"=>$paginator->itemsPerPage()));
 })->via('GET', 'POST')->name('tasks')->conditions((array("tasks"=>("admin/tasks/.*|admin/tasks"))));
 
 $app->get('/admin/deletetask/:id', function($id) use($app){
@@ -185,7 +193,7 @@ $app->get('/admin/deletetask/:id', function($id) use($app){
 
 $app->map('/admin/addtask', function ()use($app){
 	//isAdminLoggedin($app);
-	
+
 		$status=array();
 	$status["status"]="";
 	if($_SERVER['REQUEST_METHOD']=="POST")
@@ -245,10 +253,16 @@ $app->post('/admin/checkTaskExist', function() use($app){
 $app->get('/:users', function($id) use($app){
 	isAdminLoggedin($app);
 	$users = new User();
-	$users=$users->getAllUsers();
+	$totalRecords=$users->getRecordCount();
+
+	$paginator = new Paginator("users");
+	$paginator->total = $totalRecords;
+	$paginator->paginate();
+
+	$users=$users->getAllUsers(($paginator->currentPage-1)*$paginator->itemsPerPage,$paginator->itemsPerPage);
 	$id = explode('/',$id);
 	$id = end($id);
-	$app->render("../pages/users.php", array("users"=>$users,"status"=>$id));
+	$app->render("../pages/users.php", array("users"=>$users,"status"=>$id,"pageNumbers"=>$paginator->pageNumbers(), "itemsPerPage"=>$paginator->itemsPerPage()));
 })->via('GET', 'POST', 'DELETE')->name('users')->conditions((array("users"=>("admin/users/.*|admin/users"))));
 
 $app->get('/admin/deleteuser/:id', function($id) use($app){
@@ -272,10 +286,18 @@ $app->map('/admin/adduser', function ()use($app){
 $app->map('/:asstasks', function ($id)use($app){
 	isAdminLoggedin($app);
 	$assTasks = new AssignedTask();
-	$assTasks=$assTasks->getAllAsstask();
+
+	$totalRecords=$assTasks->getRecordCount();
+
+	$paginator = new Paginator("asstasks");
+	$paginator->total = $totalRecords;
+	$paginator->paginate();
+
+	$assTasks=$assTasks->getAllAsstask(($paginator->currentPage-1)*$paginator->itemsPerPage,$paginator->itemsPerPage);
 	$id = explode('/',$id);
 	$id = end($id);
-	$app->render("../pages/asstasks.php", array("assTasks"=>$assTasks,"status"=>$id));
+	//echo $pageNumbers = $paginator->pageNumbers(); die;
+	$app->render("../pages/asstasks.php", array("assTasks"=>$assTasks,"status"=>$id,"pageNumbers"=>$paginator->pageNumbers(), "itemsPerPage"=>$paginator->itemsPerPage()));
 })->via('GET', 'POST')->name('assTasks')->conditions((array("asstasks"=>("admin/asstasks/.*|admin/asstasks"))));
 
 //return pagination and message params
@@ -382,10 +404,17 @@ $app->post('/admin/addComment', function(){
 $app->map('/:tabs', function ($id)use($app){
 	isAdminLoggedin($app);
 	$tabs = new Tab();
-	$tabList=$tabs->getAllTabs();
+
+	$totalRecords=$tabs->getRecordCount();
+
+	$paginator = new Paginator("tabs");
+	$paginator->total = $totalRecords;
+	$paginator->paginate();
+
+	$tabList=$tabs->getAllTabs(($paginator->currentPage-1)*$paginator->itemsPerPage,$paginator->itemsPerPage);
 	$id = explode('/',$id);
 	$id = end($id);
-	$app->render("../pages/tablature.php", array("tabs"=>$tabList,"status"=>$id));
+	$app->render("../pages/tablature.php", array("tabs"=>$tabList,"status"=>$id,"pageNumbers"=>$paginator->pageNumbers(), "itemsPerPage"=>$paginator->itemsPerPage()));
 	
 })->via('GET', 'POST')->name('tabs')->conditions((array("tabs"=>("admin/tabs/.*|admin/tabs"))));
 

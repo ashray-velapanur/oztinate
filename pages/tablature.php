@@ -47,6 +47,7 @@
                                 </table>
                             </div>
                             <!-- /.table-responsive -->
+                            <div class="col-sm-6"><div class="dataTables_length" id="dataTables-example_length"><?php echo $itemsPerPage; ?></div></div><div class="col-sm-6"><?php echo $pageNumbers; ?></div>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>

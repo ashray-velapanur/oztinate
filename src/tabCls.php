@@ -1,7 +1,7 @@
 <?php
 Class Tab{
-	function getAllTabs(){
-		$query = "SELECT tabId,name,tabUrl,createdDate FROM tablature ORDER BY createdDate DESC";
+	function getAllTabs($limitFrom,$limitTo){
+		$query = "SELECT tabId,name,tabUrl,createdDate FROM tablature ORDER BY createdDate DESC LIMIT ".$limitFrom.",".$limitTo;
 			$result = mysql_query($query);
 		if($result)
 		{
@@ -9,6 +9,21 @@ Class Tab{
 		}
 		else
 		 return array("status"=>"Error","message"=>"Query Error");	
+	}
+
+	function getRecordCount()
+	{
+		$query ="SELECT count(*) as total_count FROM tablature";
+		$result = mysql_query($query);
+		if($result)
+		{
+			//while($row=mysql_fetch_array($result)){continue;}
+			$row=mysql_fetch_array($result);
+			return $row["total_count"];
+		}
+		else{
+			return 0;
+		}
 	}
 	
 	function addTab($data,$files){

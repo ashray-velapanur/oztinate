@@ -207,9 +207,9 @@ function getTabulaturesNotByTask($taskId){
 		 return array("status"=>"Error","message"=>"Query Error");	
 }
 
-function getAllTasks()
+function getAllTasks($limitFrom,$limitTo)
 {
-	$query ="SELECT taskId,taskName,minDuration,practiceDuration,details,createdDate FROM task WHERE enabled=1 ORDER BY createdDate DESC";
+	$query ="SELECT taskId,taskName,minDuration,practiceDuration,details,createdDate FROM task WHERE enabled=1 ORDER BY createdDate DESC LIMIT ".$limitFrom.",".$limitTo;
 	$result = mysql_query($query);
 	if($result)
 	{
@@ -218,6 +218,21 @@ function getAllTasks()
 	}
 	else
 	 return array("status"=>"Error","message"=>"Query Error");	
+}
+
+function getRecordCount()
+{
+	$query ="SELECT count(*) as total_count FROM task WHERE enabled=1";
+	$result = mysql_query($query);
+		if($result)
+		{
+			//while($row=mysql_fetch_array($result)){continue;}
+			$row=mysql_fetch_array($result);
+			return $row["total_count"];
+		}
+		else{
+			return 0;
+		}
 }
 
 function getAssignTaskData($row)

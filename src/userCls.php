@@ -139,6 +139,20 @@ class User{
 		else
 		 return array("status"=>"Error","message"=>"Query Error");	
 	}
+
+	function getRecordCount(){
+		$query ="SELECT count(*) as total_count FROM users WHERE enabled=1";
+		$result = mysql_query($query);
+		if($result)
+		{
+			//while($row=mysql_fetch_array($result)){continue;}
+			$row=mysql_fetch_array($result);
+			return $row["total_count"];
+		}
+		else{
+			return 0;
+		}
+	}
 	
 	function changePassword($data)
 	{

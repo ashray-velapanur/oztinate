@@ -18,6 +18,8 @@ $basepath_admin = $basePath."admin/";
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo $basePath ?>bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
+    <link href="<?php echo $basePath ?>bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+
     <!-- MetisMenu CSS -->
     <link href="<?php echo $basePath ?>bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
