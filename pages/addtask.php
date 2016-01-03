@@ -31,7 +31,7 @@ include("includes/header.php");
 										<div class="alert alert-danger"><?php echo $status["message"]; ?></div>
 									<?php }
 										if($isTaskAssigned){ ?>
-											<div class="alert alert-danger">This task is assigned to some one. So can eidt only few things</div>
+											<div class="alert alert-danger">This task is assigned to some one. So can you edit only few things</div>
 										<?php }?>
 
 									
