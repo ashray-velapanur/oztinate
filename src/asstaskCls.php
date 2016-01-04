@@ -146,8 +146,8 @@ class AssignedTask{
 			$time = strtotime($updatedTask["dateOfCompletion"]);
 			$newformat = date('Y-m-d',$time);	
 			//This prevent user submit task after completion date (Commented as per client request).
-			//if($newformat<=date('Y-m-d'))
-			//	return array("status"=>"Error","message"=>"Completion date is less than current date");
+			if($newformat<date('Y-m-d'))
+				return array("status"=>"Error","message"=>"Completion date is less than current date");
 				
 			
 			if($task->checkTaskExist($updatedTask["task"]["taskName"])=="true")
