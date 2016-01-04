@@ -62,6 +62,8 @@
 										<div class="alert alert-danger">Error...!!! Tablature is not added</div>
 									<?php } else if($status=="Exist") {?>	
 										<div class="alert alert-danger">Error...!!! Tablature is already exist</div>
+									<?php } else if($status=="invalidImage") {?>	
+										<div class="alert alert-danger">Error...!!! Uploaded file is not an image</div>
 									<?php } ?>	
 									
                                     <form role="form" method="post" onsubmit="return validateSubmit();" enctype="multipart/form-data">

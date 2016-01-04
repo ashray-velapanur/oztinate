@@ -32,7 +32,15 @@ Class Tab{
 		{
 			return "Exist";
 		}
-		
+
+		$imagesizedata = getimagesize($files["tabFile"]["tmp_name"]);
+		//echo filesize($files["tabFile"]["tmp_name"]);
+		//var_dump($imagesizedata); die();
+		if(!$imagesizedata)
+		{
+			return "invalidImage";
+		}
+
 		$basePath=$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']) . '/'; 
 		
 		//echo  dirname($_SERVER["REQUEST_URI"]);  echo $_SERVER["DOCUMENT_ROOT"]; 
@@ -42,6 +50,7 @@ Class Tab{
 		$id = mysql_insert_id();
 		if($result)
 		{
+
 			$imageFileType = pathinfo($files["tabFile"]["name"],PATHINFO_EXTENSION);
 			$fileName = "tab_".$id.".".$imageFileType;
 			$file_url = "http://".$basePath."uploads/tabs/".$fileName;
