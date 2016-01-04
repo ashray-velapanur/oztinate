@@ -22,7 +22,7 @@ class AssignedTask{
 		
 		$time = strtotime($data["dateOfCompletion"]);
 		$newformat = date('Y-m-d',$time);	
-		if($newformat<=date('Y-m-d'))
+		if($newformat<date('Y-m-d'))
 			return array("status"=>"Error","message"=>"Error...!!! Invalid Completion date");
 			
 		$query="INSERT INTO assignedtask (taskId,userId,status,createdUserId,assignedDate,completionDate,isCreatedByUser,updatedId,createdDate) values(".$data["taskId"].",".$data["userId"].",".$data["status"].",".$data["createdUserId"].",'".$data["dateOfAssign"]."','".$newformat."','".$createdByUser."','".$data["updatedId"]."',NOW())";
