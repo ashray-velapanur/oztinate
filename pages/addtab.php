@@ -75,7 +75,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label>Upload Tablature File</label>
-                                            <input type ="file" class="form-control" name="tabFile" />
+                                            <input type ="file" class="form-control" name="tabFile" required/>
                                         </div>
 										<div class="row">
 											
