@@ -25,12 +25,40 @@
 										<input type="hidden" name="txtAssTaskId" value="<?php if(isset($assTask["Id"])){ echo $assTask["Id"]; $submitButton = "Update"; }else{ echo "0"; $submitButton = "Save";} ?>" />
                                         <div class="form-group">
                                             <label>Choose Exercise</label>
-                                            <select <?php if(isset($assTask["taskId"])){ echo "disabled='disabled'"; }else{$assTask["taskId"]="";} ?> class="form-control" name="taskId" required>
+                                            <select <?php if(isset($assTask["taskId"])){ echo "disabled='disabled'"; }else{$assTask["taskId"]="";} ?> class="form-control" name="taskId" required onchange="getTaskDuration()" >
 													<?php while($row=mysql_fetch_array($tasks)){?>
 														<option <?php if($assTask["taskId"]==$row["taskId"]) {echo 'selected="selected"'; }?> value="<?php echo $row["taskId"] ?>"><?php echo $row["taskName"] ?></option>
 													<?php } ?>
 											</select>
+
+                                            <label class="label label-success" id="msg-taskduration" style="display:none" >Getting Task Durations...</label>
                                             <!--<p class="help-block">Example block-level help text here.</p>-->
+                                        </div> 
+                                        <div class="row">
+                                            <div class="col-lg-6">                                          
+                                                <div class="form-group">
+                                                    <label>Practice Duration(In Minutes)</label>
+                                                    <select <?php if(isset($assTask["practiceDuration"])){ echo "disabled='disabled'"; }else{$assTask["practiceDuration"]="";} ?> class="form-control" id="practiceDuration" name="practiceDuration"  required>
+                                                        <option <?php if(isset($assTask["practiceDuration"])){if($assTask["practiceDuration"]=="5") {echo 'selected="selected"'; }}?> value="5">5</option>
+                                                        <option <?php if(isset($assTask["practiceDuration"])){if($assTask["practiceDuration"]=="10") {echo 'selected="selected"'; }}?> value="10">10</option>
+                                                        <option <?php if(isset($assTask["practiceDuration"])){if($assTask["practiceDuration"]=="15") {echo 'selected="selected"'; }}?> value="15">15</option>
+                                                        <option <?php if(isset($assTask["practiceDuration"])){if($assTask["practiceDuration"]=="20") {echo 'selected="selected"'; }}?> value="20">20</option>
+                                                        <option <?php if(isset($assTask["practiceDuration"])){if($assTask["practiceDuration"]=="30") {echo 'selected="selected"'; }}?> value="30">30</option>
+                                                    </select>   
+                                                </div>
+                                            </div>  
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label>Minimum Duration(In Minutes)</label>
+                                                    <select <?php if(isset($assTask["minDuration"])){ echo "disabled='disabled'"; }else{$assTask["minDuration"]="";} ?> class="form-control" id="minDuration" name="minDuration" required>
+                                                        <option <?php if(isset($assTask["minDuration"])){if($assTask["minDuration"]=="1") {echo 'selected="selected"'; }}?> value="1">1</option>
+                                                        <option <?php if(isset($assTask["minDuration"])){if($assTask["minDuration"]=="2") {echo 'selected="selected"'; }}?> value="2">2</option>
+                                                        <option <?php if(isset($assTask["minDuration"])){if($assTask["minDuration"]=="3") {echo 'selected="selected"'; }}?> value="3">3</option>
+                                                        <option <?php if(isset($assTask["minDuration"])){if($assTask["minDuration"]=="4") {echo 'selected="selected"'; }}?> value="4">4</option>
+                                                        <option <?php if(isset($assTask["minDuration"])){if($assTask["minDuration"]=="5") {echo 'selected="selected"'; }}?> value="5">5</option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label>Choose User</label>
@@ -89,6 +117,8 @@
     <script src="<?php echo $basePath ?>dist/js/sb-admin-2.js"></script>
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	<script>
+    <?php echo "var basepath='".$basepath_admin."';";     ?>
+
 		$(function () {
             $("#dateOfCompletion").datepicker();
 			/*{
@@ -99,6 +129,33 @@
                 defaultDate: '1900-01-01'
             }*/
         });
+
+        function getTaskDuration(){
+    
+       // taskId = $('[name="taskId"]');
+        var taskId = $('[name="taskId"]').val();
+                
+                $.ajax({
+                  method: "POST",
+                  url: basepath+"getTaskDuration",
+                  data: {taskId:taskId},
+                   beforeSend: function(){
+                     // Handle the beforeSend event
+                     // var $this = $("#commentButton");
+                      //  $this.button('loading');
+                      $("#msg-taskduration").show();
+                   }
+
+                }).done(function( data ) {
+                    
+                    var data  = eval('(' + data + ')');
+                      $("#msg-taskduration").hide();
+                     // console.log(data);
+                      //alert(parseInt(data.practiceDuration));
+                      $("#practiceDuration").val(parseInt(data.practiceDuration));
+                      $("#minDuration").val(parseInt(data.minDuration));
+                 });
+        }
 	</script>
 </body>
 

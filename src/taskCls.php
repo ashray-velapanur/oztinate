@@ -146,9 +146,20 @@ function checkTaskExist($taskName)
 		
 	}
 
+function getTaskDuration($taskId){
+	$query = "select minDuration,practiceDuration from task where taskId=".$taskId;
+	$result = mysql_query($query);
+	if($result){
+		$row = mysql_fetch_array($result);
+
+		return json_encode($row);
+	}
+
+}	
+
 	function getTaskNames()
 	{
-		$query="SELECT taskId,taskName FROM task WHERE enabled=1";
+		$query="SELECT taskId,taskName,minDuration,practiceDuration FROM task WHERE enabled=1";
 		$result = mysql_query($query);
 		if($result)
 		{

@@ -249,6 +249,12 @@ $app->post('/admin/checkTaskExist', function() use($app){
 	echo $task->checkTaskExist($_POST["taskName"]);
 });
 
+$app->post('/admin/getTaskDuration', function() use($app){
+	isAdminLoggedin($app);
+	$task = new Task();
+	echo $task->getTaskDuration($_POST["taskId"]);
+});
+
 
 $app->get('/:users', function($id) use($app){
 	isAdminLoggedin($app);

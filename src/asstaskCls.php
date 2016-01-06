@@ -25,7 +25,7 @@ class AssignedTask{
 		if($newformat<date('Y-m-d'))
 			return array("status"=>"Error","message"=>"Error...!!! Invalid Completion date");
 			
-		$query="INSERT INTO assignedtask (taskId,userId,status,createdUserId,assignedDate,completionDate,isCreatedByUser,updatedId,createdDate) values(".$data["taskId"].",".$data["userId"].",".$data["status"].",".$data["createdUserId"].",'".$data["dateOfAssign"]."','".$newformat."','".$createdByUser."','".$data["updatedId"]."',NOW())";
+		$query="INSERT INTO assignedtask (taskId,userId,status,createdUserId,minDuration,practiceDuration,assignedDate,completionDate,isCreatedByUser,updatedId,createdDate) values(".$data["taskId"].",".$data["userId"].",".$data["status"].",".$data["createdUserId"].",".$data["minDuration"].",".$data["practiceDuration"].",'".$data["dateOfAssign"]."','".$newformat."','".$createdByUser."','".$data["updatedId"]."',NOW())";
 		//die; 
 		
 		if(mysql_query($query)) 
@@ -166,16 +166,22 @@ class AssignedTask{
 			$taskStatus = $task->addTask($updatedTask["task"]);			
 			
 			
-			if($taskStatus=="Error")
+
+			if($taskStatus["status"]=="Error"){
+				
 				return array("status"=>"Error", "errorMessage"=>"Error on updating taskId: ".$updatedTask["task"]["taskId"]);
-			elseif($taskStatus=="Success")
+			}
+			elseif($taskStatus["status"]=="Success")
 			{
+				
 				$row = mysql_fetch_array(mysql_query("select taskId from task order by taskId DESC limit 1"));
 				$task = $row["taskId"];	
 				$updatedTaskIds = array("status"=>"Success","updatedTasks"=>array("oldTaskId"=>$updatedTask["task"]["taskId"], "newTaskId"=>intval($task)));
 				
 				$updatedTask["taskId"]= $task; 
-			
+
+				$updatedTask["minDuration"]=$updatedTask["task"]["minDuration"];
+				$updatedTask["practiceDuration"]=$updatedTask["task"]["practiceDuration"];
 				
 				$assTaskStatus = $this->assignTask($updatedTask,"Y");
 				//var_dump($assTaskStatus); die;
@@ -277,7 +283,7 @@ class AssignedTask{
 	
 	function getDetails($id)
 	{
-		$query = "SELECT Id,task.taskId,task.taskName,users.userId,users.userName,status,assignedDate,completionDate FROM assignedtask as asstask JOIN task ON asstask.taskId=task.taskId LEFT JOIN users ON asstask.userId=users.userId WHERE Id=".$id;
+		$query = "SELECT Id,task.taskId,task.taskName,users.userId,users.userName,status,asstask.minDuration, asstask.practiceDuration, assignedDate,completionDate FROM assignedtask as asstask JOIN task ON asstask.taskId=task.taskId LEFT JOIN users ON asstask.userId=users.userId WHERE Id=".$id;
 		$result = mysql_query($query);
 		if($result)
 		{
