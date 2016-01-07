@@ -34,11 +34,16 @@ Class Tab{
 		}
 
 		$imagesizedata = getimagesize($files["tabFile"]["tmp_name"]);
-		//echo filesize($files["tabFile"]["tmp_name"]);
+		//echo filesize($files["tabFile"]["tmp_name"]); die;
 		//var_dump($imagesizedata); die();
 		if(!$imagesizedata)
 		{
 			return "invalidImage";
+		}
+
+		if(filesize($files["tabFile"]["tmp_name"])>201000)
+		{
+			return "bigImage";
 		}
 
 		$basePath=$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']) . '/'; 

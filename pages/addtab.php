@@ -64,6 +64,8 @@
 										<div class="alert alert-danger">Error...!!! Tablature is already exist</div>
 									<?php } else if($status=="invalidImage") {?>	
 										<div class="alert alert-danger">Error...!!! Uploaded file is not an image</div>
+									<?php } else if($status=="bigImage") {?>	
+										<div class="alert alert-danger">Error...!!! Uploaded file exceed maximum allowed size(Max:200KB)</div>
 									<?php } ?>	
 									
                                     <form role="form" method="post" onsubmit="return validateSubmit();" enctype="multipart/form-data">
