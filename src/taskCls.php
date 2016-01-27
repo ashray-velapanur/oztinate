@@ -18,7 +18,7 @@ function sync($data){
 	$taskList["updatedAssignedTasks"]= array();
 	$i=0;
 	
-		 $query = "SELECT Id AS assTaskId,userId,assignedtask.updatedId,status,createdUserId,assignedDate AS dateOfAssign,completionDate AS dateOfCompletion,assignedtask.createdDate AS dateOfCreation,task.taskId,taskName,details,instruction,minDuration,practiceDuration,task.createdDate FROM assignedtask JOIN task ON assignedtask.taskId=task.taskId WHERE assignedtask.userId=".$data["sessionToken"]." AND assignedtask.updatedId>'".$data["latestAssignedTaskUpdatedId"]."'";
+		$query = "SELECT Id AS assTaskId,userId,assignedtask.updatedId,status,createdUserId,assignedDate AS dateOfAssign,completionDate AS dateOfCompletion,assignedtask.createdDate AS dateOfCreation,task.taskId,taskName,details,instruction,task.minDuration,task.practiceDuration,task.createdDate FROM assignedtask JOIN task ON assignedtask.taskId=task.taskId WHERE assignedtask.userId=".$data["sessionToken"]." AND assignedtask.updatedId>'".$data["latestAssignedTaskUpdatedId"]."'";
 		//die;
 		$result = mysql_query($query);
 		if($result)
