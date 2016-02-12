@@ -1,7 +1,13 @@
 <?php
 Class Tab{
-	function getAllTabs($limitFrom,$limitTo){
-		$query = "SELECT tabId,name,tabUrl,createdDate FROM tablature ORDER BY createdDate DESC LIMIT ".$limitFrom.",".$limitTo;
+
+	function getAllTabs($limitFrom=-1,$limitTo=-1){
+		if($limitFrom==-1||$limitTo==-1)
+			$limit="";
+		else
+			$limit = "LIMIT ".$limitFrom.",".$limitTo;
+
+		$query = "SELECT tabId,name,tabUrl,createdDate FROM tablature ORDER BY createdDate DESC ".$limit;
 			$result = mysql_query($query);
 		if($result)
 		{
