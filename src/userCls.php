@@ -160,7 +160,7 @@ class User{
 		$result = mysql_query($query);
 		if(mysql_num_rows($result))
 		{
-			if(mysql_query("update users set password='".$data["newPassword"]."' where userId=".$data["userId"]))
+			if(mysql_query("update users set password='".sha1($data["newPassword"])."' where userId=".$data["userId"]))
 			{
 				return array("status"=>"Success","message"=>"","userId"=>$data["userId"]);
 			}
