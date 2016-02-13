@@ -390,6 +390,15 @@ $app->map('/admin/viewasstask/:id', function($id)use($app){
 	if($_SERVER['REQUEST_METHOD']=="POST")
 	{
 		$status = getStausId($_POST["statusTxt"]);
+
+		$fp =fopen("log.txt", "a");
+		fwrite($fp, "==========================\n");
+		fwrite($fp, "USERNAME IS: ".$_SESSION["username"]);
+		fwrite($fp, "\ntime: ".date("Y-m-d H:i:s"));
+		fwrite($fp, "\nstatus text posted ".$_POST["statusTxt"]);
+		fwrite($fp, "\nstatus returned ".$status);
+		fwrite($fp, "\n==========================\n");
+		
 		if($status>=0)
 			$statusChange = $assTasks->changeStatus($status,$id);
 		else
