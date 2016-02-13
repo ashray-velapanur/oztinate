@@ -4,7 +4,7 @@ class User{
 	function login($data){
 		$data = json_decode($data, true);
 		//echo sha1($data["password"]); die;
-		$result = mysql_query("SELECT userId FROM users WHERE userName='".$data["userName"]."' AND password='".sha1($data["password"])."'");
+		$result = mysql_query("SELECT userId FROM users WHERE userName='".$data["userName"]."' AND password='".$data["password"]."'");
 		if(mysql_num_rows($result))
 		{
 			$row = mysql_fetch_array($result);
@@ -51,6 +51,7 @@ class User{
 	function addUser($data)
 	{
 		$password = sha1($data["password"]);
+		//$password = $data["password"];
 		$query = "INSERT INTO users (userName,password,userType,createdDate) values('".$data["userName"]."','".$password."',".$data["userType"].",NOW())";
 		$result = mysql_query($query)or die(mysql_error());
 		
@@ -156,11 +157,11 @@ class User{
 	
 	function changePassword($data)
 	{
-		$query = "select userId from users where userId=".$data["userId"]." and password='".sha1($data["currentPassword"])."'";
+		$query = "select userId from users where userId=".$data["userId"]." and password='".$data["currentPassword"]."'";
 		$result = mysql_query($query);
 		if(mysql_num_rows($result))
 		{
-			if(mysql_query("update users set password='".sha1($data["newPassword"])."' where userId=".$data["userId"]))
+			if(mysql_query("update users set password='".$data["newPassword"]."' where userId=".$data["userId"]))
 			{
 				return array("status"=>"Success","message"=>"","userId"=>$data["userId"]);
 			}
