@@ -41,7 +41,8 @@
 			{
 				var r = confirm("Are you sure you want to change status?");
 				if (r == true) {
-					$("#statusTxt").val($(component).context.innerText)
+					//$("#statusTxt").val($(component).context.innerText);
+					$("#statusTxt").val(jQuery(component).text());
 					$("#frmChangeStatus").submit();
 				} else {
 					txt = "You pressed Cancel!";
