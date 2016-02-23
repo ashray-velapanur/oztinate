@@ -11,11 +11,11 @@ class User{
 			$token    = $this->generateToken($data["userName"]);
 			mysql_query("UPDATE users SET sessionToken='".$token."',loginStatus='Y' where userId=".$row["userId"]);
 			
-			return array("status"=>"Success","errorMessage"=>"Nil","SessionToken"=>$token,"userId"=>$row["userId"]);
+			return array("status"=>"Success","message"=>"Nil","SessionToken"=>$token,"userId"=>$row["userId"]);
 		}
 		else
 		{	
-			return array("status"=>"Error","errorMessage"=>"Invalid Username or Password");
+			return array("status"=>"Error","message"=>"Invalid Username or Password");
 		}
 	}
 	

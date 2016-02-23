@@ -16,7 +16,7 @@ include("includes/header.php");
                 <div class="col-lg-12">
 							
                             <div class="row">
-                               <form role="form" method="post" onsubmit="return validateSubmit();">
+                               <form role="form" method="post" onsubmit="return validateDuration();">
                                 <div class="col-lg-6">
 									<!--<?php if($status=="Success") {?>
 										<div class="alert alert-success">New Exercise Added Successfully..!!!</div>
@@ -39,8 +39,9 @@ include("includes/header.php");
                                     <input type="hidden" name="txtTaskId" value="<?php if(isset($task["taskId"])){ echo $task["taskId"]; $submitButton = "Update"; }else{ echo "0"; $submitButton = "Save";} ?>" />
                                         <div class="form-group">
                                             <label>Exercise Name</label></br>   
-											<label class="control-label" hidden for="inputError">This Exercise is already exist</label>                                        
-										   <input class="form-control" onblur="checkTabExist();" value="<?php if(isset($task["taskName"])){ echo $task["taskName"]; } ?>" name="taskName" required>
+											<!--<label class="control-label" hidden for="inputError">This Exercise is already exist</label>                                        
+										   <input class="form-control" onblur="checkTabExist();" value="<?php if(isset($task["taskName"])){ echo $task["taskName"]; } ?>" name="taskName" required> -->
+										   <input class="form-control" value="<?php if(isset($task["taskName"])){ echo $task["taskName"]; } ?>" name="taskName" required>
                                             <!--<p class="help-block">Example block-level help text here.</p>-->
                                         </div>
                                         <div class="form-group">
@@ -51,7 +52,11 @@ include("includes/header.php");
 											<div class="col-lg-6">											
 												<div class="form-group">
 													<label>Practice Duration(In Minutes)</label>
-													<select <?php if($isTaskAssigned){ echo "disabled='disabled'"; } ?> class="form-control" name="practiceDuration"  required>
+													<select <?php if($isTaskAssigned){ echo "disabled='disabled'"; } ?> class="form-control" name="practiceDuration" id="practiceDuration" required>
+														<option <?php if(isset($task["practiceDuration"])){if($task["practiceDuration"]=="1") {echo 'selected="selected"'; }}?> value="1">1</option>
+														<option <?php if(isset($task["practiceDuration"])){if($task["practiceDuration"]=="2") {echo 'selected="selected"'; }}?> value="2">2</option>
+														<option <?php if(isset($task["practiceDuration"])){if($task["practiceDuration"]=="3") {echo 'selected="selected"'; }}?> value="3">3</option>
+														<option <?php if(isset($task["practiceDuration"])){if($task["practiceDuration"]=="4") {echo 'selected="selected"'; }}?> value="4">4</option>
 														<option <?php if(isset($task["practiceDuration"])){if($task["practiceDuration"]=="5") {echo 'selected="selected"'; }}?> value="5">5</option>
 														<option <?php if(isset($task["practiceDuration"])){if($task["practiceDuration"]=="10") {echo 'selected="selected"'; }}?> value="10">10</option>
 														<option <?php if(isset($task["practiceDuration"])){if($task["practiceDuration"]=="15") {echo 'selected="selected"'; }}?> value="15">15</option>
@@ -63,7 +68,7 @@ include("includes/header.php");
 											<div class="col-lg-6">
 												<div class="form-group">
 													<label>Minimum Duration(In Minutes)</label>
-													<select <?php if($isTaskAssigned){ echo "disabled='disabled'"; } ?> class="form-control" name="minDuration" required>
+													<select <?php if($isTaskAssigned){ echo "disabled='disabled'"; } ?> class="form-control"  id="minDuration" name="minDuration" required>
 														<option <?php if(isset($task["minDuration"])){if($task["minDuration"]=="1") {echo 'selected="selected"'; }}?> value="1">1</option>
 														<option <?php if(isset($task["minDuration"])){if($task["minDuration"]=="2") {echo 'selected="selected"'; }}?> value="2">2</option>
 														<option <?php if(isset($task["minDuration"])){if($task["minDuration"]=="3") {echo 'selected="selected"'; }}?> value="3">3</option>
@@ -82,12 +87,12 @@ include("includes/header.php");
 											
 											<div class="col-lg-6">
 												<div class="form-group col-centered">
-													<button type="submit" href="addtask" style="width:160px" class="btn btn-primary">Save</button>		
+													<button type="submit" href="addtask"  style="width:160px" class="btn btn-primary">Save</button>		
 												</div>
 											</div>
 											<div class="col-lg-6">
 												<div class="form-group col-centered">
-													<a href="tasks" style="width:160px" class="btn btn-danger">cancel</a>		
+													<a href="<?php echo $basepath_admin ?>tasks" style="width:160px" class="btn btn-danger">cancel</a>		
 												</div>
 											</div>	
 											
@@ -197,6 +202,19 @@ include("includes/header.php");
 		echo "var basepath='".$basepath_admin."';";		?>
 		console.log(tabs[0]);
 		//$i=0;
+
+		function validateDuration()
+		{
+			if($("#practiceDuration").val()<$("#minDuration").val())
+			{
+				alert("Minimum duration should be less than or equal to practice duration");
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}	
 		function fillTableROw()
 		{
 			var i=$("#tabs").val();

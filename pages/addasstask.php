@@ -82,7 +82,7 @@
 											</div>
 											<div class="col-lg-6">
 												<div class="form-group col-centered">
-													<a href="asstasks" style="width:160px" class="btn btn-danger">cancel</a>		
+													<a href="<?php echo $basepath_admin ?>asstasks" style="width:160px" class="btn btn-danger">cancel</a>		
 												</div>
 											</div>	
 																						

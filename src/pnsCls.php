@@ -13,7 +13,7 @@ class PNS{
 	function registerDevice($data){
 		
 		if($data["deviceType"]!="IOS" && $data["deviceType"]!="Android"){
-			return array("status"=>"Error","errorMessage"=>"Invalid Device Type");
+			return array("status"=>"Error","message"=>"Invalid Device Type");
 		}
 
 		$result = mysql_query("SELECT id FROM mobilepns WHERE userId=".$data["userId"]);
@@ -30,7 +30,7 @@ class PNS{
 				return array("status"=>"Success","deviceId"=>$row["id"],"message"=>"Device Registered Successfully");
 			}
 			else
-				return array("status"=>"Error","errorMessage"=>"Device is not registered please try again later");
+				return array("status"=>"Error","message"=>"Device is not registered please try again later");
 		}
 		else{	
 	
@@ -41,7 +41,7 @@ class PNS{
 				return array("status"=>"Success","deviceId"=>$deviceId,"message"=>"Device Registered Successfully");
 			}
 			else
-				return array("status"=>"Error","errorMessage"=>"Device is not registered please try again later");
+				return array("status"=>"Error","message"=>"Device is not registered please try again later");
 		}	
 	}
 	function getDeviceToken($userId)

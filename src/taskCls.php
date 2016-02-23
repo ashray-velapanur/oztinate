@@ -14,7 +14,7 @@ function sync($data){
 	
 	$taskList = array();
 	$taskList["status"]="Success";
-	$taskList["errorMessage"]="Nil";
+	$taskList[message]="Nil";
 	$taskList["updatedAssignedTasks"]= array();
 	$i=0;
 	
@@ -37,6 +37,11 @@ function addTask($data)
 	
 	
 	//var_dump($data);
+
+	if($data["practiceDuration"]<$data["minDuration"])
+	{
+		return array("status"=>"Error","message"=>"Error...!!! Minimum duration should be less than or equal to practice duration..!!!");
+	}
 	
 	if(!isset($data["createdUserId"]))
 		$data["createdUserId"]  = $_SESSION["userId"];
@@ -179,7 +184,7 @@ function getDetails($id)
 			return $row=mysql_fetch_array($result);
 		}
 		else
-		 return array("status"=>"Error","errorMessage"=>"Query Error");	
+		 return array("status"=>"Error","message"=>"Query Error");	
 }
 
 function checkIsAssigned($id)

@@ -82,7 +82,7 @@ class AssignedTask{
 			move_uploaded_file($tmp_name, "$uploads_dir/$name");
 			$result = mysql_query("select assignedTaskId from soundclip where  clipId='".$clipId."'");
 			if(!mysql_num_rows($result))
-				return array("status"=>"Error","clipId"=>$clipId,"errorMessage"=>"Invalid clip name. Please check your clip file name");
+				return array("status"=>"Error","clipId"=>$clipId,"message"=>"Invalid clip name. Please check your clip file name");
 			
 			$asstaskId = mysql_fetch_array($result);
 			$asstaskId = $asstaskId["assignedTaskId"];
@@ -90,7 +90,7 @@ class AssignedTask{
 			$query = "update soundclip set clipName='$name', clipUrl='$fileUrl', uploadStatus='Y' where clipId=".$clipId;
 			if(!mysql_query($query))
 			{
-				return array("status"=>"Error","clipId"=>$clipId,"errorMessage"=>"Details update error.Please check file name");
+				return array("status"=>"Error","clipId"=>$clipId,"message"=>"Details update error.Please check file name");
 			}
 			else{
 			
@@ -101,11 +101,11 @@ class AssignedTask{
 					$row = mysql_fetch_array($result);
 					mysql_query("update assignedtask set status=4,updatedId=NOW() where status=3 and Id=".$asstaskId);
 				}
-				return array("status"=>"Success","clipId"=>$clipId,"errorMessage"=>"");
+				return array("status"=>"Success","clipId"=>$clipId,"message"=>"");
 			}	
 		}
 		else{
-				return array("status"=>"Error","clipId"=>$clipId,"errorMessage"=>"File upload error. please upload again");
+				return array("status"=>"Error","clipId"=>$clipId,"message"=>"File upload error. please upload again");
 			}	
 	}
 		
@@ -119,7 +119,7 @@ class AssignedTask{
 			//get the assigned task status from db to check it is aborted already
 			$row=mysql_fetch_array(mysql_query("select status from assignedtask where Id=".$updatedTask["assignedTaskId"]));
 			if($row["status"]==6)
-				return array("status"=>"Error","errorMessage"=>"This Exercise is already aborted by admin. Please sync the app to update the data.");
+				return array("status"=>"Error","message"=>"This Exercise is already aborted by admin. Please sync the app to update the data.");
 				
 			$i=0;
 			$updatedIds= array();
@@ -129,7 +129,7 @@ class AssignedTask{
 			$result =mysql_query("update assignedtask set status=".$updatedTask["status"].",updatedId='".$updatedTask["updatedId"]."' where Id=".$updatedTask["assignedTaskId"]);
 			if(!$result)
 			{
-				return array("status"=>"Error","errorMessage"=>"Assigned: ".$updatedTask["assignedTaskId"].". not updated");
+				return array("status"=>"Error","message"=>"Assigned: ".$updatedTask["assignedTaskId"].". not updated");
 			}
 			
 			//This function will insert check soundclips existing, insert if itsnot and return existing and inserted IDS
@@ -152,7 +152,7 @@ class AssignedTask{
 			
 			if($task->checkTaskExist($updatedTask["task"]["taskName"])=="true")
 			{
-					return array("status"=>"Error", "errorMessage"=>"Task already exist please change the task name");
+					return array("status"=>"Error", "message"=>"Task already exist please change the task name");
 			}
 			
 			
@@ -169,7 +169,7 @@ class AssignedTask{
 
 			if($taskStatus["status"]=="Error"){
 				
-				return array("status"=>"Error", "errorMessage"=>"Error on updating taskId: ".$updatedTask["task"]["taskId"]);
+				return array("status"=>"Error", "message"=>"Error on updating taskId: ".$updatedTask["task"]["taskId"]);
 			}
 			elseif($taskStatus["status"]=="Success")
 			{
@@ -197,7 +197,7 @@ class AssignedTask{
 				}
 				else
 				{
-					return $updatedAssTaskIds = array("status"=>"Error","errorMessage"=> "Error on updating assignedTask Id:".$updatedTask["assignedTaskId"]);
+					return $updatedAssTaskIds = array("status"=>"Error","message"=> "Error on updating assignedTask Id:".$updatedTask["assignedTaskId"]);
 				}
 						
 			}	
@@ -266,7 +266,7 @@ class AssignedTask{
 					}
 					else
 					{
-						return array("status"=>"Error","errorMessage"=>"Error on updating clipId: ".$soundClip["clipId"], "updatedClipIds"=>$updatedIds);
+						return array("status"=>"Error","message"=>"Error on updating clipId: ".$soundClip["clipId"], "updatedClipIds"=>$updatedIds);
 					}
 				}
 				else{
@@ -290,7 +290,7 @@ class AssignedTask{
 			return $row=mysql_fetch_array($result);
 		}
 		else
-		 return array("status"=>"Error","errorMessage"=>"Query Error");	
+		 return array("status"=>"Error","message"=>"Query Error");	
 	}
 	
 	function deleteAssTask($id)
@@ -312,7 +312,7 @@ class AssignedTask{
 			return $result;
 		}
 		else
-		 return array("status"=>"Error","errorMessage"=>"Query Error");	
+		 return array("status"=>"Error","message"=>"Query Error");	
 	}
 
 	function getRecordCount(){
@@ -414,7 +414,7 @@ class AssignedTask{
 			return $result;
 		}
 		else
-		 return array("status"=>"Error","errorMessage"=>"Query Error");	
+		 return array("status"=>"Error","message"=>"Query Error");	
 	}
 	
 	function getSoundClips($taskId)
@@ -426,7 +426,7 @@ class AssignedTask{
 			return $result;
 		}
 		else
-		 return array("status"=>"Error","errorMessage"=>"Query Error");	
+		 return array("status"=>"Error","message"=>"Query Error");	
 	}
 	
 }

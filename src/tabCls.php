@@ -105,7 +105,7 @@ Class Tab{
 			move_uploaded_file($tmp_name, "$uploads_dir/$name");
 			$result = mysql_query("select tabId from tablature where tabId='".$tabId."'");
 			if(!mysql_num_rows($result))
-				return array("status"=>"Error","tabId"=>$tabId,"errorMessage"=>"Invalid clip Id. Please check your Clip Id");
+				return array("status"=>"Error","tabId"=>$tabId,message=>"Invalid clip Id. Please check your Clip Id");
 			
 			//$asstaskId = mysql_fetch_array($result);
 			//$asstaskId = $asstaskId["assignedTaskId"];
@@ -113,15 +113,15 @@ Class Tab{
 			$query = "update tablature set tabUrl='$fileUrl' where tabId=".$tabId;
 			if(!mysql_query($query))
 			{
-				return array("status"=>"Error","tabId"=>$tabId,"errorMessage"=>"Details update error.Please check file name");
+				return array("status"=>"Error","tabId"=>$tabId,message=>"Details update error.Please check file name");
 			}
 			else{
 			
-				return array("status"=>"Success","tabId"=>$tabId,"errorMessage"=>"");
+				return array("status"=>"Success","tabId"=>$tabId,message=>"");
 			}	
 		}
 		else{
-				return array("status"=>"Error","tabId"=>$tabId,"errorMessage"=>"File upload error. please upload again");
+				return array("status"=>"Error","tabId"=>$tabId,message=>"File upload error. please upload again");
 			}	
 	}*/
 	
@@ -147,7 +147,7 @@ Class Tab{
 				move_uploaded_file($tmp_name, "$uploads_dir/$name");
 				$result = mysql_query("select tabId from tablature where tabId='".$tabId."'");
 				if(mysql_num_rows($result)<=0){
-					array_push($response,array("status"=>"Error","tabId"=>$tabId,"errorMessage"=>"Invalid clip Id. Please check your Clip Id"));
+					array_push($response,array("status"=>"Error","tabId"=>$tabId,message=>"Invalid clip Id. Please check your Clip Id"));
 					continue;	
 				}
 				//$asstaskId = mysql_fetch_array($result);
@@ -156,15 +156,15 @@ Class Tab{
 				$query = "update tablature set tabUrl='$fileUrl' where tabId=".$tabId;
 				if(!mysql_query($query))
 				{
-					array_push($response,array("status"=>"Error","tabId"=>$tabId,"errorMessage"=>"Details update error.Please check file name"));
+					array_push($response,array("status"=>"Error","tabId"=>$tabId,message=>"Details update error.Please check file name"));
 				}
 				else{
 					$flag=true;
-					array_push($response,array("status"=>"Success","tabId"=>$tabId,"tabUrl"=>$fileUrl,"errorMessage"=>""));
+					array_push($response,array("status"=>"Success","tabId"=>$tabId,"tabUrl"=>$fileUrl,message=>""));
 				}	
 			}
 			else{
-					array_push($response,array("status"=>"Error","tabId"=>$tabId,"errorMessage"=>"File upload error. please upload again"));
+					array_push($response,array("status"=>"Error","tabId"=>$tabId,message=>"File upload error. please upload again"));
 				}
 		}
 			if($flag)
