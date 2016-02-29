@@ -290,20 +290,63 @@ $app->map('/admin/adduser', function ()use($app){
 })->via('GET', 'POST')->name('adduser');
 
 $app->map('/:asstasks', function ($id)use($app){
+
+	/*if(!empty($_GET))
+	{
+		echo $_SERVER['QUERY_STRING'];
+	}*/
+		$sortString = $_SERVER["QUERY_STRING"];
+	//setting sort order parameters
+	 $sortmode ="sortmode=AS";
+
+	if(isset($_GET["sort"]))
+     {
+
+     	// echo $sortString;
+     		//set sort mode
+     		
+     		if(isset($_GET["sortmode"]))
+     		{
+     			if($_GET["sortmode"]=="AS") $sortmode ="sortmode=DS"; else $sortmode ="sortmode=AS";
+
+     		}
+
+              $sortString = strstr($sortString,"sort",true);
+               $sortString = rtrim($sortString, '&');
+
+              if($sortString=="")
+
+              	 $sortString .= "?sort=";
+              else	
+                $sortString="?".$sortString."&sort=";
+     }
+     else if($sortString=="")
+     {
+     		$sortString="?sort=";		
+     }else{
+
+    		$sortString="?".$sortString."&sort=";
+ 		}
+
+
+    
+
+    // echo 
+
 	isAdminLoggedin($app);
 	$assTasks = new AssignedTask();
 
-	$totalRecords=$assTasks->getRecordCount();
+	$totalRecords=$assTasks->getRecordCount($_GET);
 
 	$paginator = new Paginator("asstasks");
 	$paginator->total = $totalRecords;
 	$paginator->paginate();
 
-	$assTasks=$assTasks->getAllAsstask(($paginator->currentPage-1)*$paginator->itemsPerPage,$paginator->itemsPerPage);
+	$assTasks=$assTasks->getAllAsstask(($paginator->currentPage-1)*$paginator->itemsPerPage,$paginator->itemsPerPage,$_GET);
 	$id = explode('/',$id);
 	$id = end($id);
 	//echo $pageNumbers = $paginator->pageNumbers(); die;
-	$app->render("../pages/asstasks.php", array("assTasks"=>$assTasks,"status"=>$id,"pageNumbers"=>$paginator->pageNumbers(), "itemsPerPage"=>$paginator->itemsPerPage()));
+	$app->render("../pages/asstasks.php", array("sortString"=>$sortString,"sortMode"=>$sortmode,"assTasks"=>$assTasks,"status"=>$id,"pageNumbers"=>$paginator->pageNumbers(), "itemsPerPage"=>$paginator->itemsPerPage()));
 })->via('GET', 'POST')->name('assTasks')->conditions((array("asstasks"=>("admin/asstasks/.*|admin/asstasks"))));
 
 //return pagination and message params

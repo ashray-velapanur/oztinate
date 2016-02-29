@@ -14,7 +14,7 @@ function sync($data){
 	
 	$taskList = array();
 	$taskList["status"]="Success";
-	$taskList[message]="Nil";
+	$taskList["message"]="Nil";
 	$taskList["updatedAssignedTasks"]= array();
 	$i=0;
 	

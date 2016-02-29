@@ -15,18 +15,29 @@ class Paginator {
 		private $_link;
 		private $_pageNumHtml;
 		private $_itemHtml;
+        private $queryString;
         /**
          * Constructor
          */
         public function __construct($page)
         {
         	//set default values
+            $this->queryString = "";
         	$this->itemsPerPage = 10;
 			$this->range        = 10;
 			$this->currentPage  = 1;		
 			$this->total		= 0;
 			$this->textNav 		= false;
-			$this->itemSelect   = array(10,25,50,100);			
+			$this->itemSelect   = array(10,25,50,100);		
+
+            $this->queryString = $_SERVER["QUERY_STRING"];
+
+            if(isset($_GET["current"]))
+            {
+                $this->queryString = strstr($this->queryString,"&");
+                $this->queryString = ltrim($this->queryString, '&');
+            }
+                
 			//private values
 			$this->_navigation  = array(
 					'next'=>'Next',
@@ -130,12 +141,12 @@ class Paginator {
         	for($i = $start; $i <= $end; $i++){
 					$html.='<li';
                     if($i==$this->currentPage){ $html.= " class='paginate_button active'";} else {$html.= " class='paginate_button'";}
-                       $html.='><a href="'.$this->_link .'?current='.$i.'"';
+                       $html.='><a href="'.$this->_link .'?current='.$i.'&'.$this->queryString.'"';
 					$html.='>'.$i.'</a></li>';
 			}        	
         	//next link button
         	if($this->textNav&&($this->currentPage<$this->total)){
-				$html .='<li><a href="'.$this->_link .'?current='.($this->currentPage+1).'"';
+				$html .='<li><a href="'.$this->_link .'?current='.($this->currentPage+1).'&'.$this->queryString.'"';
 				$html .='>'.$this->_navigation['next'].'</a></li>';
 			}
         	$html .= '</ul></div>';

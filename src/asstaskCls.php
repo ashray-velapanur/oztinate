@@ -303,8 +303,45 @@ class AssignedTask{
 					return "2";
 	}
 	
-	function getAllAsstask($limitFrom,$limitTo){
-		$query = "SELECT Id,task.taskName,users.userName,status,assignedDate,completionDate FROM assignedtask as asstask JOIN task ON asstask.taskId=task.taskId LEFT JOIN users ON asstask.userId=users.userId ORDER BY asstask.createdDate DESC LIMIT ".$limitFrom.",".$limitTo;
+	function getAllAsstask($limitFrom,$limitTo,$search=null){
+		$queryString="";
+		$orderString="";
+		if(isset($search))
+		{	
+			$flag=false;
+			//$queryString = "where";
+			if(isset($search["userName"])&&$search["userName"]!="")
+			{
+				$queryString="where users.userName LIKE '%".$search["userName"]."%'";
+				$flag=true;
+			}
+
+			if(isset($search["status"])&&$search["status"]!="-1")
+			{
+				if($flag)
+				{
+					$queryString.=" AND status=".$search["status"];
+				}else{
+
+					$queryString = "where status=".$search["status"];
+				}
+			}
+
+			if(isset($search["sort"])&& $search["sort"]!="")
+			{
+				if(isset($search["sortmode"])&&$search["sortmode"]=="AS")
+				{
+					$orderString = "ORDER BY ".$search["sort"]. " ASC";
+				}
+				else if(isset($search["sortmode"])&&$search["sortmode"]=="DS")				{
+					$orderString = "ORDER BY ".$search["sort"]. " DESC";
+				}
+			}
+		}
+
+		//$queryString;	
+
+	 $query = "SELECT Id,task.taskName,users.userName,status,assignedDate,completionDate FROM assignedtask as asstask JOIN task ON asstask.taskId=task.taskId LEFT JOIN users ON asstask.userId=users.userId ".$queryString." ".$orderString." LIMIT ".$limitFrom.",".$limitTo;
 		$result = mysql_query($query);
 		if($result)
 		{
@@ -315,8 +352,34 @@ class AssignedTask{
 		 return array("status"=>"Error","message"=>"Query Error");	
 	}
 
-	function getRecordCount(){
-		$query = "SELECT COUNT(*) as total_count FROM assignedtask as asstask JOIN task ON asstask.taskId=task.taskId LEFT JOIN users ON asstask.userId=users.userId";
+	function getRecordCount($search=null){
+
+		$queryString="";
+		
+		if(isset($search))
+		{	
+			$flag=false;
+			//$queryString = "where";
+			if(isset($search["userName"])&&$search["userName"]!="")
+			{
+				$queryString="where users.userName LIKE '%".$search["userName"]."%'";
+				$flag=true;
+			}
+
+			if(isset($search["status"])&&$search["status"]!="-1")
+			{
+				if($flag)
+				{
+					$queryString.=" AND status=".$search["status"];
+				}else{
+
+					$queryString = "where status=".$search["status"];
+				}
+			}
+
+		}
+
+		$query = "SELECT COUNT(*) as total_count FROM assignedtask as asstask JOIN task ON asstask.taskId=task.taskId LEFT JOIN users ON asstask.userId=users.userId ".$queryString;
 		$result = mysql_query($query);
 		if($result)
 		{

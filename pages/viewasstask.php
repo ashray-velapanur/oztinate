@@ -57,6 +57,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
+                    	<h2 class="pull-right">dasDa</h2>
                         <h1 class="page-header">Assigned Task Details</h1>
 						<div class="row">
 							<div class="col-lg-4">

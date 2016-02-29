@@ -17,6 +17,26 @@
             </div>
             <!-- /.row -->
             <div class="row">
+                <form method="get" name="searchform">
+                    <div class="col-sm-12">
+                        <div id="dataTables-example_filter" class="dataTables_filter">
+                            <label style="margin-right: 10px;"><input type="text" class="form-control input-sm" name="userName" placeholder="Search user name" <?php if(isset($_GET["userName"])){ echo "value=".$_GET['userName']; }?>  ></label>
+                            <label style="margin-right: 5px;">
+                                <select type="search" name="status" class="form-control input-sm">
+                                    <option value="-1">Choose Status</option><option value="0">Open</option>
+                                    <option <?php if(isset($_GET["status"])){if($_GET["status"]=="1") {echo 'selected="selected"'; }}?> value="1">Reopen</option>
+                                    <option <?php if(isset($_GET["status"])){if($_GET["status"]=="3") {echo 'selected="selected"'; }}?> value="3">ReadyForReviewButUploadPending</option>
+                                    <option <?php if(isset($_GET["status"])){if($_GET["status"]=="4") {echo 'selected="selected"'; }}?> value="4">ReadyForReview</option>
+                                    <option <?php if(isset($_GET["status"])){if($_GET["status"]=="5") {echo 'selected="selected"'; }}?>value="5">Completed</option>
+                                    <option <?php if(isset($_GET["status"])){if($_GET["status"]=="6") {echo 'selected="selected"'; }}?>value="6">Aborted</option>
+                                </select>
+                            </label>
+                            <input type="submit" class="btn btn-sm btn-primary">
+                             <a href="<?php echo $basepath_admin ?>asstasks" type="button" class="btn btn-sm btn-danger">Clear</a>
+                        </div>
+                   </div>
+               </form>
+
                 <div class="col-lg-12">
                         <div class="dataTable_wrapper">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
@@ -24,10 +44,10 @@
                                         <tr>
                                             <th>#Id</th>
                                             <th>Exercise Name</th>
-                                            <th>Assigned To</th>
-                                            <th>Status</th>
-											<th>Assigned Date</th>
-											<th>Completion Date</th>
+                                            <th><a href="<?php echo $sortString ?>userName&<?php echo $sortMode ?>">Assigned To</a></th>
+                                            <th> <a href="<?php echo $sortString ?>status&<?php echo $sortMode ?>">Status</a></th>
+											<th> <a href="<?php echo $sortString ?>assignedDate&<?php echo $sortMode ?>">Assigned Date</a></th>
+											<th> <a href="<?php echo $sortString ?>completionDate&<?php echo $sortMode ?>">Completion Date</a></th>
 											<th>Edit</th>
 											<th>Delete</th>
                                         </tr>
