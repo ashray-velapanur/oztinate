@@ -1,6 +1,6 @@
 <?php include("includes/header.php") ?>
     <!-- jQuery -->
- <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+ <script src="<?php echo $basePath ?>bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript">
 	<?php echo "var basepath='".$basepath_admin."';"; ?>
 
@@ -56,34 +56,31 @@
 							
                             <div class="row">
                                 <div class="col-lg-6">
-									<?php if($status=="Success") {?>
-										<div class="alert alert-success">New Tablature Added Successfully..!!!</div>
-									<?php } else if($status=="Error") {?>	
-										<div class="alert alert-danger">Error...!!! Tablature is not added</div>
-									<?php } else if($status=="Exist") {?>	
-										<div class="alert alert-danger">Error...!!! Tablature is already exist</div>
-									<?php } else if($status=="invalidImage") {?>	
-										<div class="alert alert-danger">Error...!!! Uploaded file is not an image</div>
-									<?php } else if($status=="bigImage") {?>	
-										<div class="alert alert-danger">Error...!!! Uploaded file exceed maximum allowed size(Max:200KB)</div>
-									<?php } ?>	
+									<?php if($status["status"]=="Success"){ ?>
+										<div class="alert alert-success"><?php echo $status["message"]; ?></div>		
+									<?php }else if($status["status"]=="Error"){?>
+										<div class="alert alert-danger"><?php echo $status["message"]; ?></div>
+									<?php } ?>
 									
                                     <form role="form" method="post" onsubmit="return validateSubmit();" enctype="multipart/form-data">
+                                      	 <input type="hidden" name="txtTabId" value="<?php if(isset($tabDetails["tabId"])){ echo $tabDetails["tabId"]; $submitButton = "Update"; }else{ $submitButton = "Save"; } ?>"/>
                                         <div id="divTabName" class="form-group">
                                             <label>Tablature Name</label></br>
 											<label class="control-label" hidden for="inputError">This Tablature is already exist</label>
-                                            <input class="form-control" onblur="checkTabExist();" name="tabName" required>
+                                            <input type="text" class="form-control" name="tabName" onblur="checkTabExist();" required <?php if(isset($tabDetails["name"])){ echo "value='".$tabDetails["name"]."'"; } ?>  >
                                             <!--<p class="help-block">Example block-level help text here.</p>-->
                                         </div>
+                                        <?php if(!isset($tabDetails)){ ?>
                                         <div class="form-group">
                                             <label>Upload Tablature File</label>
                                             <input type ="file" class="form-control" name="tabFile" required/>
                                         </div>
+                                        <?php } ?>
 										<div class="row">
 											
 											<div class="col-lg-6">
 												<div class="form-group col-centered">
-													<button type="submit"   href="addtask" style="width:160px" class="btn btn-primary">Save</button>		
+													<button type="submit"   href="addtask" style="width:160px" class="btn btn-primary"><?php echo $submitButton; ?></button>		
 												</div>
 											</div>
 											<div class="col-lg-6">
@@ -113,13 +110,13 @@
 
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="<?php echo $basePath ?>bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+    <script src="<?php echo $basePath ?>bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
     <!-- Custom Theme JavaScript -->
-    <script src="../dist/js/sb-admin-2.js"></script>
+    <script src="<?php echo $basePath ?>dist/js/sb-admin-2.js"></script>
 	
 </body>
 

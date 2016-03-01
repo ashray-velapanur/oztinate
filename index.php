@@ -477,8 +477,10 @@ $app->map('/:tabs', function ($id)use($app){
 })->via('GET', 'POST')->name('tabs')->conditions((array("tabs"=>("admin/tabs/.*|admin/tabs"))));
 
 $app->map('/admin/addtab', function ()use($app){
+	$status=array();
+	$status["status"]="";
 	isAdminLoggedin($app);
-	$status="";
+
 	if($_SERVER['REQUEST_METHOD']=="POST")
 	{
 		$tab=new Tab();
@@ -486,6 +488,24 @@ $app->map('/admin/addtab', function ()use($app){
 	}
 	$app->render("../pages/addtab.php",array("status"=>$status));
 })->via('GET', 'POST')->name('addtab');
+
+$app->map('/admin/edittab/:id', function ($id)use($app){
+	isAdminLoggedin($app);
+	$status=array();
+	$status["status"]="";
+
+	$tab=new Tab();
+	if(isset($_POST["txtTabId"])&& $_POST["txtTabId"]!=0)
+	{
+		//$tab=new Tab();
+		//var_dump($_POST); die;
+		$status = $tab->editTab($_POST);	
+	}
+	$tabDetails = $tab->getDetails($id);
+
+	$app->render("../pages/addtab.php",array("status"=>$status,"tabDetails"=>$tabDetails));
+
+})->via('GET', 'POST')->name('edittab');
 
 $app->get('/admin/deletetab/:id', function($id) use($app){
 	isAdminLoggedin($app);

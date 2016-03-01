@@ -32,11 +32,42 @@ Class Tab{
 		}
 	}
 	
+	function getDetails($tabId)
+	{
+		$query = "SELECT tabId,name,tabUrl,createdDate FROM tablature WHERE tabId=".$tabId;
+			$result = mysql_query($query);
+		if($result)
+		{
+			return mysql_fetch_array($result);
+		}
+		else
+		 return array("status"=>"Error","message"=>"Query Error");	
+	}
+
+	function editTab($data)
+	{
+		if($this->checkTabExist($data["tabName"])=="true")
+		{
+			return array("status"=>"Error","message"=>"Error...!!! Tablature is already exist");
+		}
+
+		$query = "UPDATE tablature SET name='".$data["tabName"]."', updatedId=NOW() WHERE tabId=".$data["txtTabId"];
+		if(mysql_query($query))
+		{
+
+			$query = "UPDATE assignedtask SET updatedId=NOW() WHERE Id IN(SELECT Id FROM(SELECT asstask.id FROM `assignedtask` as asstask JOIN task ON asstask.taskId=task.taskId JOIN tasktablatures as tasktab ON tasktab.taskId=task.taskId JOIN tablature ON tablature.tabId = tasktab.tablatureId WHERE tablature.tabId=".$data["txtTabId"].") as sub )";	
+			mysql_query($query);
+			return array("status"=>"Success","message"=>"Details Updated");
+		}
+		else
+			 return array("status"=>"Error","message"=>"Query Error..  Details not updated");
+	}
+
 	function addTab($data,$files){
 	
 		if($this->checkTabExist($data["tabName"])=="true")
 		{
-			return "Exist";
+			return array("status"=>"Error","message"=>"Error...!!! Tablature is already exist");
 		}
 
 		$imagesizedata = getimagesize($files["tabFile"]["tmp_name"]);
@@ -44,12 +75,13 @@ Class Tab{
 		//var_dump($imagesizedata); die();
 		if(!$imagesizedata)
 		{
-			return "invalidImage";
+			return array("status"=>"Error","message"=>"Error...!!! Uploaded file is not an images");
+			
 		}
 
 		if(filesize($files["tabFile"]["tmp_name"])>201000)
 		{
-			return "bigImage";
+			return array("status"=>"Error","message"=>"Error...!!! Uploaded file exceed maximum allowed size(Max:200KB)");
 		}
 
 		$basePath=$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']) . '/'; 
@@ -70,10 +102,10 @@ Class Tab{
 			move_uploaded_file($files["tabFile"]["tmp_name"], $target_file);
 			$query = "UPDATE tablature SET tabUrl='".$file_url."' WHERE tabId=".$id;
 			$result = mysql_query($query);
-			return "Success";
+			return array("status"=>"Success","message"=>"New Tablature Added Successfully..!!!");
 		}	
 		else
-			return "Error";
+			return array("status"=>"Error","message"=>"Error...!!! Tablature is not added");
 	}
 	
 	function deleteTab($id)
