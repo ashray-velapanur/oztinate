@@ -133,7 +133,7 @@
 												<?php while($row=mysql_fetch_array($tabs)){?>
 													<tr>
 														<td><?php echo $row["name"] ?></td>
-														<td><?php echo $row["tabUrl"] ?></td>
+														<td><a target="_blank" href="<?php echo $row["tabUrl"] ?>"><?php echo $row["tabUrl"] ?></a></td>
 													</tr>
 												<?php }?>	
 												</tbody>
