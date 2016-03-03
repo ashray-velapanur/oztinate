@@ -57,59 +57,95 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                    	<h2 class="pull-right">dasDa</h2>
+                    	<!--<h2 class="pull-right"></h2> -->
                         <h1 class="page-header">Assigned Task Details</h1>
 						<div class="row">
-							<div class="col-lg-4">
-								<div class="stat-block">
-                                    <h4 class="stat-heading text-muted">Exercise Name</h4>
-                                    <h3 id="vehicle-yearmakemodel"><?php echo $taskData["taskName"] ?></h3>
-                                </div>
-							</div>
-							<div class="col-lg-4">
-								<div class="stat-block">
-                                    <h4 class="stat-heading text-muted">Assigned To</h4>
-                                    <h3 id="vehicle-yearmakemodel"><?php echo $taskData["userName"] ?></h3>
-                                </div>
-							</div>	
-							<div class="col-lg-4">
-								<div class="stat-block">
-                                    <h4 class="stat-heading text-muted">Change Status</h4>
-                                    <div class="btn-group">
-									  <button type="button" id="statusBtn" class="btn btn-primary"><?php echo getTaskStatus($taskData["status"]); $statusList=getNextStatus($taskData["status"]);?></button>
-									  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-										<span class="caret"></span>
-									  </button>
-									  <ul class="dropdown-menu" role="menu">
-									  <?php foreach($statusList as $staus) {?>
-										<li><a onClick="changeStatus(this);" href="#"><?php echo $staus ?></a></li>
-										<?php } ?>						
-									  </ul>
+							<div class="col-lg-6">
+								<div class="row">
+									<div class="col-lg-6">
+										<div class="stat-block">
+		                                    <h4 class="stat-heading text-muted">Exercise Name</h4>
+		                                    <h3 id="vehicle-yearmakemodel"><?php echo $taskData["taskName"] ?></h3>
+		                                </div>
 									</div>
-                                </div>
-								
-								<?php if($statusChange==1){ ?>
-									<label class="label label-success">Status Changed successfully</label>
-								<?php } elseif($statusChange==2) { ?>
-									<label class="label label-danger">Error... Status not changed. Please Load this page again and try</label>
-								<?php }?>
+									<div class="col-lg-6">
+										<div class="stat-block">
+		                                    <h4 class="stat-heading text-muted">Assigned To</h4>
+		                                    <h3 id="vehicle-yearmakemodel"><?php echo $taskData["userName"] ?></h3>
+		                                </div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-lg-6">
+									<div class="stat-block">
+	                                    <h4 class="stat-heading text-muted">Assigned Date</h4>
+	                                    <h3 id="vehicle-yearmakemodel"><?php echo $taskData["assignedDate"] ?></h3>
+	                                </div>
+									
+									</div>
+									<div class="col-lg-6">
+										<div class="stat-block">
+		                                    <h4 class="stat-heading text-muted">Completion Date</h4>
+		                                    <h3 id="vehicle-yearmakemodel"><?php echo $taskData["completionDate"] ?></h3>
+		                                </div>
+										
+									</div>
+								</div>
+								<div class="row">	
+									<div class="col-lg-8">
+										<div class="stat-block">
+			                                    <h4 class="stat-heading text-muted">Change Status</h4>
+			                                    <div class="btn-group">
+												  <button type="button" id="statusBtn" class="btn btn-primary"><?php echo getTaskStatus($taskData["status"]); $statusList=getNextStatus($taskData["status"]);?></button>
+												  <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+													<span class="caret"></span>
+												  </button>
+												  <ul class="dropdown-menu" role="menu">
+												  <?php foreach($statusList as $staus) {?>
+													<li><a onClick="changeStatus(this);" href="#"><?php echo $staus ?></a></li>
+													<?php } ?>						
+												  </ul>
+												</div>
+			                            </div>
+											
+											<?php if($statusChange==1){ ?>
+												<label class="label label-success">Status Changed successfully</label>
+											<?php } elseif($statusChange==2) { ?>
+												<label class="label label-danger">Error... Status not changed. Please Load this page again and try</label>
+											<?php }?>
+											
+									</div>
+									<div class="col-lg-3"></div>
+								</div>	
+							</div>
+
+							<div class="col-lg-6">
+								<h4 class="page-header" style="margin:0px">Tablatures</h4>
+								<table class="table table-striped table-bordered table-hover">
+									<thead>
+													<tr>
+														<th>Tab Name</th>
+														<th>Tab Url</th>
+														
+													</tr>
+												</thead>
+												<tbody>
+												<?php while($row=mysql_fetch_array($tabs)){?>
+													<tr>
+														<td><?php echo $row["name"] ?></td>
+														<td><?php echo $row["tabUrl"] ?></td>
+													</tr>
+												<?php }?>	
+												</tbody>
+								</table>			
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-lg-4">
-								<div class="stat-block">
-                                    <h4 class="stat-heading text-muted">Assigned Date</h4>
-                                    <h3 id="vehicle-yearmakemodel"><?php echo $taskData["assignedDate"] ?></h3>
-                                </div>
-								
-							</div>
-							<div class="col-lg-4">
-								<div class="stat-block">
-                                    <h4 class="stat-heading text-muted">Completion Date</h4>
-                                    <h3 id="vehicle-yearmakemodel"><?php echo $taskData["completionDate"] ?></h3>
-                                </div>
-								
-							</div>
+							
+						</div>
+						<div class="row">
+							
+							<!--<div class="col-lg-3"></div>-->
 						</div>
 						<div class="row">
 						<?php if($taskData["status"]>0) {?>

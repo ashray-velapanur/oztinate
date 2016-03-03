@@ -225,7 +225,7 @@ function getTabulaturesNotByTask($taskId){
 
 function getAllTasks($limitFrom,$limitTo)
 {
-	$query ="SELECT taskId,taskName,minDuration,practiceDuration,details,createdDate FROM task WHERE enabled=1 ORDER BY createdDate DESC LIMIT ".$limitFrom.",".$limitTo;
+	$query ="SELECT taskId,taskName,minDuration,practiceDuration,details,users.userName as createdUser,task.createdDate FROM task LEFT JOIN users ON task.createdUser=users.userId WHERE task.enabled=1 ORDER BY createdDate DESC LIMIT ".$limitFrom.",".$limitTo;
 	$result = mysql_query($query);
 	if($result)
 	{

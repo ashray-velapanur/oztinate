@@ -29,6 +29,7 @@
                                             <th>Min Duration(In Minutes)</th>
                                             <th>Practice Duration(In Minutes)</th>
 											<th>Details</th>
+                                            <th>Created by</th>
 											<th>Created at</th>
 											<th>Edit</th>
 											<th>Delete</th>
@@ -42,6 +43,7 @@
                                             <td><?php echo $row["minDuration"] ?></td>
 											<td><?php echo $row["practiceDuration"] ?></td>
 											<td><?php echo $row["details"] ?></td>
+                                            <td><?php echo $row["createdUser"] ?></td>
 											<td><?php echo $row["createdDate"] ?></td>
                                             <td class="center"><a href="<?php echo $basepath_admin."edittask/".$row["taskId"] ?>">Edit</a></td>
                                             <td class="center"><a onClick="return confirm('Are you sure you want to delete this Task?')" href="<?php echo $basepath_admin."deletetask/".$row["taskId"] ?>" style="text-decoration:none;"><i class="fa fa-trash fa-fw"></i></a></td>

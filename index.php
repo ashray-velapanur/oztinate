@@ -434,13 +434,13 @@ $app->map('/admin/viewasstask/:id', function($id)use($app){
 	{
 		$status = getStausId($_POST["statusTxt"]);
 
-		$fp =fopen("log.txt", "a");
+		/*$fp =fopen("log.txt", "a");
 		fwrite($fp, "==========================\n");
 		fwrite($fp, "USERNAME IS: ".$_SESSION["username"]);
 		fwrite($fp, "\ntime: ".date("Y-m-d H:i:s"));
 		fwrite($fp, "\nstatus text posted ".$_POST["statusTxt"]);
 		fwrite($fp, "\nstatus returned ".$status);
-		fwrite($fp, "\n==========================\n");
+		fwrite($fp, "\n==========================\n");*/
 		
 		if($status>=0)
 			$statusChange = $assTasks->changeStatus($status,$id);
@@ -451,7 +451,9 @@ $app->map('/admin/viewasstask/:id', function($id)use($app){
 	$assTask = $assTasks->getDetails($id);
 	$comments = $assTasks->getComments($id);
 	$soundClips = $assTasks->getSoundClips($id);
-	$app->render("../pages/viewasstask.php",array("taskData"=>$assTask,"comments"=>$comments,"soundClips"=>$soundClips,"statusChange"=>$statusChange));
+	$tabs = $assTasks->getTabs($id);
+	
+	$app->render("../pages/viewasstask.php",array("taskData"=>$assTask,"tabs"=>$tabs,"comments"=>$comments,"soundClips"=>$soundClips,"statusChange"=>$statusChange));
 })->via('GET', 'POST')->name('viewasstask');
 
 $app->post('/admin/addComment', function(){

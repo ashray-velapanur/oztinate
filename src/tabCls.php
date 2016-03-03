@@ -7,7 +7,7 @@ Class Tab{
 		else
 			$limit = "LIMIT ".$limitFrom.",".$limitTo;
 
-		$query = "SELECT tabId,name,tabUrl,createdDate FROM tablature ORDER BY createdDate DESC ".$limit;
+		$query = "SELECT tabId,name,tabUrl,users.userName as createdUser,tablature.createdDate FROM tablature LEFT JOIN users ON tablature.createdUser=users.userId ORDER BY createdDate DESC ".$limit;
 			$result = mysql_query($query);
 		if($result)
 		{
@@ -88,7 +88,7 @@ Class Tab{
 		
 		//echo  dirname($_SERVER["REQUEST_URI"]);  echo $_SERVER["DOCUMENT_ROOT"]; 
 		
-		$query = "INSERT INTO tablature (name,updatedId,createdDate) values('".$data["tabName"]."',NOW(),NOW())"; 
+		$query = "INSERT INTO tablature (name,updatedId,createdUser,createdDate) values('".$data["tabName"]."',NOW(),".$_SESSION["userId"].",NOW())"; 
 		$result = mysql_query($query) or die(mysql_error());
 		$id = mysql_insert_id();
 		if($result)

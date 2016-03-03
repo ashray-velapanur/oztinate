@@ -467,6 +467,18 @@ class AssignedTask{
 		else
 			return "Error";
 	}
+
+	function getTabs($assTaskId)
+	{
+		$query = "select tablature.name, tablature.tabUrl from assignedtask JOIN tasktablatures on assignedtask.taskId=tasktablatures.taskId JOIN tablature ON tasktablatures.tablatureId=tablature.tabId WHERE assignedtask.Id=".$assTaskId;
+		$result = mysql_query($query);
+		if($result)
+		{
+			return $result;
+		}
+		else
+		 return array("status"=>"Error","message"=>"Query Error");	
+	}
 	
 	function getComments($taskId)
 	{
