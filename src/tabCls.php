@@ -1,13 +1,40 @@
 <?php
 Class Tab{
 
-	function getAllTabs($limitFrom=-1,$limitTo=-1){
+	function getAllTabs($limitFrom=-1,$limitTo=-1,$search=null){
+
+		$queryString="";
+		$orderString="ORDER BY createdDate DESC";
+		if(isset($search))
+		{	
+			$flag=false;
+			//$queryString = "where";
+			if(isset($search["name"])&&$search["name"]!="")
+			{
+				$queryString="Where tablature.name LIKE '%".$search["name"]."%'";
+				$flag=true;
+			}
+
+
+			if(isset($search["sort"])&& $search["sort"]!="")
+			{
+				if(isset($search["sortmode"])&&$search["sortmode"]=="AS")
+				{
+					$orderString = "ORDER BY ".$search["sort"]. " ASC";
+				}
+				else if(isset($search["sortmode"])&&$search["sortmode"]=="DS")				{
+					$orderString = "ORDER BY ".$search["sort"]. " DESC";
+				}
+			}
+
+		}
+
 		if($limitFrom==-1||$limitTo==-1)
 			$limit="";
 		else
 			$limit = "LIMIT ".$limitFrom.",".$limitTo;
 
-		$query = "SELECT tabId,name,tabUrl,users.userName as createdUser,tablature.createdDate FROM tablature LEFT JOIN users ON tablature.createdUser=users.userId ORDER BY createdDate DESC ".$limit;
+		$query = "SELECT tabId,name,tabUrl,users.userName as createdUser,tablature.createdDate FROM tablature LEFT JOIN users ON tablature.createdUser=users.userId ".$queryString." ".$orderString." ".$limit;
 			$result = mysql_query($query);
 		if($result)
 		{
@@ -17,9 +44,25 @@ Class Tab{
 		 return array("status"=>"Error","message"=>"Query Error");	
 	}
 
-	function getRecordCount()
+	function getRecordCount($search=null)
 	{
-		$query ="SELECT count(*) as total_count FROM tablature";
+		$queryString="";
+		
+		if(isset($search))
+		{	
+			$flag=false;
+			//$queryString = "where";
+			if(isset($search["name"])&&$search["name"]!="")
+			{
+				$queryString="WHERE tablature.name LIKE '%".$search["name"]."%'";
+				$flag=true;
+			}
+
+			
+
+		}
+
+		$query ="SELECT count(*) as total_count FROM tablature ".$queryString;
 		$result = mysql_query($query);
 		if($result)
 		{

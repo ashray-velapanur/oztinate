@@ -169,18 +169,53 @@ $app->map('/admin/home', function ()use($app){
 
 $app->map('/:tasks', function ($id)use($app){
 	isAdminLoggedin($app);
+
+	$sortString = $_SERVER["QUERY_STRING"];
+	//setting sort order parameters
+	 $sortmode ="sortmode=AS";
+
+	if(isset($_GET["sort"]))
+     {
+
+     	// echo $sortString;
+     		//set sort mode
+     		
+     		if(isset($_GET["sortmode"]))
+     		{
+     			if($_GET["sortmode"]=="AS") $sortmode ="sortmode=DS"; else $sortmode ="sortmode=AS";
+
+     		}
+
+              $sortString = strstr($sortString,"sort",true);
+               $sortString = rtrim($sortString, '&');
+
+              if($sortString=="")
+
+              	 $sortString .= "?sort=";
+              else	
+                $sortString="?".$sortString."&sort=";
+     }
+     else if($sortString=="")
+     {
+     		$sortString="?sort=";		
+     }else{
+
+    		$sortString="?".$sortString."&sort=";
+ 		}
+
 	$task = new Task();
 
-	$totalRecords=$task->getRecordCount();
+	$totalRecords=$task->getRecordCount($_GET);
 
 	$paginator = new Paginator("tasks");
 	$paginator->total = $totalRecords;
 	$paginator->paginate();
 
-	$tasks=$task->getAllTasks(($paginator->currentPage-1)*$paginator->itemsPerPage,$paginator->itemsPerPage);
+	$tasks=$task->getAllTasks(($paginator->currentPage-1)*$paginator->itemsPerPage,$paginator->itemsPerPage,$_GET);
+	//var_dump(mysql_fetch_array($tasks));
 	$id = explode('/',$id);
 	$id = end($id);
-	$app->render("../pages/tasks.php", array("tasks"=>$tasks,"status"=>$id,"pageNumbers"=>$paginator->pageNumbers(), "itemsPerPage"=>$paginator->itemsPerPage()));
+	$app->render("../pages/tasks.php", array("sortString"=>$sortString,"sortMode"=>$sortmode,"tasks"=>$tasks,"status"=>$id,"pageNumbers"=>$paginator->pageNumbers(), "itemsPerPage"=>$paginator->itemsPerPage()));
 })->via('GET', 'POST')->name('tasks')->conditions((array("tasks"=>("admin/tasks/.*|admin/tasks"))));
 
 $app->get('/admin/deletetask/:id', function($id) use($app){
@@ -243,6 +278,9 @@ $app->map('/admin/edittask/:id', function ($id)use($app){
 	
 })->via('GET','POST')->name('edittask');
 
+
+
+
 $app->post('/admin/checkTaskExist', function() use($app){
 	isAdminLoggedin($app);
 	$task = new Task();
@@ -254,6 +292,8 @@ $app->post('/admin/getTaskDuration', function() use($app){
 	$task = new Task();
 	echo $task->getTaskDuration($_POST["taskId"]);
 });
+
+
 
 
 $app->get('/:users', function($id) use($app){
@@ -288,6 +328,33 @@ $app->map('/admin/adduser', function ()use($app){
 	}
 	$app->render("../pages/adduser.php",array("status"=>$status));
 })->via('GET', 'POST')->name('adduser');
+
+
+$app->post('/admin/profile', function() use($app){
+	isAdminLoggedin($app);
+	$status="";
+	$status["status"]="";
+	$status["message"]="";
+	//var_dump($_POST);
+	if($_SERVER['REQUEST_METHOD']=="POST")
+	{	
+		if(isset($_POST["currentPassword"])||$_SESSION["hackMode"]){
+			if($_POST["newPassword"]==$_POST["newPasswordRe"]){
+				$user=new User();
+				$status = $user->changeAdminPassword($_POST);
+			}
+			else{
+				$status["status"]="Error";
+				$status["message"]="New password and Re-entered password are not same";
+			}	
+		}
+		else{
+			$status["status"]="Error";
+			$status["message"]="Please enter current password";
+		}		
+	}
+	$app->render("../pages/profile.php",array("status"=>$status));
+})->via('GET', 'POST')->name('profile');
 
 $app->map('/:asstasks', function ($id)use($app){
 
@@ -463,18 +530,53 @@ $app->post('/admin/addComment', function(){
 
 $app->map('/:tabs', function ($id)use($app){
 	isAdminLoggedin($app);
+
+		$sortString = $_SERVER["QUERY_STRING"];
+	//setting sort order parameters
+	 $sortmode ="sortmode=AS";
+
+	if(isset($_GET["sort"]))
+     {
+
+     	// echo $sortString;
+     		//set sort mode
+     		
+     		if(isset($_GET["sortmode"]))
+     		{
+     			if($_GET["sortmode"]=="AS") $sortmode ="sortmode=DS"; else $sortmode ="sortmode=AS";
+
+     		}
+
+              $sortString = strstr($sortString,"sort",true);
+               $sortString = rtrim($sortString, '&');
+
+              if($sortString=="")
+
+              	 $sortString .= "?sort=";
+              else	
+                $sortString="?".$sortString."&sort=";
+     }
+     else if($sortString=="")
+     {
+     		$sortString="?sort=";		
+     }else{
+
+    		$sortString="?".$sortString."&sort=";
+ 		}
+
+
 	$tabs = new Tab();
 
-	$totalRecords=$tabs->getRecordCount();
+	$totalRecords=$tabs->getRecordCount($_GET);
 
 	$paginator = new Paginator("tabs");
 	$paginator->total = $totalRecords;
 	$paginator->paginate();
 
-	$tabList=$tabs->getAllTabs(($paginator->currentPage-1)*$paginator->itemsPerPage,$paginator->itemsPerPage);
+	$tabList=$tabs->getAllTabs(($paginator->currentPage-1)*$paginator->itemsPerPage,$paginator->itemsPerPage,$_GET);
 	$id = explode('/',$id);
 	$id = end($id);
-	$app->render("../pages/tablature.php", array("tabs"=>$tabList,"status"=>$id,"pageNumbers"=>$paginator->pageNumbers(), "itemsPerPage"=>$paginator->itemsPerPage()));
+	$app->render("../pages/tablature.php", array("sortString"=>$sortString,"sortMode"=>$sortmode,"tabs"=>$tabList,"status"=>$id,"pageNumbers"=>$paginator->pageNumbers(), "itemsPerPage"=>$paginator->itemsPerPage()));
 	
 })->via('GET', 'POST')->name('tabs')->conditions((array("tabs"=>("admin/tabs/.*|admin/tabs"))));
 

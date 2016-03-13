@@ -223,9 +223,35 @@ function getTabulaturesNotByTask($taskId){
 		 return array("status"=>"Error","message"=>"Query Error");	
 }
 
-function getAllTasks($limitFrom,$limitTo)
+function getAllTasks($limitFrom,$limitTo,$search=null)
 {
-	$query ="SELECT taskId,taskName,minDuration,practiceDuration,details,users.userName as createdUser,task.createdDate FROM task LEFT JOIN users ON task.createdUser=users.userId WHERE task.enabled=1 ORDER BY createdDate DESC LIMIT ".$limitFrom.",".$limitTo;
+		$queryString="";
+		$orderString="ORDER BY createdDate DESC";
+		if(isset($search))
+		{	
+			$flag=false;
+			//$queryString = "where";
+			if(isset($search["taskName"])&&$search["taskName"]!="")
+			{
+				$queryString="AND task.taskName LIKE '%".$search["taskName"]."%'";
+				$flag=true;
+			}
+
+
+			if(isset($search["sort"])&& $search["sort"]!="")
+			{
+				if(isset($search["sortmode"])&&$search["sortmode"]=="AS")
+				{
+					$orderString = "ORDER BY ".$search["sort"]. " ASC";
+				}
+				else if(isset($search["sortmode"])&&$search["sortmode"]=="DS")				{
+					$orderString = "ORDER BY ".$search["sort"]. " DESC";
+				}
+			}
+
+		}
+
+	$query = "SELECT taskId,taskName,minDuration,practiceDuration,details,users.userName as createdUser,task.createdDate FROM task LEFT JOIN users ON task.createdUser=users.userId WHERE task.enabled=1 ".$queryString." ".$orderString." LIMIT ".$limitFrom.",".$limitTo;
 	$result = mysql_query($query);
 	if($result)
 	{
@@ -236,9 +262,25 @@ function getAllTasks($limitFrom,$limitTo)
 	 return array("status"=>"Error","message"=>"Query Error");	
 }
 
-function getRecordCount()
+function getRecordCount($search=null)
 {
-	$query ="SELECT count(*) as total_count FROM task WHERE enabled=1";
+	$queryString="";
+		
+		if(isset($search))
+		{	
+			$flag=false;
+			//$queryString = "where";
+			if(isset($search["taskName"])&&$search["taskName"]!="")
+			{
+				$queryString="AND task.taskName LIKE '%".$search["taskName"]."%'";
+				$flag=true;
+			}
+
+			
+
+		}
+
+	$query ="SELECT count(*) as total_count FROM task WHERE enabled=1 ".$queryString;
 	$result = mysql_query($query);
 		if($result)
 		{

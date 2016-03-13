@@ -1,0 +1,48 @@
+==========================
+USERNAME IS: admin
+ time: 2016-02-13 05:20:17
+status text posted Abort
+status returned 6
+==========================
+==========================
+USERNAME IS: admin
+time: 2016-02-13 05:20:36
+status text posted Reopen
+status returned 1
+==========================
+==========================
+USERNAME IS: admin
+time: 2016-02-13 07:43:18
+status text posted 
+status returned -1
+==========================
+==========================
+USERNAME IS: admin
+time: 2016-02-13 07:57:54
+status text posted 
+status returned -1
+==========================
+==========================
+USERNAME IS: admin
+time: 2016-02-13 08:00:43
+status text posted 
+status returned -1
+==========================
+==========================
+USERNAME IS: admin
+time: 2016-02-13 08:00:53
+status text posted 
+status returned -1
+==========================
+==========================
+USERNAME IS: admin
+time: 2016-02-13 08:01:40
+status text posted Abort
+status returned 6
+==========================
+==========================
+USERNAME IS: admin
+time: 2016-02-13 08:03:58
+status text posted Abort
+status returned 6
+==========================

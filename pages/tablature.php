@@ -19,16 +19,26 @@
             </div>
             <!-- /.row -->
             <div class="row">
+                <form method="get" name="searchform">
+                    <div class="col-sm-12">
+                        <div id="dataTables-example_filter" class="dataTables_filter">
+                            <label style="margin-right: 10px;"><input type="text" class="form-control input-sm" name="name" placeholder="Search tabs" <?php if(isset($_GET["name"])){ echo "value=".$_GET['name']; }?>  ></label>
+                            
+                            <input type="submit" class="btn btn-sm btn-primary">
+                             <a href="<?php echo $basepath_admin ?>tabs" type="button" class="btn btn-sm btn-danger">Clear</a>
+                        </div>
+                   </div>
+               </form>
                 <div class="col-lg-12">
                         <div class="dataTable_wrapper">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
                                             <th>#Id</th>
-                                            <th>Tab Name</th>
+                                            <th><a href="<?php echo $sortString ?>name&<?php echo $sortMode ?>">Tab Name</a></th>
                                             <th>Url</th>
-                                            <th>Created by</th>
-                                            <th>Created at</th>
+                                            <th><a href="<?php echo $sortString ?>createdUser&<?php echo $sortMode ?>">Created by</a></th>
+                                            <th><a href="<?php echo $sortString ?>createdDate&<?php echo $sortMode ?>">Created at</a></th>
 											 <th>Edit</th>
 											<th>Delete</th>
                                         </tr>
@@ -41,7 +51,7 @@
                                             <td><a target="_blank" href="<?php echo $row["tabUrl"] ?>"><?php echo $row["tabUrl"] ?></a></td>
 											<td><?php echo $row["createdUser"] ?></td>
                                             <td><?php echo $row["createdDate"] ?></td>
-											<td class="center"><a target="_blank" href="<?php echo $basepath_admin.'edittab/'.$row['tabId'] ?>">Edit</a></td>
+											<td class="center"><a href="<?php echo $basepath_admin.'edittab/'.$row['tabId'] ?>">Edit</a></td>
                                             <td class="center"><a onClick="return confirm('Are you sure you want to delete this Tablature?')" href="<?php echo $basepath_admin."deletetab/".$row["tabId"] ?>" style="text-decoration:none;"><i class="fa fa-trash fa-fw"></i></a></td>
                                         </tr>
 										<?php } ?>

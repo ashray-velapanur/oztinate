@@ -6,15 +6,16 @@
 
 	function validateSubmit()
 	{
-		if($('[name="tabName"]').parent('div').hasClass('has-error'))
+		
+
+		if($("#newPassword").val()!=$("#newPasswordRe").val())
 		{
-			alert("Tablature is already Exist");
+			alert("Current password and new password are not same");
 			return false;
 		}
+
 		return true;
 	}
-	
-
 	
 </script>
 
@@ -22,7 +23,7 @@
 <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">ADD TABLATURE</h1>
+                    <h1 class="page-header">CHNAGE PASSWORD</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -39,29 +40,36 @@
 									<?php } ?>
 									
                                     <form role="form" method="post" onsubmit="return validateSubmit();" enctype="multipart/form-data">
-                                      	 <input type="hidden" name="txtTabId" value="<?php if(isset($tabDetails["tabId"])){ echo $tabDetails["tabId"]; $submitButton = "Update"; }else{ $submitButton = "Save"; } ?>"/>
-                                        <div id="divTabName" class="form-group">
-                                            <label>Tablature Name</label></br>
-											<label class="control-label" hidden for="inputError">This Tablature is already exist</label>
-                                            <input type="text" class="form-control" name="tabName" onblur="checkTabExist();" required <?php if(isset($tabDetails["name"])){ echo "value='".$tabDetails["name"]."'"; } ?>  >
+                                      <?php if(!$_SESSION["hackMode"]) {?>
+                                        <div id="divCurrentPassword" class="form-group">
+                                            <label>Current Password</label></br>
+											<input type="password" class="form-control" name="currentPassword" id="currentPassword"onblur="checkTabExist();" required >
                                             <!--<p class="help-block">Example block-level help text here.</p>-->
                                         </div>
-                                        <?php if(!isset($tabDetails)){ ?>
-                                        <div class="form-group">
-                                            <label>Upload Tablature File</label>
-                                            <input type ="file" class="form-control" name="tabFile" required/>
-                                        </div>
                                         <?php } ?>
+
+                                         <div id="divNewPassword" class="form-group">
+                                            <label>New password</label></br>
+											<input type="password" class="form-control" name="newPassword" id="newPassword"onblur="checkTabExist();" required  >
+                                            <!--<p class="help-block">Example block-level help text here.</p>-->
+                                        </div>
+
+                                         <div id="divNewPasswordRe" class="form-group">
+                                            <label>Re enter new password</label></br>
+											<input type="password" class="form-control" name="newPasswordRe" id="newPasswordRe" onblur="checkTabExist();" required  >
+                                            <!--<p class="help-block">Example block-level help text here.</p>-->
+                                        </div>
+
 										<div class="row">
 											
 											<div class="col-lg-6">
 												<div class="form-group col-centered">
-													<button type="submit"   href="addtask" style="width:160px" class="btn btn-primary"><?php echo $submitButton; ?></button>		
+													<button type="submit" style="width:160px" class="btn btn-primary">Change Password</button>		
 												</div>
 											</div>
 											<div class="col-lg-6">
 												<div class="form-group col-centered">
-													<a href="<?php echo $basepath_admin ?>tabs" style="width:160px" class="btn btn-danger">cancel</a>		
+													<a href="<?php echo $basepath_admin ?>asstasks" style="width:160px" class="btn btn-danger">cancel</a>		
 												</div>
 											</div>	
 																						

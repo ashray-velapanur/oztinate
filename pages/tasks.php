@@ -19,18 +19,28 @@
             </div>
             <!-- /.row -->
             <div class="row">
+                <form method="get" name="searchform">
+                    <div class="col-sm-12">
+                        <div id="dataTables-example_filter" class="dataTables_filter">
+                            <label style="margin-right: 10px;"><input type="text" class="form-control input-sm" name="taskName" placeholder="Search task" <?php if(isset($_GET["taskName"])){ echo "value=".$_GET['taskName']; }?>  ></label>
+                            
+                            <input type="submit" class="btn btn-sm btn-primary">
+                             <a href="<?php echo $basepath_admin ?>tasks" type="button" class="btn btn-sm btn-danger">Clear</a>
+                        </div>
+                   </div>
+               </form>
                 <div class="col-lg-12">
                         <div class="dataTable_wrapper">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
                                             <th>#Id</th>
-                                            <th>Exercise Name</th>
+                                            <th><a href="<?php echo $sortString ?>taskName&<?php echo $sortMode ?>">Exercise Name</a></th>
                                             <th>Min Duration(In Minutes)</th>
                                             <th>Practice Duration(In Minutes)</th>
 											<th>Details</th>
-                                            <th>Created by</th>
-											<th>Created at</th>
+                                            <th><a href="<?php echo $sortString ?>createdUser&<?php echo $sortMode ?>">Created by</a></th>
+											<th><a href="<?php echo $sortString ?>createdDate&<?php echo $sortMode ?>">Created at</a></th>
 											<th>Edit</th>
 											<th>Delete</th>
                                         </tr>
