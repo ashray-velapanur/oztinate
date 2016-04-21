@@ -15,7 +15,7 @@ class User{
 		}
 		else
 		{	
-			return array("status"=>"Error","message"=>"Invalid Username or Password");
+			return array("status"=>"Error","message"=>"Invalid Username or Password Please check with admin");
 		}
 	}
 	

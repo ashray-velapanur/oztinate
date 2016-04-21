@@ -59,13 +59,21 @@ class PNS{
 		switch($messageData["type"])
 		{
 			case "assign":
-							return "Hi ".$userName.", a new exercise has assigned to you";							
+							return "Hi ".$userName.", new exercise assigned...";							
 			case "status":
-							return "Hi ".$userName.", status for exercise ".$messageData["exercise"]." has changed to ".$messageData["newStatus"];	
+							if($messageData["newStatus"]=="Aborted")
+								return "Hi ".$userName.", ".$messageData["exercise"]." aborted by teacher";
+							if($messageData["newStatus"]=="Reopen")
+								return "Hi ".$userName.", ".$messageData["exercise"]." reopened by teacher";
+							if($messageData["newStatus"]=="Completed")	
+								return "Hi ".$userName.", ".$messageData["exercise"]." marked completed by teacher";
+
+							return "Hi ".$userName.", teacher changed ".$messageData["exercise"]." to ".$messageData["newStatus"];	
 			case "comment":
-							return "Hi ".$userName.", a new comment has added to your exercise ".$messageData["exercise"];
+							return "Hi ".$userName.", teacher has commented on ".$messageData["exercise"];
 			case "update":	
-							return "Hi ".$userName.", a task has been updated. Please refresh your app";
+							return "Hi ".$userName.", some tasks has been updated. Please refresh your app";
+
 			default:	return null;			
 		}		
 		

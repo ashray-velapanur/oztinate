@@ -6,10 +6,11 @@ $basePath="http://".$_SERVER['HTTP_HOST']. '/oztinate/';
 $basepath_admin = $basePath."admin/";
 
 include_once('functions.php');
+include('pnsCls.php');
 include_once('userCls.php');
 include_once('tabCls.php');
 include_once('taskCls.php');
 include_once('asstaskCls.php');
-include_once('pnsCls.php');
+include_once('pns/pusher.php');
 
 ?>

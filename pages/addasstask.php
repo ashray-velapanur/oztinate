@@ -37,25 +37,28 @@
                                         <div class="row">
                                             <div class="col-lg-6">                                          
                                                 <div class="form-group">
-                                                    <label>Practice Duration(In Minutes)</label>
+                                                    <label>Practice Duration</label>
                                                     <select <?php if(isset($assTask["practiceDuration"])){ echo "disabled='disabled'"; }else{$assTask["practiceDuration"]="";} ?> class="form-control" id="practiceDuration" name="practiceDuration"  required>
-                                                        <option <?php if(isset($assTask["practiceDuration"])){if($assTask["practiceDuration"]=="5") {echo 'selected="selected"'; }}?> value="5">5</option>
-                                                        <option <?php if(isset($assTask["practiceDuration"])){if($assTask["practiceDuration"]=="10") {echo 'selected="selected"'; }}?> value="10">10</option>
-                                                        <option <?php if(isset($assTask["practiceDuration"])){if($assTask["practiceDuration"]=="15") {echo 'selected="selected"'; }}?> value="15">15</option>
-                                                        <option <?php if(isset($assTask["practiceDuration"])){if($assTask["practiceDuration"]=="20") {echo 'selected="selected"'; }}?> value="20">20</option>
-                                                        <option <?php if(isset($assTask["practiceDuration"])){if($assTask["practiceDuration"]=="30") {echo 'selected="selected"'; }}?> value="30">30</option>
+                                                        <option <?php if(isset($assTask["practiceDuration"])){if($assTask["practiceDuration"]=="2") {echo 'selected="selected"'; }}?> value="2">2 Minutes</option>
+                                                        <option <?php if(isset($assTask["practiceDuration"])){if($assTask["practiceDuration"]=="4") {echo 'selected="selected"'; }}?> value="4">4 Minutes</option>
+                                                        <option <?php if(isset($assTask["practiceDuration"])){if($assTask["practiceDuration"]=="6") {echo 'selected="selected"'; }}?> value="6">6 Minutes</option>
+                                                        <option <?php if(isset($assTask["practiceDuration"])){if($assTask["practiceDuration"]=="8") {echo 'selected="selected"'; }}?> value="8">8 Minutes</option>
+                                                        <option <?php if(isset($assTask["practiceDuration"])){if($assTask["practiceDuration"]=="10") {echo 'selected="selected"'; }}?> value="10">10 Minutes</option>
+                                                        <option <?php if(isset($assTask["practiceDuration"])){if($assTask["practiceDuration"]=="20") {echo 'selected="selected"'; }}?> value="20">20 Minutes</option>
+                                                        <option <?php if(isset($assTask["practiceDuration"])){if($assTask["practiceDuration"]=="30") {echo 'selected="selected"'; }}?> value="30">30 Minutes</option>
+                                                        <option <?php if(isset($assTask["practiceDuration"])){if($assTask["practiceDuration"]=="40") {echo 'selected="selected"'; }}?> value="40">40 Minutes</option>
+                                                        <option <?php if(isset($assTask["practiceDuration"])){if($assTask["practiceDuration"]=="60") {echo 'selected="selected"'; }}?> value="60">1 Hour</option>
+                                                        <option <?php if(isset($assTask["practiceDuration"])){if($assTask["practiceDuration"]=="90") {echo 'selected="selected"'; }}?> value="90">1 1/2 Hours</option>
+                                                        <option <?php if(isset($assTask["practiceDuration"])){if($assTask["practiceDuration"]=="120") {echo 'selected="selected"'; }}?> value="120">2 Hours</option>
                                                     </select>   
                                                 </div>
                                             </div>  
                                             <div class="col-lg-6">
                                                 <div class="form-group">
-                                                    <label>Minimum Duration(In Minutes)</label>
+                                                    <label>Minimum Duration </label>
                                                     <select <?php if(isset($assTask["minDuration"])){ echo "disabled='disabled'"; }else{$assTask["minDuration"]="";} ?> class="form-control" id="minDuration" name="minDuration" required>
-                                                        <option <?php if(isset($assTask["minDuration"])){if($assTask["minDuration"]=="1") {echo 'selected="selected"'; }}?> value="1">1</option>
-                                                        <option <?php if(isset($assTask["minDuration"])){if($assTask["minDuration"]=="2") {echo 'selected="selected"'; }}?> value="2">2</option>
-                                                        <option <?php if(isset($assTask["minDuration"])){if($assTask["minDuration"]=="3") {echo 'selected="selected"'; }}?> value="3">3</option>
-                                                        <option <?php if(isset($assTask["minDuration"])){if($assTask["minDuration"]=="4") {echo 'selected="selected"'; }}?> value="4">4</option>
-                                                        <option <?php if(isset($assTask["minDuration"])){if($assTask["minDuration"]=="5") {echo 'selected="selected"'; }}?> value="5">5</option>
+                                                        <option <?php if(isset($assTask["minDuration"])){if($assTask["minDuration"]=="1") {echo 'selected="selected"'; }}?> value="1">1 Minute</option>
+                                                        <option <?php if(isset($assTask["minDuration"])){if($assTask["minDuration"]=="2") {echo 'selected="selected"'; }}?> value="2">2 Minute</option>
                                                     </select>
                                                 </div>
                                             </div>
