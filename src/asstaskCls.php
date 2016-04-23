@@ -306,6 +306,7 @@ class AssignedTask{
 	function getAllAsstask($limitFrom,$limitTo,$search=null){
 		$queryString="";
 		$orderString="";
+		$dateType = 0;
 		if(isset($search))
 		{	
 			$flag=false;
@@ -327,21 +328,82 @@ class AssignedTask{
 				}
 			}
 
+			if(isset($search["date_type"])&& $search["date_type"]!="")
+			{
+				$date_type=$search["date_type"];
+			}
+
+
+			if((isset($search["dateFrom"])&& $search["dateFrom"]!="")&&(isset($search["dateTo"])&& $search["dateTo"]!=""))
+			{
+				if($queryString=="")
+					$queryString="WHERE ";
+				else
+					$queryString.=" AND ";
+
+				$dateFrom = strtotime($search["dateFrom"]);
+				$dateFrom = date('Y-m-d',$dateFrom);
+
+				$dateTo = strtotime($search["dateTo"]);
+				$dateTo = date('Y-m-d',$dateTo);
+
+
+
+				if($date_type==0)
+					$queryString.="assignedDate BETWEEN '".$dateFrom."' AND '".$dateTo."'";
+				else if($date_type==1)
+					$queryString.="completionDate BETWEEN '".$dateFrom."' AND '".$dateTo."'";	
+
+			}else if((isset($search["dateFrom"])&& $search["dateFrom"]!="")){
+
+				if($queryString=="")
+					$queryString="WHERE ";
+				else
+					$queryString.=" AND ";
+
+				$dateFrom = strtotime($search["dateFrom"]);
+				$dateFrom = date('Y-m-d',$dateFrom);
+				if($date_type==0)
+					$queryString.="assignedDate > '".$dateFrom."'";
+				else if($date_type==1)
+					$queryString.="completionDate > '".$dateFrom."'";	
+
+			}else if((isset($search["dateTo"])&& $search["dateTo"]!="")){
+				
+				if($queryString=="")
+					$queryString="WHERE ";
+				else
+					$queryString.=" AND ";
+
+				$dateTo = strtotime($search["dateTo"]);
+				$dateTo = date('Y-m-d',$dateTo);
+				if($date_type==0)
+					$queryString.="assignedDate < '".$dateTo."'";
+				else if($date_type==1)
+					$queryString.="completionDate < '".$dateTo."'";	
+
+			}
+
 			if(isset($search["sort"])&& $search["sort"]!="")
 			{
 				if(isset($search["sortmode"])&&$search["sortmode"]=="AS")
 				{
 					$orderString = "ORDER BY ".$search["sort"]. " ASC";
 				}
-				else if(isset($search["sortmode"])&&$search["sortmode"]=="DS")				{
+				else if(isset($search["sortmode"])&&$search["sortmode"]=="DS"){
 					$orderString = "ORDER BY ".$search["sort"]. " DESC";
 				}
 			}
+
+			
+			
+
+			
 		}
 
 		//$queryString;	
 
-	 $query = "SELECT Id,task.taskName,users.userName,status,assignedDate,completionDate FROM assignedtask as asstask JOIN task ON asstask.taskId=task.taskId LEFT JOIN users ON asstask.userId=users.userId ".$queryString." ".$orderString." LIMIT ".$limitFrom.",".$limitTo;
+		$query = "SELECT Id,task.taskName,users.userName,status,assignedDate,completionDate FROM assignedtask as asstask JOIN task ON asstask.taskId=task.taskId LEFT JOIN users ON asstask.userId=users.userId ".$queryString." ".$orderString." LIMIT ".$limitFrom.",".$limitTo;
 		$result = mysql_query($query);
 		if($result)
 		{

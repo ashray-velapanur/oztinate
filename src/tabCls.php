@@ -15,6 +15,48 @@ Class Tab{
 				$flag=true;
 			}
 
+			if((isset($search["dateFrom"])&& $search["dateFrom"]!="")&&(isset($search["dateTo"])&& $search["dateTo"]!=""))
+			{
+				if($queryString=="")
+					$queryString="WHERE ";
+				else
+					$queryString.=" AND ";
+
+				$dateFrom = strtotime($search["dateFrom"]);
+				$dateFrom = date('Y-m-d',$dateFrom);
+
+				$dateTo = strtotime($search["dateTo"]);
+				$dateTo = date('Y-m-d',$dateTo);
+				
+				$queryString.="tablature
+.createdDate BETWEEN '".$dateFrom."' AND '".$dateTo."'";
+				
+			}else if((isset($search["dateFrom"])&& $search["dateFrom"]!="")){
+
+				if($queryString=="")
+					$queryString="WHERE ";
+				else
+					$queryString.=" AND ";
+
+				$dateFrom = strtotime($search["dateFrom"]);
+				$dateFrom = date('Y-m-d',$dateFrom);
+				$queryString.="tablature
+.createdDate > '".$dateFrom."'";
+
+			}else if((isset($search["dateTo"])&& $search["dateTo"]!="")){
+				
+				if($queryString=="")
+					$queryString="WHERE ";
+				else
+					$queryString.=" AND ";
+
+				$dateTo = strtotime($search["dateTo"]);
+				$dateTo = date('Y-m-d',$dateTo);
+				$queryString.="tablature
+.createdDate < '".$dateTo."'";
+
+			}
+
 
 			if(isset($search["sort"])&& $search["sort"]!="")
 			{
@@ -26,6 +68,8 @@ Class Tab{
 					$orderString = "ORDER BY ".$search["sort"]. " DESC";
 				}
 			}
+
+
 
 		}
 

@@ -249,6 +249,35 @@ function getAllTasks($limitFrom,$limitTo,$search=null)
 				}
 			}
 
+			if((isset($search["dateFrom"])&& $search["dateFrom"]!="")&&(isset($search["dateTo"])&& $search["dateTo"]!=""))
+			{
+
+				$dateFrom = strtotime($search["dateFrom"]);
+				$dateFrom = date('Y-m-d',$dateFrom);
+
+				$dateTo = strtotime($search["dateTo"]);
+				$dateTo = date('Y-m-d',$dateTo);
+				
+				$queryString.="AND task.createdDate BETWEEN '".$dateFrom."' AND '".$dateTo."'";
+				
+			}else if((isset($search["dateFrom"])&& $search["dateFrom"]!="")){
+
+				
+				$dateFrom = strtotime($search["dateFrom"]);
+				$dateFrom = date('Y-m-d',$dateFrom);
+				$queryString.="AND task.createdDate > '".$dateFrom."'";
+
+			}else if((isset($search["dateTo"])&& $search["dateTo"]!="")){
+				
+				$dateTo = strtotime($search["dateTo"]);
+				$dateTo = date('Y-m-d',$dateTo);
+				$queryString.="AND task.createdDate < '".$dateTo."'";
+
+			}
+
+
+
+
 		}
 
 	$query = "SELECT taskId,taskName,minDuration,practiceDuration,details,users.userName as createdUser,task.createdDate FROM task LEFT JOIN users ON task.createdUser=users.userId WHERE task.enabled=1 ".$queryString." ".$orderString." LIMIT ".$limitFrom.",".$limitTo;
