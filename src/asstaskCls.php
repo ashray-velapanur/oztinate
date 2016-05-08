@@ -6,10 +6,10 @@ class AssignedTask{
 			$data["createdUserId"] = $_SESSION["userId"];
 			
 		if(!isset($data["dateOfAssign"]))
-			$data["dateOfAssign"] = date('Y-m-d H:i:s');
+			$data["dateOfAssign"] = "NOW()";
 			
 		if(!isset($data["updatedId"]))
-			$data["updatedId"] = date('Y-m-d H:i:s');
+			$data["updatedId"] = "NOW()";
 		
 		if(!isset($data["userId"]))
 			$data["userId"] = $data["createdUserId"];
@@ -25,7 +25,7 @@ class AssignedTask{
 		if($newformat<date('Y-m-d'))
 			return array("status"=>"Error","message"=>"Error...!!! Invalid Completion date");
 			
-		$query="INSERT INTO assignedtask (taskId,userId,status,createdUserId,minDuration,practiceDuration,assignedDate,completionDate,isCreatedByUser,updatedId,createdDate) values(".$data["taskId"].",".$data["userId"].",".$data["status"].",".$data["createdUserId"].",".$data["minDuration"].",".$data["practiceDuration"].",'".$data["dateOfAssign"]."','".$newformat."','".$createdByUser."','".$data["updatedId"]."',NOW())";
+		$query="INSERT INTO assignedtask (taskId,userId,status,createdUserId,minDuration,practiceDuration,assignedDate,completionDate,isCreatedByUser,updatedId,createdDate) values(".$data["taskId"].",".$data["userId"].",".$data["status"].",".$data["createdUserId"].",".$data["minDuration"].",".$data["practiceDuration"].",".$data["dateOfAssign"].",'".$newformat."','".$createdByUser."',".$data["updatedId"].",NOW())";
 		//die; 
 		
 		if(mysql_query($query)) 
