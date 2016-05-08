@@ -85,7 +85,11 @@ function addTask($data)
 
 function updateTask($data){
 
-	$query = "UPDATE task SET taskName='".$data["taskName"]."', instruction='".$data["instruction"]."' WHERE taskId=".$data["txtTaskId"];
+	$durationUpdate = "";
+	if(isset($data["practiceDuration"]))
+		$durationUpdate =", practiceDuration=".$data["practiceDuration"];
+
+	$query = "UPDATE task SET taskName='".$data["taskName"]."', instruction='".$data["instruction"]."', practiceDuration=".$data["practiceDuration"].", minDuration=".$data["minDuration"]." WHERE taskId=".$data["txtTaskId"];
 	if(mysql_query($query)){
 
 		if(isset($data["tabIds"]))

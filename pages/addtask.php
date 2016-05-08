@@ -53,15 +53,17 @@ include("includes/header.php");
 												<div class="form-group">
 													<label>Practice Duration(In Minutes)</label>
 													<select <?php if($isTaskAssigned){ echo "disabled='disabled'"; } ?> class="form-control" name="practiceDuration" id="practiceDuration" required>
-														<option <?php if(isset($task["practiceDuration"])){if($task["practiceDuration"]=="1") {echo 'selected="selected"'; }}?> value="1">1</option>
-														<option <?php if(isset($task["practiceDuration"])){if($task["practiceDuration"]=="2") {echo 'selected="selected"'; }}?> value="2">2</option>
-														<option <?php if(isset($task["practiceDuration"])){if($task["practiceDuration"]=="3") {echo 'selected="selected"'; }}?> value="3">3</option>
-														<option <?php if(isset($task["practiceDuration"])){if($task["practiceDuration"]=="4") {echo 'selected="selected"'; }}?> value="4">4</option>
-														<option <?php if(isset($task["practiceDuration"])){if($task["practiceDuration"]=="5") {echo 'selected="selected"'; }}?> value="5">5</option>
-														<option <?php if(isset($task["practiceDuration"])){if($task["practiceDuration"]=="10") {echo 'selected="selected"'; }}?> value="10">10</option>
-														<option <?php if(isset($task["practiceDuration"])){if($task["practiceDuration"]=="15") {echo 'selected="selected"'; }}?> value="15">15</option>
-														<option <?php if(isset($task["practiceDuration"])){if($task["practiceDuration"]=="20") {echo 'selected="selected"'; }}?> value="20">20</option>
-														<option <?php if(isset($task["practiceDuration"])){if($task["practiceDuration"]=="30") {echo 'selected="selected"'; }}?> value="30">30</option>
+														<option <?php if(isset($task["practiceDuration"])){if($task["practiceDuration"]=="2") {echo 'selected="selected"'; }}?> value="2">2 minutes</option>
+														<option <?php if(isset($task["practiceDuration"])){if($task["practiceDuration"]=="4") {echo 'selected="selected"'; }}?> value="4">4 minutes</option>
+														<option <?php if(isset($task["practiceDuration"])){if($task["practiceDuration"]=="6") {echo 'selected="selected"'; }}?> value="6">6 minutes</option>
+														<option <?php if(isset($task["practiceDuration"])){if($task["practiceDuration"]=="8") {echo 'selected="selected"'; }}?> value="8">8 minutes</option>
+														<option <?php if(isset($task["practiceDuration"])){if($task["practiceDuration"]=="10") {echo 'selected="selected"'; }}?> value="10">10 minutes</option>
+														<option <?php if(isset($task["practiceDuration"])){if($task["practiceDuration"]=="20") {echo 'selected="selected"'; }}?> value="20">20 minutes</option>
+														<option <?php if(isset($task["practiceDuration"])){if($task["practiceDuration"]=="30") {echo 'selected="selected"'; }}?> value="30">30 minutes</option>
+														<option <?php if(isset($task["practiceDuration"])){if($task["practiceDuration"]=="40") {echo 'selected="selected"'; }}?> value="40">40 minutes</option>
+														<option <?php if(isset($task["practiceDuration"])){if($task["practiceDuration"]=="60") {echo 'selected="selected"'; }}?> value="60">1 Hours</option>
+														<option <?php if(isset($task["practiceDuration"])){if($task["practiceDuration"]=="90") {echo 'selected="selected"'; }}?> value="90">1 1/2 Hours</option>
+														<option <?php if(isset($task["practiceDuration"])){if($task["practiceDuration"]=="120") {echo 'selected="selected"'; }}?> value="120">2 Hours</option>
 													</select>	
 												</div>
 											</div>	
@@ -69,11 +71,8 @@ include("includes/header.php");
 												<div class="form-group">
 													<label>Minimum Duration(In Minutes)</label>
 													<select <?php if($isTaskAssigned){ echo "disabled='disabled'"; } ?> class="form-control"  id="minDuration" name="minDuration" required>
-														<option <?php if(isset($task["minDuration"])){if($task["minDuration"]=="1") {echo 'selected="selected"'; }}?> value="1">1</option>
-														<option <?php if(isset($task["minDuration"])){if($task["minDuration"]=="2") {echo 'selected="selected"'; }}?> value="2">2</option>
-														<option <?php if(isset($task["minDuration"])){if($task["minDuration"]=="3") {echo 'selected="selected"'; }}?> value="3">3</option>
-														<option <?php if(isset($task["minDuration"])){if($task["minDuration"]=="4") {echo 'selected="selected"'; }}?> value="4">4</option>
-														<option <?php if(isset($task["minDuration"])){if($task["minDuration"]=="5") {echo 'selected="selected"'; }}?> value="5">5</option>
+														<option <?php if(isset($task["minDuration"])){if($task["minDuration"]=="1") {echo 'selected="selected"'; }}?> value="1">1 minutes</option>
+														<option <?php if(isset($task["minDuration"])){if($task["minDuration"]=="2") {echo 'selected="selected"'; }}?> value="2">2 minutes</option>
 													</select>
 												</div>
 											</div>
