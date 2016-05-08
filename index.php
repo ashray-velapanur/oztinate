@@ -4,7 +4,7 @@ require("libs/paginator.php");
 require 'Slim/Slim.php';
  \Slim\Slim::registerAutoloader();
 //echo $approot = dirname(__FILE__); die;
-$app = new \Slim\Slim();
+$app = new \Slim\Slim(array('templates.path' => $_SERVER["DOCUMENT_ROOT"].'/oztinate/pages'));
 
 function response($data)
 {	//var_dump($data); die;
@@ -154,17 +154,18 @@ $app->map('/admin/login', function ()use($app){
    }
    else
    { 
-		 $app->render("../pages/login.php", array('status','Error','Message','Invalid Credentials..!!!'));
+		 $app->render("login.php", array('status','Error','Message','Invalid Credentials..!!!'));
    }
  }
  else
-	$app->render("../pages/login.php");
+ 	$app->render("login.php");
+	//$app->render("https://localhost/oztinate/pages/login.php");
 	
 })->via('GET', 'POST')->name('admin_login');
 
 $app->map('/admin/home', function ()use($app){
 	isAdminLoggedin($app);
-	$app->render("../pages/index.php");
+	$app->render("index.php");
 })->via('GET', 'POST')->name('admin_home');
 
 $app->map('/:tasks', function ($id)use($app){
@@ -215,7 +216,7 @@ $app->map('/:tasks', function ($id)use($app){
 	//var_dump(mysql_fetch_array($tasks));
 	$id = explode('/',$id);
 	$id = end($id);
-	$app->render("../pages/tasks.php", array("sortString"=>$sortString,"sortMode"=>$sortmode,"tasks"=>$tasks,"status"=>$id,"pageNumbers"=>$paginator->pageNumbers(), "itemsPerPage"=>$paginator->itemsPerPage()));
+	$app->render("tasks.php", array("sortString"=>$sortString,"sortMode"=>$sortmode,"tasks"=>$tasks,"status"=>$id,"pageNumbers"=>$paginator->pageNumbers(), "itemsPerPage"=>$paginator->itemsPerPage()));
 })->via('GET', 'POST')->name('tasks')->conditions((array("tasks"=>("admin/tasks/.*|admin/tasks"))));
 
 $app->get('/admin/deletetask/:id', function($id) use($app){
@@ -238,7 +239,7 @@ $app->map('/admin/addtask', function ()use($app){
 	}
 	$tab=new Tab();
 	$tabs = $tab->getAllTabs();	
-	$app->render("../pages/addtask.php",array("status"=>$status,"tabs"=>$tabs));
+	$app->render("addtask.php",array("status"=>$status,"tabs"=>$tabs));
 	
 })->via('GET', 'POST')->name('addtask');
 
@@ -274,7 +275,7 @@ $app->map('/admin/edittask/:id', function ($id)use($app){
 	}
 
 		
-	$app->render("../pages/addtask.php",array("status"=>$status,"tabs"=>$tabs,"task"=>$task,"isTaskAssigned"=>$isTaskAssigned,"taskTablatures"=>$taskTablatures));
+	$app->render("addtask.php",array("status"=>$status,"tabs"=>$tabs,"task"=>$task,"isTaskAssigned"=>$isTaskAssigned,"taskTablatures"=>$taskTablatures));
 	
 })->via('GET','POST')->name('edittask');
 
@@ -308,7 +309,7 @@ $app->get('/:users', function($id) use($app){
 	$users=$users->getAllUsers(($paginator->currentPage-1)*$paginator->itemsPerPage,$paginator->itemsPerPage);
 	$id = explode('/',$id);
 	$id = end($id);
-	$app->render("../pages/users.php", array("users"=>$users,"status"=>$id,"pageNumbers"=>$paginator->pageNumbers(), "itemsPerPage"=>$paginator->itemsPerPage()));
+	$app->render("users.php", array("users"=>$users,"status"=>$id,"pageNumbers"=>$paginator->pageNumbers(), "itemsPerPage"=>$paginator->itemsPerPage()));
 })->via('GET', 'POST', 'DELETE')->name('users')->conditions((array("users"=>("admin/users/.*|admin/users"))));
 
 $app->get('/admin/deleteuser/:id', function($id) use($app){
@@ -326,7 +327,7 @@ $app->map('/admin/adduser', function ()use($app){
 		$user=new User();
 		$status = $user->addUser($_POST);	
 	}
-	$app->render("../pages/adduser.php",array("status"=>$status));
+	$app->render("adduser.php",array("status"=>$status));
 })->via('GET', 'POST')->name('adduser');
 
 
@@ -353,7 +354,7 @@ $app->post('/admin/profile', function() use($app){
 			$status["message"]="Please enter current password";
 		}		
 	}
-	$app->render("../pages/profile.php",array("status"=>$status));
+	$app->render("profile.php",array("status"=>$status));
 })->via('GET', 'POST')->name('profile');
 
 $app->map('/:asstasks', function ($id)use($app){
@@ -413,7 +414,7 @@ $app->map('/:asstasks', function ($id)use($app){
 	$id = explode('/',$id);
 	$id = end($id);
 	//echo $pageNumbers = $paginator->pageNumbers(); die;
-	$app->render("../pages/asstasks.php", array("sortString"=>$sortString,"sortMode"=>$sortmode,"assTasks"=>$assTasks,"status"=>$id,"pageNumbers"=>$paginator->pageNumbers(), "itemsPerPage"=>$paginator->itemsPerPage()));
+	$app->render("asstasks.php", array("sortString"=>$sortString,"sortMode"=>$sortmode,"assTasks"=>$assTasks,"status"=>$id,"pageNumbers"=>$paginator->pageNumbers(), "itemsPerPage"=>$paginator->itemsPerPage()));
 })->via('GET', 'POST')->name('assTasks')->conditions((array("asstasks"=>("admin/asstasks/.*|admin/asstasks"))));
 
 //return pagination and message params
@@ -462,7 +463,7 @@ $app->map('/admin/addasstask', function ()use($app){
 	$task = new Task(); 
 	$users=$user->getUserNames();
 	$tasks=$task->getTaskNames();
-	$app->render("../pages/addasstask.php",array("status"=>$status,"users"=>$users,"tasks"=>$tasks));
+	$app->render("addasstask.php",array("status"=>$status,"users"=>$users,"tasks"=>$tasks));
 })->via('GET', 'POST')->name('addasstask');
 
 $app->map('/admin/editasstask/:id', function ($id)use($app){
@@ -486,7 +487,7 @@ $app->map('/admin/editasstask/:id', function ($id)use($app){
 	$assTasks = $assTask->getDetails($id);
 	//var_dump($assTasks); die;
 	if(isset($assTasks["status"])&& $assTasks["status"]<2)
-		$app->render("../pages/addasstask.php",array("status"=>$status,"users"=>$users,"tasks"=>$tasks,"assTask"=>$assTasks));
+		$app->render("addasstask.php",array("status"=>$status,"users"=>$users,"tasks"=>$tasks,"assTask"=>$assTasks));
 	else
 		$app->redirect("../../admin/asstasks/");		
 })->via('GET','POST')->name('editasstask');
@@ -520,7 +521,7 @@ $app->map('/admin/viewasstask/:id', function($id)use($app){
 	$soundClips = $assTasks->getSoundClips($id);
 	$tabs = $assTasks->getTabs($id);
 	
-	$app->render("../pages/viewasstask.php",array("taskData"=>$assTask,"tabs"=>$tabs,"comments"=>$comments,"soundClips"=>$soundClips,"statusChange"=>$statusChange));
+	$app->render("viewasstask.php",array("taskData"=>$assTask,"tabs"=>$tabs,"comments"=>$comments,"soundClips"=>$soundClips,"statusChange"=>$statusChange));
 })->via('GET', 'POST')->name('viewasstask');
 
 $app->post('/admin/addComment', function(){
@@ -576,7 +577,7 @@ $app->map('/:tabs', function ($id)use($app){
 	$tabList=$tabs->getAllTabs(($paginator->currentPage-1)*$paginator->itemsPerPage,$paginator->itemsPerPage,$_GET);
 	$id = explode('/',$id);
 	$id = end($id);
-	$app->render("../pages/tablature.php", array("sortString"=>$sortString,"sortMode"=>$sortmode,"tabs"=>$tabList,"status"=>$id,"pageNumbers"=>$paginator->pageNumbers(), "itemsPerPage"=>$paginator->itemsPerPage()));
+	$app->render("tablature.php", array("sortString"=>$sortString,"sortMode"=>$sortmode,"tabs"=>$tabList,"status"=>$id,"pageNumbers"=>$paginator->pageNumbers(), "itemsPerPage"=>$paginator->itemsPerPage()));
 	
 })->via('GET', 'POST')->name('tabs')->conditions((array("tabs"=>("admin/tabs/.*|admin/tabs"))));
 
@@ -590,7 +591,7 @@ $app->map('/admin/addtab', function ()use($app){
 		$tab=new Tab();
 		$status = $tab->addTab($_POST,$_FILES);	
 	}
-	$app->render("../pages/addtab.php",array("status"=>$status));
+	$app->render("addtab.php",array("status"=>$status));
 })->via('GET', 'POST')->name('addtab');
 
 $app->map('/admin/edittab/:id', function ($id)use($app){
@@ -607,7 +608,7 @@ $app->map('/admin/edittab/:id', function ($id)use($app){
 	}
 	$tabDetails = $tab->getDetails($id);
 
-	$app->render("../pages/addtab.php",array("status"=>$status,"tabDetails"=>$tabDetails));
+	$app->render("addtab.php",array("status"=>$status,"tabDetails"=>$tabDetails));
 
 })->via('GET', 'POST')->name('edittab');
 
