@@ -42,7 +42,7 @@ class User{
 	}
 	
 	function checkLoginStatus($token){
-		//echo "SELECT userId FROM users WHERE sessionToken='".$token."' AND loginStatus='Y'";
+		//echo "SELECT userId FROM users WHERE sessionToken='".$token."' AND loginStatus='Y'";die;
 		$result = mysql_query("SELECT userId FROM users WHERE sessionToken='".$token."' AND loginStatus='Y'");
 		if(mysql_num_rows($result))
 		{

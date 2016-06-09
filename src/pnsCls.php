@@ -81,7 +81,7 @@ class PNS{
 	
 	function push($messageData)
 	{
-		$airship = new Airship("WgrIyb-5R6iUAE6a6lukfQ", "Amf6Z0aMS2O3Miiff9NXtQ");
+		$airship = new Airship("p4hzFE_yTCSAKHcsH7NP9Q", "CfLjQaQgQveKv1Vrb23fPw");
 		$deviceDetails = $this->getDeviceToken($messageData["userId"]);
 		if(!$deviceDetails) return "Not set Push notifications"; 
 		

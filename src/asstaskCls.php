@@ -7,9 +7,14 @@ class AssignedTask{
 			
 		if(!isset($data["dateOfAssign"]))
 			$data["dateOfAssign"] = "NOW()";
+		else
+			$data["dateOfAssign"] = "'".$data["dateOfAssign"]."'";
 			
 		if(!isset($data["updatedId"]))
 			$data["updatedId"] = "NOW()";
+		else
+			$data["updatedId"] = "'".$data["updatedId"]."'";
+
 		
 		if(!isset($data["userId"]))
 			$data["userId"] = $data["createdUserId"];
@@ -40,7 +45,7 @@ class AssignedTask{
 			return array("status"=>"Success","assTaskId"=>$assTaskId,"message"=>"Exercise Assigned Successfully..!!!");
 		}	
 		else
-			return array("status"=>"Error","assTaskId"=>$assTaskId,"message"=>"Error...!!! Exercise is not assigned");
+			return array("status"=>"Error","assTaskId"=>null,"message"=>"Error...!!! Exercise is not assigned");
 		
 	}
 	
@@ -150,10 +155,10 @@ class AssignedTask{
 				return array("status"=>"Error","message"=>"Completion date is less than current date");
 				
 			
-			if($task->checkTaskExist($updatedTask["task"]["taskName"])=="true")
+			/*if($task->checkTaskExist($updatedTask["task"]["taskName"])=="true")
 			{
 					return array("status"=>"Error", "message"=>"Task already exist please change the task name");
-			}
+			}*/
 			
 			
 			
@@ -197,7 +202,7 @@ class AssignedTask{
 				}
 				else
 				{
-					return $updatedAssTaskIds = array("status"=>"Error","message"=> "Error on updating assignedTask Id:".$updatedTask["assignedTaskId"]);
+					return $updatedAssTaskIds = array("status"=>"Error","message"=>"Error on updating assignedTask Id:".$updatedTask["assignedTaskId"]);
 				}
 						
 			}	
