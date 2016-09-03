@@ -89,7 +89,7 @@ $basepath_admin = $basePath."admin/";
                         <li class="sidebar-search">
                         </li>
                         <li>
-                            <a href="<?php echo $basepath_admin ?>asstasks"><i class="fa fa-dashboard fa-fw"></i> Assigned Exercises</a>
+                            <a href="<?php echo $basepath_admin ?>asstasks?status=4"><i class="fa fa-dashboard fa-fw"></i> Assigned Exercises</a>
                         </li>
                         <li>
                             <a href="<?php echo $basepath_admin ?>tasks"><i class="fa fa-table fa-fw"></i> Exercises</a>

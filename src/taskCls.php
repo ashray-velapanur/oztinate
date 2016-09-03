@@ -34,7 +34,17 @@ function sync($data){
 function addTask($data)
 {
 	
-	
+	//Refresh button prevention ---Cheking last added task data is same as current submitting data
+    //Getting last record
+    $query= "select * from task order by createdDate desc limit 1";
+    $lastRecord = mysql_fetch_array(mysql_query($query));
+
+    if($data["taskName"]==$lastRecord["taskName"]&&$data["instruction"]==$lastRecord["instruction"]&&$data["minDuration"]==$lastRecord["minDuration"]&&$data["practiceDuration"]==$lastRecord["practiceDuration"]){
+
+    	return array("status"=>"Error","message"=>"We have already added this task");
+    }
+
+
 	
 	//var_dump($data);
 
@@ -89,7 +99,7 @@ function updateTask($data){
 	if(isset($data["practiceDuration"]))
 		$durationUpdate =", practiceDuration=".$data["practiceDuration"];
 
-	$query = "UPDATE task SET taskName='".$data["taskName"]."', instruction='".$data["instruction"]."', practiceDuration=".$data["practiceDuration"].", minDuration=".$data["minDuration"]." WHERE taskId=".$data["txtTaskId"];
+	$query = "UPDATE task SET taskName='".mysql_real_escape_string($data["taskName"])."', instruction='".mysql_real_escape_string($data["instruction"])."', practiceDuration=".$data["practiceDuration"].", minDuration=".$data["minDuration"]." WHERE taskId=".$data["txtTaskId"];
 	if(mysql_query($query)){
 
 		if(isset($data["tabIds"]))

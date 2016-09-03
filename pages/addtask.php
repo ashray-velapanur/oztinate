@@ -196,7 +196,8 @@ include("includes/header.php");
     <script src="<?php echo $basePath ?>dist/js/sb-admin-2.js"></script>
 	
 	<script type='text/javascript'>
-		<?php $js_array = json_encode($tabList);
+		<?php $js_array=(isset($tabList))?json_encode($tabList):"{}";
+
 		echo "var tabs=". $js_array . ";\n";
 		echo "var basepath='".$basepath_admin."';";		?>
 		console.log(tabs[0]);
@@ -211,6 +212,9 @@ include("includes/header.php");
 			}
 			else
 			{
+				//alert("dsfsdaf");
+				$("#practiceDuration").prop('disabled', false);
+				$("#minDuration").prop('disabled', false);
 				return true;
 			}
 		}	

@@ -120,7 +120,7 @@ $app->get('/pushtest', function(){
 
 $app->get('/:admin', function()use($app){
 	if(isset($_SESSION["userId"]))
-		$app->redirect($GLOBALS['basepath_admin'].'asstasks');
+		$app->redirect($GLOBALS['basepath_admin'].'asstasks?status=4');
 	else
 		$app->redirect($app->urlFor('admin_login'));	
 })->name('admin')->conditions((array("admin"=>("/*|admin/|admin"))));
@@ -150,7 +150,7 @@ $app->map('/admin/login', function ()use($app){
    {
 		$_SESSION["userId"]=$userdata["userId"];
 		$_SESSION["username"] = $_POST["username"];
-		$app->redirect($GLOBALS['basepath_admin'].'asstasks');
+		$app->redirect($GLOBALS['basepath_admin'].'asstasks?status=4');
    }
    else
    { 
@@ -649,7 +649,7 @@ function checkLoginStatus($token)
 	if($userId)
 		return $userId;
 	else
-		response(array("status"=>"Error","message"=>"Session not valid... Please login"));
+		response(array("status"=>"Error","message"=>"Session not valid/Invalid user please check with admin"));
 }
 
 $app->run();

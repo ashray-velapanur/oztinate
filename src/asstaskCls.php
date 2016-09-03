@@ -2,6 +2,8 @@
 class AssignedTask{
 
 	function assignTask($data,$createdByUser){
+	
+
 		if(!isset($data["createdUserId"]))
 			$data["createdUserId"] = $_SESSION["userId"];
 			
@@ -10,11 +12,10 @@ class AssignedTask{
 		else
 			$data["dateOfAssign"] = "'".$data["dateOfAssign"]."'";
 			
-		if(!isset($data["updatedId"]))
+		//if(!isset($data["updatedId"]))
 			$data["updatedId"] = "NOW()";
-		else
-			$data["updatedId"] = "'".$data["updatedId"]."'";
-
+		//else
+		//	$data["updatedId"] = "'".$data["updatedId"]."'";
 		
 		if(!isset($data["userId"]))
 			$data["userId"] = $data["createdUserId"];
@@ -28,7 +29,17 @@ class AssignedTask{
 		$time = strtotime($data["dateOfCompletion"]);
 		$newformat = date('Y-m-d',$time);	
 		if($newformat<date('Y-m-d'))
-			return array("status"=>"Error","message"=>"Error...!!! Invalid Completion date");
+			return array("status"=>"Error","message"=>"Error...!!! Invalid Deadline");
+
+			//Refresh button prevention ---Cheking last added task data is same as current submitting data
+    	//Getting last record
+    	$query= "select * from assignedtask order by createdDate desc limit 1";
+    	$lastRecord = mysql_fetch_array(mysql_query($query));
+
+	    if($data["taskId"]==$lastRecord["taskId"]&&$data["userId"]==$lastRecord["userId"]&&$data["createdUserId"]==$lastRecord["createdUserId"]&&$lastRecord["completionDate"]==$newformat&&$lastRecord["isCreatedByUser"]==$createdByUser){
+
+	    	return array("status"=>"Error","message"=>"We have already added this exercise for this user");
+	    }
 			
 		$query="INSERT INTO assignedtask (taskId,userId,status,createdUserId,minDuration,practiceDuration,assignedDate,completionDate,isCreatedByUser,updatedId,createdDate) values(".$data["taskId"].",".$data["userId"].",".$data["status"].",".$data["createdUserId"].",".$data["minDuration"].",".$data["practiceDuration"].",".$data["dateOfAssign"].",'".$newformat."','".$createdByUser."',".$data["updatedId"].",NOW())";
 		//die; 
@@ -53,7 +64,7 @@ class AssignedTask{
 	{
 		$time = strtotime($data["dateOfCompletion"]);
 		$newformat = date('Y-m-d',$time);	
-		if($newformat<=date('Y-m-d'))
+		if($newformat<date('Y-m-d'))
 			return array("status"=>"Error","message"=>"Error...!!! Invalid Completion date");
 			
 		if(mysql_query("update assignedtask set completionDate='".$newformat."',updatedId=NOW() where Id=".$data["txtAssTaskId"]))
@@ -137,11 +148,15 @@ class AssignedTask{
 				return array("status"=>"Error","message"=>"Assigned: ".$updatedTask["assignedTaskId"].". not updated");
 			}
 			
-			//This function will insert check soundclips existing, insert if itsnot and return existing and inserted IDS
+			//This function will insert check soundclips existing, if itsnot and return existing and inserted IDS
 			$soundClipDetails = $this->addSoundClips($updatedTask["soundClips"],$updatedTask["assignedTaskId"]);
 			
 			return array("status"=>"Success","taskStatus"=>array("status"=>"Success","updatedTasks"=>array("oldTaskId"=>"","newTaskId"=>"")),"assignedTaskStatus"=>array("status"=>"Success","updatedAssTask"=>array("oldAssTask"=>"","newAssTaskId"=>"")),"soundClipStatus"=>array("status"=>"Success","updatedSoundClips"=>$soundClipDetails[0],"extingSoundClips"=>$soundClipDetails[1]));
 			//return array("status"=>"Success","updatedSoundClips"=>$updatedSoundClipIds);
+
+			//Send task update email
+			//$email = new EmailFunctions();
+			//$email->sendTaskUpdateEmail($updatedTask);
 		}
 		else
 		{
@@ -202,7 +217,7 @@ class AssignedTask{
 				}
 				else
 				{
-					return $updatedAssTaskIds = array("status"=>"Error","message"=>"Error on updating assignedTask Id:".$updatedTask["assignedTaskId"]);
+					return $updatedAssTaskIds = array("status"=>"Error","message"=> "Error on updating assignedTask Id:".$updatedTask["assignedTaskId"]);
 				}
 						
 			}	
@@ -509,7 +524,7 @@ class AssignedTask{
 	
 	function addComment($data)
 	{
-		$query="insert into comments (assignedTaskId,commentUser,commentText,createdDate) values(".$data["assTaskId"].",".$data["userId"].",'".$data["comment"]."',NOW())";
+		$query="insert into comments (assignedTaskId,commentUser,commentText,createdDate) values(".$data["assTaskId"].",".$data["userId"].",'".mysql_real_escape_string($data["comment"])."',NOW())";
 		
 		if(mysql_query($query)) 
 		{
@@ -561,7 +576,7 @@ class AssignedTask{
 	
 	function getSoundClips($taskId)
 	{
-		$query = "select * from soundclip where assignedTaskId=".$taskId;
+		$query = "select * from soundclip where assignedTaskId=".$taskId." order by createdDate asc";
 		$result = mysql_query($query);
 		if($result)
 		{

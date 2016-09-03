@@ -72,7 +72,7 @@
 											</select>
                                         </div>
 										<div class="form-group">
-											<label>Completion Date</label>
+											<label>Deadline</label>
 											<input class="form-control" id="dateOfCompletion" name="dateOfCompletion" <?php if(isset($assTask["completionDate"])){ echo 'value="'.date("m/d/Y",strtotime($assTask["completionDate"])).'"';} ?> required/>
 										</div>
 																						

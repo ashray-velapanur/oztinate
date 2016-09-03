@@ -15,7 +15,7 @@
 									<?php if($status=="Success") {?>
 										<div class="alert alert-success">New User Added Successfully..!!!</div>
 									<?php } else if($status=="Error") {?>	
-										<div class="alert alert-danger">Error...!!! User is not added</div>
+										<div class="alert alert-danger">Error...!!! User is not added or user already exist</div>
 									<?php } ?>	
                                     <form role="form" method="post">
 										<div class="form-group">

@@ -35,7 +35,7 @@
                             <label style="margin-right: 0px;">
                                 <select type="search" name="date_type" class="form-control input-sm">
                                      <option value="0">Assigned date</option>
-                                      <option value="1">Completeion date</option>
+                                      <option <?php if(isset($_GET["date_type"])&&$_GET["date_type"]==1) echo "selected=selected" ?> value="1">Deadline</option>
                                 </select>
                             </label>    
                             <label style="margin-right: 5px; width: 100px;"><input type="text" class="form-control input-sm" name="dateFrom" id="dateFrom" placeholder="Date from" <?php if(isset($_GET["dateFrom"])){ echo "value=".$_GET['dateFrom']; }?>  ></label>
@@ -56,7 +56,7 @@
                                             <th><a href="<?php echo $sortString ?>userName&<?php echo $sortMode ?>">Assigned To</a></th>
                                             <th> <a href="<?php echo $sortString ?>status&<?php echo $sortMode ?>">Status</a></th>
 											<th> <a href="<?php echo $sortString ?>assignedDate&<?php echo $sortMode ?>">Assigned Date</a></th>
-											<th> <a href="<?php echo $sortString ?>completionDate&<?php echo $sortMode ?>">Completion Date</a></th>
+											<th> <a href="<?php echo $sortString ?>completionDate&<?php echo $sortMode ?>">Deadline</a></th>
 											<th>Edit</th>
 											<th>Delete</th>
                                         </tr>

@@ -42,7 +42,7 @@ class User{
 	}
 	
 	function checkLoginStatus($token){
-		//echo "SELECT userId FROM users WHERE sessionToken='".$token."' AND loginStatus='Y'";die;
+		//echo "SELECT userId FROM users WHERE sessionToken='".$token."' AND loginStatus='Y'";
 		$result = mysql_query("SELECT userId FROM users WHERE sessionToken='".$token."' AND loginStatus='Y'");
 		if(mysql_num_rows($result))
 		{
@@ -57,6 +57,12 @@ class User{
 	
 	function addUser($data)
 	{
+		//check user already exist
+		if($this->checkUserExist($data["userName"]))
+		{
+			return "Error";
+		}
+
 		$password = sha1($data["password"]);
 		//$password = $data["password"];
 		$query = "INSERT INTO users (userName,password,userType,createdDate) values('".$data["userName"]."','".$password."',".$data["userType"].",NOW())";
@@ -66,6 +72,16 @@ class User{
 			return "Success";
 		else
 			return "Error";
+	}
+
+	function checkUserExist($userName)
+	{
+		//echo "SELECT EXISTS(SELECT 1 FROM user WHERE userName = '".$userName."')";die;
+		$result = mysql_query("SELECT * FROM users WHERE userName = '".$userName."'");
+		if(mysql_num_rows($result)>0)
+			return true;
+		else
+			return false;
 	}
 	
 	function deleteUser($id)

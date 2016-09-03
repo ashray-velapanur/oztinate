@@ -138,7 +138,7 @@ Class Tab{
 			return array("status"=>"Error","message"=>"Error...!!! Tablature is already exist");
 		}
 
-		$query = "UPDATE tablature SET name='".$data["tabName"]."', updatedId=NOW() WHERE tabId=".$data["txtTabId"];
+		$query = "UPDATE tablature SET name='".mysql_real_escape_string($data["tabName"])."', updatedId=NOW() WHERE tabId=".$data["txtTabId"];
 		if(mysql_query($query))
 		{
 
@@ -151,7 +151,7 @@ Class Tab{
 	}
 
 	function addTab($data,$files){
-	
+
 		if($this->checkTabExist($data["tabName"])=="true")
 		{
 			return array("status"=>"Error","message"=>"Error...!!! Tablature is already exist");
@@ -162,7 +162,7 @@ Class Tab{
 		//var_dump($imagesizedata); die();
 		if(!$imagesizedata)
 		{
-			return array("status"=>"Error","message"=>"Error...!!! Uploaded file is not an images");
+			return array("status"=>"Error","message"=>"Error...!!! Uploaded file is not an image");
 			
 		}
 
@@ -175,7 +175,8 @@ Class Tab{
 		
 		//echo  dirname($_SERVER["REQUEST_URI"]);  echo $_SERVER["DOCUMENT_ROOT"]; 
 		
-		$query = "INSERT INTO tablature (name,updatedId,createdUser,createdDate) values('".$data["tabName"]."',NOW(),".$_SESSION["userId"].",NOW())"; 
+		$query = "INSERT INTO tablature (name,updatedId,createdUser,createdDate) values('".mysql_real_escape_string($data["tabName"])."',NOW(),".$_SESSION["userId"].",NOW())"; 
+
 		$result = mysql_query($query) or die(mysql_error());
 		$id = mysql_insert_id();
 		if($result)
@@ -224,7 +225,7 @@ Class Tab{
 			move_uploaded_file($tmp_name, "$uploads_dir/$name");
 			$result = mysql_query("select tabId from tablature where tabId='".$tabId."'");
 			if(!mysql_num_rows($result))
-				return array("status"=>"Error","tabId"=>$tabId,message=>"Invalid clip Id. Please check your Clip Id");
+				return array("status"=>"Error","tabId"=>$tabId,"message"=>"Invalid clip Id. Please check your Clip Id");
 			
 			//$asstaskId = mysql_fetch_array($result);
 			//$asstaskId = $asstaskId["assignedTaskId"];
@@ -232,15 +233,15 @@ Class Tab{
 			$query = "update tablature set tabUrl='$fileUrl' where tabId=".$tabId;
 			if(!mysql_query($query))
 			{
-				return array("status"=>"Error","tabId"=>$tabId,message=>"Details update error.Please check file name");
+				return array("status"=>"Error","tabId"=>$tabId,"message"=>"Details update error.Please check file name");
 			}
 			else{
 			
-				return array("status"=>"Success","tabId"=>$tabId,message=>"");
+				return array("status"=>"Success","tabId"=>$tabId,"message"=>"");
 			}	
 		}
 		else{
-				return array("status"=>"Error","tabId"=>$tabId,message=>"File upload error. please upload again");
+				return array("status"=>"Error","tabId"=>$tabId,"message"=>"File upload error. please upload again");
 			}	
 	}*/
 	
@@ -266,7 +267,7 @@ Class Tab{
 				move_uploaded_file($tmp_name, "$uploads_dir/$name");
 				$result = mysql_query("select tabId from tablature where tabId='".$tabId."'");
 				if(mysql_num_rows($result)<=0){
-					array_push($response,array("status"=>"Error","tabId"=>$tabId,message=>"Invalid clip Id. Please check your Clip Id"));
+					array_push($response,array("status"=>"Error","tabId"=>$tabId,"message"=>"Invalid clip Id. Please check your Clip Id"));
 					continue;	
 				}
 				//$asstaskId = mysql_fetch_array($result);
@@ -275,15 +276,15 @@ Class Tab{
 				$query = "update tablature set tabUrl='$fileUrl' where tabId=".$tabId;
 				if(!mysql_query($query))
 				{
-					array_push($response,array("status"=>"Error","tabId"=>$tabId,message=>"Details update error.Please check file name"));
+					array_push($response,array("status"=>"Error","tabId"=>$tabId,"message"=>"Details update error.Please check file name"));
 				}
 				else{
 					$flag=true;
-					array_push($response,array("status"=>"Success","tabId"=>$tabId,"tabUrl"=>$fileUrl,message=>""));
+					array_push($response,array("status"=>"Success","tabId"=>$tabId,"tabUrl"=>$fileUrl,"message"=>""));
 				}	
 			}
 			else{
-					array_push($response,array("status"=>"Error","tabId"=>$tabId,message=>"File upload error. please upload again"));
+					array_push($response,array("status"=>"Error","tabId"=>$tabId,"message"=>"File upload error. please upload again"));
 				}
 		}
 			if($flag)

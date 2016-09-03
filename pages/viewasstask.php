@@ -85,7 +85,7 @@
 									</div>
 									<div class="col-lg-6">
 										<div class="stat-block">
-		                                    <h4 class="stat-heading text-muted">Completion Date</h4>
+		                                    <h4 class="stat-heading text-muted">Deadline</h4>
 		                                    <h3 id="vehicle-yearmakemodel"><?php echo $taskData["completionDate"] ?></h3>
 		                                </div>
 										
@@ -209,6 +209,7 @@
 														<th>Upload Status</th>
 														<th>Clip Url</th>
 														<th>Download</th>
+														<th>Upload Time</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -218,6 +219,7 @@
 														<td><?php if($row["uploadStatus"]=="Y") echo "Uploaded"; else echo "Upload Pending"; ?></td>
 														<td><a target="_blank" href="<?php echo $row["clipUrl"] ?>"><?php echo $row["clipUrl"] ?></a></td>
 														<td><?php if($row["uploadStatus"]=="Y"){ ?><a  href="../../<?php echo "uploads/download.php?path=".$row["clipUrl"] ?>">Download</a><?php } else{ echo "File not uploaded";} ?></td>
+														<td><?php echo $row["createdDate"]?></td>
 													</tr>
 												<?php }?>	
 												</tbody>
