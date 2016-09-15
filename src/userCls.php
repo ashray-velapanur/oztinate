@@ -31,8 +31,6 @@ class User{
 		$query = "SELECT userId FROM users WHERE userType<2 AND userName='".$post["username"]."'".$queryString;
 		print($query);
 		$result = mysql_query($query);
-		print($result);
-		print(mysql_num_rows($result));
 		if($result)
 		if(mysql_num_rows($result))
 		{	
