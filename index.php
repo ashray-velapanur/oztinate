@@ -139,6 +139,58 @@ $app->post('/admin/resetUserPassword', function(){
 		
 });
 
+$app->get('/teacher/signup', function()use($app){
+ if($_SERVER['REQUEST_METHOD']=="POST")
+ {
+ 	$userdata = $_POST;
+ 	$userdata['userType'] = 3;
+	$user=new User();
+	$status = $user->addUser($userdata);
+ }
+	$app->render("teachersignup.php");
+})->via('GET', 'POST');
+
+$app->get('/teacher/login', function()use($app){
+ if($_SERVER['REQUEST_METHOD']=="POST")
+ {
+ 	$user = new User();
+ 	$userdata=$user->teacherLogin($_POST);
+ 	if($userdata) {
+		$_SESSION["username"] = $_POST["username"];
+		$_SESSION["userid"] = $userdata["userId"];
+ 		$app->redirect("/teacher/home"); 		
+ 	} else {
+ 		error_log("not allowed");
+ 	}
+ }
+	$app->render("teacherlogin.php");
+})->via('GET', 'POST');
+
+$app->get('/teacher/home', function()use($app){
+	isTeacherLoggedin($app);
+	$params = array("username"=>$_SESSION['username']);
+	$app->render("teacherhome.php", $params);
+})->via('GET', 'POST');
+
+$app->get('/teacher/logout', function()use($app){
+   if(isset($_SESSION["userid"]))
+   {
+	 session_unset();
+	 $app->redirect("/teacher/login");
+   }
+  
+});
+
+function isTeacherLoggedin($app) {
+	# check if user is in db and is a teacher
+	if (isset($_SESSION["userid"])) {
+		return true;
+	} else {
+		error_log('not logged in');
+		$app->redirect("/teacher/login");
+	}
+}
+
 $app->map('/admin/login', function ()use($app){
  if($_SERVER['REQUEST_METHOD']=="POST")
  {

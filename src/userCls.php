@@ -19,6 +19,22 @@ class User{
 		}
 	}
 	
+	function teacherLogin($post)
+	{
+		$query = mysql_query("SELECT * FROM users WHERE userType=3 AND userName='".$post["username"]."'");
+		if(mysql_num_rows($query)) {
+			$result = mysql_fetch_array($query);
+			if (sha1($post["password"]) == $result["password"]) {
+				return $result;
+			} else {
+				return null;
+			}
+
+		} else {
+			return null;
+		}
+	}
+
 	function adminLogin($post)
 	{
 		$queryString  =  " AND password='".sha1($post["password"])."'";
