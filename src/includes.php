@@ -2,7 +2,7 @@
 session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-@mysql_connect("localhost","root","2e7i8hl2VH");
+@mysql_connect("localhost","bofypyis_admin","0zt1natedbadm1n");
 mysql_select_db("bofypyis_oztinate_dev");
 $basePath="http://".$_SERVER['HTTP_HOST']. '/oztinate_dev/';
 $basepath_admin = $basePath."admin/";
