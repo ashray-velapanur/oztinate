@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <?php //include("src/functions.php");
-$basePath="http://".$_SERVER['HTTP_HOST']. '/oztinate/';
+$basePath="http://".$_SERVER['HTTP_HOST']. '/oztinate_dev/';
 $basepath_admin = $basePath."admin/";
 ?>
 <html lang="en">

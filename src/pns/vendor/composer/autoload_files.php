@@ -6,7 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    $vendorDir . '/urbanairship/urbanairship/src/UrbanAirship/Push/Audience.php',
-    $vendorDir . '/urbanairship/urbanairship/src/UrbanAirship/Push/Notification.php',
-    $vendorDir . '/urbanairship/urbanairship/src/UrbanAirship/Push/Schedule.php',
+    #$vendorDir . '/urbanairship/urbanairship/src/UrbanAirship/Push/Audience.php',
+    #$vendorDir . '/urbanairship/urbanairship/src/UrbanAirship/Push/Notification.php',
+    #$vendorDir . '/urbanairship/urbanairship/src/UrbanAirship/Push/Schedule.php',
 );

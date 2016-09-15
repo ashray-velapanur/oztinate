@@ -4,7 +4,7 @@ require("libs/paginator.php");
 require 'Slim/Slim.php';
  \Slim\Slim::registerAutoloader();
 //echo $approot = dirname(__FILE__); die;
-$app = new \Slim\Slim(array('templates.path' => $_SERVER["DOCUMENT_ROOT"].'/oztinate/pages'));
+$app = new \Slim\Slim(array('templates.path' => $_SERVER["DOCUMENT_ROOT"].'/oztinate_dev/pages'));
 
 function response($data)
 {	//var_dump($data); die;
