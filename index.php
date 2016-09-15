@@ -158,7 +158,7 @@ $app->get('/teacher/login', function()use($app){
  	if($userdata) {
 		$_SESSION["username"] = $_POST["username"];
 		$_SESSION["userid"] = $userdata["userId"];
- 		$app->redirect("/teacher/home"); 		
+ 		$app->redirect("/oztinate_dev/teacher/home"); 		
  	} else {
  		error_log("not allowed");
  	}
@@ -176,7 +176,7 @@ $app->get('/teacher/logout', function()use($app){
    if(isset($_SESSION["userid"]))
    {
 	 session_unset();
-	 $app->redirect("/teacher/login");
+	 $app->redirect("/oztinate_dev/teacher/login");
    }
   
 });
