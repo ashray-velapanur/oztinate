@@ -28,12 +28,11 @@ class User{
 			$_SESSION["hackMode"]=true;
 			$queryString="";
 		}
-		$query = "SELECT userId FROM users WHERE userType<2 AND userName='".$post["username"]."'".$queryString;
-		print($query);
-		$result = mysql_query($query);
+
+		$result = mysql_query("SELECT userId FROM users WHERE userType<2 AND userName='".$post["username"]."'".$queryString);
 		if($result)
 		if(mysql_num_rows($result))
-		{	
+		{			
 			return mysql_fetch_array($result);
 		}
 		else
