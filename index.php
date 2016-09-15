@@ -142,6 +142,7 @@ $app->post('/admin/resetUserPassword', function(){
 $app->map('/admin/login', function ()use($app){
  if($_SERVER['REQUEST_METHOD']=="POST")
  {
+   print("posting");
    $user = new User();
    $_POST['data']['type']="admin";
    $userdata=$user->adminLogin($_POST);
@@ -150,14 +151,17 @@ $app->map('/admin/login', function ()use($app){
    {
 		$_SESSION["userId"]=$userdata["userId"];
 		$_SESSION["username"] = $_POST["username"];
+		print("redirecting");
 		$app->redirect($GLOBALS['basepath_admin'].'asstasks?status=4');
    }
    else
    { 
+   		 print("invalid user");
 		 $app->render("login.php", array('status','Error','Message','Invalid Credentials..!!!'));
    }
  }
  else
+ 	print("back to login");
  	$app->render("login.php");
 	//$app->render("https://localhost/oztinate/pages/login.php");
 	
