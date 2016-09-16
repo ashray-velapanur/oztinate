@@ -16,5 +16,21 @@ class Teacher{
 		else
 			return false;
 	}
+
+	function getStudents($teacherid) {
+		$query = "SELECT username FROM teachers INNER JOIN users ON teachers.studentid = users.userid WHERE teacherid=".$teacherid;
+		error_log($query);
+		$result = mysql_query($query)or die(mysql_error());
+		if($result) {
+			$students = array();
+			while ($row = mysql_fetch_assoc($result)) {
+	       		array_push($students, $row['username']);
+	        }
+	        return $students;
+		} else {
+			return false;
+		}
+	}
+
 }
 ?>

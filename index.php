@@ -183,7 +183,10 @@ $app->get('/teacher/login', function()use($app){
 
 $app->get('/teacher/home', function()use($app){
 	isTeacherLoggedin($app);
-	$params = array("username"=>$_SESSION['username']);
+	$teacherid = $_SESSION["userid"];
+	$teacher = new Teacher();
+	$students = $teacher->getStudents($teacherid);
+	$params = array("username"=>$_SESSION['username'], "students"=>$students);
 	$app->render("teacherhome.php", $params);
 })->via('GET', 'POST');
 
