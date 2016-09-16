@@ -142,13 +142,28 @@ $app->post('/admin/resetUserPassword', function(){
 $app->get('/teacher/signup', function()use($app){
  if($_SERVER['REQUEST_METHOD']=="POST")
  {
- 	$userdata = $_POST;
- 	$userdata['userType'] = 3;
-	$user=new User();
-	$status = $user->addUser($userdata);
+ 	$teacher = new Teacher();
+	$status = $teacher->addTeacher($_POST);
  }
 	$app->render("teachersignup.php");
 })->via('GET', 'POST');
+
+$app->get('/teacher/invite', function()use($app){
+ if($_SERVER['REQUEST_METHOD']=="POST")
+ {
+ 	$user = new User();
+ 	$data["password"] = "pass";
+ 	$data["userType"] = 2;
+ 	$data["userName"] = $_POST["username"];
+ 	$studentid = $user->addUser($data);
+
+ 	$teacher = new Teacher();
+ 	$teacherid = $_SESSION["userid"];
+ 	$teacher->assignTeacher($teacherid, $studentid);
+ }
+ 	$app->render("teacherinvite.php");
+})->via('GET', 'POST');
+
 
 $app->get('/teacher/login', function()use($app){
  if($_SERVER['REQUEST_METHOD']=="POST")

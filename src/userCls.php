@@ -76,7 +76,7 @@ class User{
 		//check user already exist
 		if($this->checkUserExist($data["userName"]))
 		{
-			return "Error";
+			return false;
 		}
 
 		$password = sha1($data["password"]);
@@ -85,9 +85,9 @@ class User{
 		$result = mysql_query($query)or die(mysql_error());
 		
 		if($result) 
-			return "Success";
+			return mysql_insert_id();
 		else
-			return "Error";
+			return false;
 	}
 
 	function checkUserExist($userName)
