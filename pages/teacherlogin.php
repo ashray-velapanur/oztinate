@@ -45,10 +45,12 @@
                         <form role="form" method="post" action="">
                             <!-- <fieldset> -->
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Username" name="username" type="text" autofocus>
+                                    <label for="username">Username</label>
+                                    <input class="form-control" name="username" type="text" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                    <label for="Password">Password</label>
+                                    <input class="form-control" name="password" type="password" value="">
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
                                 <input type="submit" value="Login" class="btn btn-lg btn-success btn-block"/>

@@ -39,16 +39,14 @@
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Invite Student</h3>
+                        <h3 class="panel-title">Invite Students</h3>
                     </div>
                     <div class="panel-body">
                         <form role="form" method="post" action="">
                             <!-- <fieldset> -->
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Username" name="username" type="text" autofocus>
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="Email" name="email" type="text" autofocus>
+                                    <label for="email">Email</label>
+                                    <input class="form-control" name="email" type="text" autofocus>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
                                 <input type="submit" value="Send Invite" class="btn btn-lg btn-success btn-block"/>

@@ -94,6 +94,7 @@ class User{
 	{
 		//echo "SELECT EXISTS(SELECT 1 FROM user WHERE userName = '".$userName."')";die;
 		$result = mysql_query("SELECT * FROM users WHERE userName = '".$userName."'");
+		if($result)
 		if(mysql_num_rows($result)>0)
 			return true;
 		else

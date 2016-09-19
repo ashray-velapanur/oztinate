@@ -43,27 +43,19 @@
                     </div>
                     <div class="panel-body">
                         <form role="form" method="post" action="">
-                            <!-- <fieldset> -->
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Name" name="name" type="text" autofocus>
-                                </div>
-                                <div class="form-group">
-                                    <input class="form-control" placeholder="Email" name="userName" type="text" autofocus>
+                                    <label for="name">Name</label>
+                                    <input class="form-control" name="name" type="text" autofocus>
                                 </div>
                                 <div class="form-group">
-                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                    <label for="email">Email</label>
+                                    <input class="form-control" name="email" type="text" autofocus>
                                 </div>
-<!--                                 <div class="form-group hidden">
-                                    <input class="form-control" placeholder="User Type" name="userType" type="text" value="0">
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input class="form-control" name="password" type="password" value="">
                                 </div>
- -->                               <!-- <div class="checkbox">
-                                    <label>
-                                        <input name="remember" type="checkbox" value="Remember Me">Remember Me
-                                    </label>
-                                </div>-->
-                                <!-- Change this to a button or input when using this as a form -->
                                 <input type="submit" value="Signup" class="btn btn-lg btn-success btn-block"/>
-                            <!-- </fieldset> -->
                         </form>
                     </div>
                 </div>

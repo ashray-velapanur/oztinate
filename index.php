@@ -154,7 +154,7 @@ $app->get('/teacher/invite', function()use($app){
  	$user = new User();
  	$data["password"] = "pass";
  	$data["userType"] = 2;
- 	$data["userName"] = $_POST["username"];
+ 	$data["userName"] = $_POST["email"];
  	$studentid = $user->addUser($data);
 
  	$teacher = new Teacher();

@@ -3,6 +3,7 @@ class Teacher{
 
 	function addTeacher($data) {
 		$data["userType"] = 3;
+		$data["userName"] = $_POST["email"];
 		$user = new User();
 		$status = $user->addUser($data);
 		error_log($status);
