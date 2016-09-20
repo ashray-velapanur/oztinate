@@ -16,7 +16,7 @@
                             <!-- <fieldset> -->
                                 <div class="form-group">
                                     <label for="username">Username</label>
-                                    <input class="form-control" name="username" type="text" autofocus>
+                                    <input class="form-control" name="userName" type="text" autofocus>
                                 </div>
                                 <div class="form-group">
                                     <label for="Password">Password</label>

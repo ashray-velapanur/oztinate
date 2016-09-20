@@ -21,7 +21,7 @@ class User{
 	
 	function teacherLogin($post)
 	{
-		$query = mysql_query("SELECT * FROM users WHERE userType=3 AND userName='".$post["username"]."'");
+		$query = mysql_query("SELECT * FROM users WHERE userType=3 AND userName='".$post["userName"]."'");
 		if(mysql_num_rows($query)) {
 			$result = mysql_fetch_array($query);
 			if (sha1($post["password"]) == $result["password"]) {
