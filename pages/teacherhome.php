@@ -6,8 +6,13 @@
 <body>
     <div class="container">
         <div class="row" style="display: flex; align-items: center;">
-            <div class="col-md-2">
-                <h1>Oztinate</h1>
+            <div class="col-md-12">
+                <h1 class="page-header">Oztinate</h1>
+            </div>
+        </div>
+        <div class="row" style="display: flex; align-items: center;">
+            <div class="col-md-8">
+                <h3>Students</h3>
             </div>
             <div class="col-md-8">
             </div>
@@ -23,6 +28,8 @@
         		<table class="table">
             		<tr>
             			<th>Name</th>
+                        <th>Name</th>
+                        <th>Name</th>
             			<th>Password</th>
             		</tr>
 				    <?php foreach($data["students"] as $student): ?>
