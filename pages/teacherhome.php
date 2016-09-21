@@ -17,10 +17,12 @@
             <div class="col-md-8">
             </div>
             <div class="col-md-1">
-                <button type="submit" class="btn btn-primary">Button 1</button>
+                <form action="/oztinate_dev/teacher/create_exercise">
+                    <button type="submit" class="btn btn-primary">Exercises</button>
+                </form>
             </div>
             <div class="col-md-1">
-                <button type="submit" class="btn btn-primary">Button 1</button>
+                <button type="submit" class="btn btn-primary">Button 2</button>
             </div>
         </div>
         <div class="row">
