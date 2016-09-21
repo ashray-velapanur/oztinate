@@ -63,7 +63,7 @@ $app->get('/teacher/home', function()use($app){
 })->via('GET', 'POST');
 
 $app->get('/teacher/logout', function()use($app){
-   if(isset($_SESSION["userid"]))
+   if(isset($_SESSION["userId"]))
    {
 	 session_unset();
 	 $app->redirect("/oztinate_dev/teacher/login");

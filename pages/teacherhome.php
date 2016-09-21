@@ -6,8 +6,13 @@
 <body>
     <div class="container">
         <div class="row" style="display: flex; align-items: center;">
-            <div class="col-md-12">
-                <h1 class="page-header">Oztinate</h1>
+            <div class="col-md-11">
+                <h1>Oztinate</h1>
+            </div>
+            <div class="col-md-1">
+                <form action="/oztinate_dev/teacher/logout">
+                    <button type="submit" class="btn btn-primary">Logout</button>
+                </form>
             </div>
         </div>
         <div class="row" style="display: flex; align-items: center;">
