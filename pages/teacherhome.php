@@ -4,12 +4,23 @@
 <?php include("base.php") ?>
 
 <body>
-Logged in as <?php echo $data['username']; ?>
-
     <div class="container">
+        <div class="row" style="display: flex; align-items: center;">
+            <div class="col-md-2">
+                <h1>Oztinate</h1>
+            </div>
+            <div class="col-md-8">
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary">Button 1</button>
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary">Button 1</button>
+            </div>
+        </div>
         <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-        		<table>
+            <div class="col-md-6">
+        		<table class="table">
             		<tr>
             			<th>Name</th>
             			<th>Password</th>
@@ -17,11 +28,14 @@ Logged in as <?php echo $data['username']; ?>
 				    <?php foreach($data["students"] as $student): ?>
 				    <tr>
 				        <td><?php echo $student; ?></td>
+                        <td><?php echo $student; ?></td>
+                        <td><?php echo $student; ?></td>
 				        <td>pass</td>
 				    </tr>
 				    <?php endforeach; ?>
             	</table>
             </div>
+            <div class="col-md-6"></div>
         </div>
     </div>
 
