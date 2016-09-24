@@ -36,15 +36,19 @@
             		<tr>
             			<th>Name</th>
                         <th>Name</th>
-                        <th>Name</th>
-            			<th>Password</th>
+                        <th>Password</th>
+                        <th></th>
             		</tr>
 				    <?php foreach($data["students"] as $student): ?>
 				    <tr>
 				        <td><?php echo $student; ?></td>
                         <td><?php echo $student; ?></td>
-                        <td><?php echo $student; ?></td>
 				        <td>pass</td>
+                        <td>
+                            <form action="/oztinate_dev/teacher/assign_exercise">
+                                <button type="submit" class="btn btn-primary">Assign Exercise</button>
+                            </form>
+                        </td>
 				    </tr>
 				    <?php endforeach; ?>
             	</table>

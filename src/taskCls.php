@@ -176,9 +176,12 @@ function getTaskDuration($taskId){
 
 }	
 
-	function getTaskNames()
+	function getTaskNames($createdUser = null)
 	{
 		$query="SELECT taskId,taskName,minDuration,practiceDuration FROM task WHERE enabled=1";
+		if ($createdUser) {
+			$query = $query." AND createdUser=".$createdUser;
+		}
 		$result = mysql_query($query);
 		if($result)
 		{
@@ -298,6 +301,7 @@ function getAllTasks($limitFrom,$limitTo,$search=null)
 	$result = mysql_query($query);
 	if($result)
 	{
+		error_log("gettign result");
 		//while($row=mysql_fetch_array($result)){continue;}
 		return $result;
 	}

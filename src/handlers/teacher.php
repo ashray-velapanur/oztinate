@@ -10,6 +10,32 @@ $app->get('/teacher/create_exercise', function()use($app){
 })->via('GET', 'POST');
 
 
+$app->get('/teacher/get_exercise', function()use($app){
+	$id = $_GET["id"];
+	$task=new Task();
+	$templateDetails = $task->getDetails($id);
+	response($templateDetails);
+ })->via('GET');
+
+$app->get('/teacher/assign_exercise', function()use($app){
+ if($_SERVER['REQUEST_METHOD']=="POST")
+ {
+ 	error_log("posting");
+ }
+	$task = new Task();
+	$userId = $_SESSION["userId"];
+	//$taskNames = $task->getTaskNames($userId);
+	$taskNames = $task->getTaskNames();
+
+	$tasks = array();
+	while($row=mysql_fetch_assoc($taskNames)) {
+		array_push($tasks, array("name"=>$row["taskName"], "id"=>$row["taskId"]));
+	}
+
+	$params = array("tasks"=>$tasks);
+	$app->render("assignexercise.php", $params);
+})->via('GET', 'POST');
+
 $app->get('/teacher/signup', function()use($app){
  if($_SERVER['REQUEST_METHOD']=="POST")
  {

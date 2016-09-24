@@ -1,5 +1,3 @@
-<!-- $data["taskName"] $data["instruction"] $data["minDuration"] $data["practiceDuration"] $data["details"] $data["dateOfCreation"] $data["createdUserId"] $data["updatedId"] -->
-
 <!DOCTYPE html>
 <html lang="en">
 
