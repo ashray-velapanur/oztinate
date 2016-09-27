@@ -17,6 +17,10 @@ $app->get('/teacher/get_exercise', function()use($app){
 	response($templateDetails);
  })->via('GET');
 
+$app->get('/teacher/exercise_details', function()use($app){
+	$app->render("exercisedetails.php");
+ })->via('GET');
+
 $app->get('/teacher/assign_exercise', function()use($app){
  if($_SERVER['REQUEST_METHOD']=="POST")
  {
@@ -27,8 +31,7 @@ $app->get('/teacher/assign_exercise', function()use($app){
  }
 	$task = new Task();
 	$userId = $_SESSION["userId"];
-	//$taskNames = $task->getTaskNames($userId);
-	$taskNames = $task->getTaskNames();
+	$taskNames = $task->getTaskNames($userId);
 
 	$tasks = array();
 	while($row=mysql_fetch_assoc($taskNames)) {
