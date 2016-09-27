@@ -22,6 +22,10 @@
                         </select>
                     </div>
                 <div class="form-group">
+                    <label for="taskId">Id</label>
+                    <input class="form-control" name="taskId" id="taskId" type="text" autofocus>
+                </div>
+                <div class="form-group">
                     <label for="taskName">Name</label>
                     <input class="form-control" name="taskName" id="taskName" type="text" autofocus>
                 </div>
@@ -41,6 +45,10 @@
                     <label for="details">Details</label>
                     <input class="form-control" name="details" id="details" type="text" value="">
                 </div>
+                <div class="form-group">
+                    <label for="dateOfCompletion">Deadline</label>
+                    <input class="form-control" id="dateOfCompletion" name="dateOfCompletion" <?php if(isset($assTask["completionDate"])){ echo 'value="'.date("m/d/Y",strtotime($assTask["completionDate"])).'"';} ?> required/>
+                </div>
                 <input type="submit" value="Assign" class="btn btn-lg btn-success btn-block"/>
                 </form>
             </div>
@@ -56,6 +64,7 @@
 
             $.get("/oztinate_dev/teacher/get_exercise", {"id": id}, function (data) {
                 console.log(data);
+                $("#taskId").val(data["taskId"]);
                 $("#taskName").val(data["taskName"]);
                 $("#minDuration").val(data["minDuration"]);
                 $("#practiceDuration").val(data["practiceDuration"]);

@@ -4,7 +4,7 @@ $app->get('/teacher/create_exercise', function()use($app){
  if($_SERVER['REQUEST_METHOD']=="POST")
  {
 	$task=new Task();
-	$status = $task->addTask($_POST);	
+	$status = $task->addTask($_POST);
  }
 	$app->render("createexercise.php");
 })->via('GET', 'POST');
@@ -20,7 +20,10 @@ $app->get('/teacher/get_exercise', function()use($app){
 $app->get('/teacher/assign_exercise', function()use($app){
  if($_SERVER['REQUEST_METHOD']=="POST")
  {
- 	error_log("posting");
+ 	//$data["taskId"].",".$data["userId"].",".$data["status"].",".$data["createdUserId"].",".$data["minDuration"].",".$data["practiceDuration"].",".$data["dateOfAssign"].",'".$newformat."','".$createdByUser."',".$data["updatedId"]
+	$assTasks=new AssignedTask();
+	$data = $_POST;
+	$status = $assTasks->assignTask($data,'N');
  }
 	$task = new Task();
 	$userId = $_SESSION["userId"];
