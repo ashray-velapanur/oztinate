@@ -38,7 +38,7 @@ $app->get('/teacher/assign_exercise', function()use($app){
 		array_push($tasks, array("name"=>$row["taskName"], "id"=>$row["taskId"]));
 	}
 
-	$params = array("tasks"=>$tasks);
+	$params = array("tasks"=>$tasks, "userId"=>$_GET["userId"]);
 	$app->render("assignexercise.php", $params);
 })->via('GET', 'POST');
 

@@ -21,6 +21,7 @@
                             <?php } ?>
                         </select>
                     </div>
+                <input class="hidden" name="userId" id="userId" type="text" value="<?php echo $data["userId"];?>">
                 <div class="form-group">
                     <label for="taskId">Id</label>
                     <input class="form-control" name="taskId" id="taskId" type="text" autofocus>

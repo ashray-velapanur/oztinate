@@ -19,13 +19,14 @@ class Teacher{
 	}
 
 	function getStudents($teacherid) {
-		$query = "SELECT username FROM teachers INNER JOIN users ON teachers.studentid = users.userid WHERE teacherid=".$teacherid;
+		$query = "SELECT username, userid FROM teachers INNER JOIN users ON teachers.studentid = users.userid WHERE teacherid=".$teacherid;
 		error_log($query);
 		$result = mysql_query($query)or die(mysql_error());
 		if($result) {
 			$students = array();
 			while ($row = mysql_fetch_assoc($result)) {
-	       		array_push($students, $row['username']);
+				$student = array("username"=>$row["username"], "userid"=>$row["userid"]);
+	       		array_push($students, $student);
 	        }
 	        return $students;
 		} else {

@@ -41,11 +41,12 @@
             		</tr>
 				    <?php foreach($data["students"] as $student): ?>
 				    <tr>
-				        <td><?php echo $student; ?></td>
-                        <td><?php echo $student; ?></td>
+				        <td><?php echo $student["username"]; ?></td>
+                        <td><?php echo $student["username"]; ?></td>
 				        <td>pass</td>
                         <td>
                             <form action="/oztinate_dev/teacher/assign_exercise">
+                                <input class="hidden" name="userId" id="userId" value="<?php echo $student["userid"]; ?>">
                                 <button type="submit" class="btn btn-primary">Assign Exercise</button>
                             </form>
                         </td>
