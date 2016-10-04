@@ -17,8 +17,12 @@ $app->get('/teacher/get_exercise', function()use($app){
 	response($templateDetails);
  })->via('GET');
 
-$app->get('/teacher/exercise_details', function()use($app){
-	$app->render("exercisedetails.php");
+$app->get('/teacher/review_exercise', function()use($app){
+	$app->render("reviewexercise.php");
+ })->via('GET');
+
+$app->get('/teacher/student_details', function()use($app){
+	$app->render("studentdetails.php");
  })->via('GET');
 
 $app->get('/teacher/assign_exercise', function()use($app){
