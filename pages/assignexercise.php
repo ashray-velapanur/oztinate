@@ -16,6 +16,7 @@
                     <div class="form-group">
                         <label for="name">Template</label>
                         <select name="template" id="template" onChange="updateTemplate(this)">
+                            <option>Select Exercise</option>
                             <?php foreach ($data["tasks"] as $task) { ?>
                                 <option value=<?php echo $task["id"] ?>><?php echo $task["name"] ?></option>
                             <?php } ?>
