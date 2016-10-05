@@ -68,32 +68,23 @@
                     <div class="col-md-12">
                         <table class="table">
                             <tr>
+                                <th>Id</th>
                                 <th>Name</th>
                                 <th>Status</th>
                                 <th></th>
                             </tr>
+                            <?php foreach ($data["assignedTasks"] as $task) {?>
                             <tr>
-                                <td>Master of Puppets Solo</td>
-                                <td>
-                                    <h5>Open</h5>
-                                </td>
+                                <td><?php echo $task["id"]; ?></td>
+                                <td><?php echo $task["taskName"]; ?></td>
+                                <td><?php echo $task["status"]; ?></td>
                                 <td>
                                     <form action="/oztinate_dev/teacher/review_exercise">
+                                        <input class="hidden" name="taskId" id="taskId" value="<?php echo $task["id"]; ?>">
                                         <button type="submit" class="btn btn-primary">Review</button>
                                     </form>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td>Master of Puppets Solo</td>
-                                <td>
-                                    <h5>Open</h5>
-                                </td>
-                                <td>
-                                    <form action="/oztinate_dev/teacher/review_exercise">
-                                        <button type="submit" class="btn btn-primary">Review</button>
-                                    </form>
-                                </td>
-                            </tr>
+                            <?php } ?>
                         </table>
                     </div>
                 </div>

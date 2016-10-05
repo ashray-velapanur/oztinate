@@ -50,6 +50,12 @@
                                 <button type="submit" class="btn btn-primary">Assign Exercise</button>
                             </form>
                         </td>
+                        <td>
+                            <form action="/oztinate_dev/teacher/student_details">
+                                <input class="hidden" name="userId" id="userId" value="<?php echo $student["userid"]; ?>">
+                                <button type="submit" class="btn btn-primary">Details</button>
+                            </form>
+                        </td>
 				    </tr>
 				    <?php endforeach; ?>
             	</table>

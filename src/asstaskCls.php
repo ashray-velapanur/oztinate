@@ -323,6 +323,19 @@ class AssignedTask{
 					return "2";
 	}
 	
+	function getAssTaskNames($userId){
+		//select id, task.taskName, status from assignedtask join task on assignedtask.taskId = task.taskId where userId = 13;
+		$query = mysql_query("SELECT id, task.taskName, status FROM assignedtask JOIN task on assignedtask.taskId = task.taskId where userId = ".$userId);
+		$assignedTasks = array();
+
+		while($row=mysql_fetch_assoc($query)) {
+			array_push($assignedTasks, array("id"=>$row["id"], "taskName"=>$row["taskName"], "status"=>$row["status"]));
+		}
+
+		return $assignedTasks;
+
+	}
+
 	function getAllAsstask($limitFrom,$limitTo,$search=null){
 		$queryString="";
 		$orderString="";

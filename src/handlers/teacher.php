@@ -18,11 +18,15 @@ $app->get('/teacher/get_exercise', function()use($app){
  })->via('GET');
 
 $app->get('/teacher/review_exercise', function()use($app){
+	var_dump($_GET["taskId"]);
 	$app->render("reviewexercise.php");
  })->via('GET');
 
 $app->get('/teacher/student_details', function()use($app){
-	$app->render("studentdetails.php");
+	$assTasks = new AssignedTask();
+	$assignedTasks = $assTasks->getAssTaskNames($_GET["userId"]);
+	$params = array("userId"=>$_GET["userId"], "assignedTasks"=>$assignedTasks);
+	$app->render("studentdetails.php", $params);
  })->via('GET');
 
 $app->get('/teacher/assign_exercise', function()use($app){
