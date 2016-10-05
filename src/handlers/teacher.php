@@ -6,7 +6,7 @@ $app->get('/teacher/create_exercise', function()use($app){
 	$task=new Task();
 	$status = $task->addTask($_POST);
  }
-	$app->render("createexercise.php");
+	$app->render("teacher/exercise/create.php");
 })->via('GET', 'POST');
 
 
@@ -19,14 +19,14 @@ $app->get('/teacher/get_exercise', function()use($app){
 
 $app->get('/teacher/review_exercise', function()use($app){
 	var_dump($_GET["taskId"]);
-	$app->render("reviewexercise.php");
+	$app->render("teacher/exercise/review.php");
  })->via('GET');
 
 $app->get('/teacher/student_details', function()use($app){
 	$assTasks = new AssignedTask();
 	$assignedTasks = $assTasks->getAssTaskNames($_GET["userId"]);
 	$params = array("userId"=>$_GET["userId"], "assignedTasks"=>$assignedTasks);
-	$app->render("studentdetails.php", $params);
+	$app->render("teacher/student/details.php", $params);
  })->via('GET');
 
 $app->get('/teacher/assign_exercise', function()use($app){
@@ -47,7 +47,7 @@ $app->get('/teacher/assign_exercise', function()use($app){
 	}
 
 	$params = array("tasks"=>$tasks, "userId"=>$_GET["userId"]);
-	$app->render("assignexercise.php", $params);
+	$app->render("teacher/exercise/assign.php", $params);
 })->via('GET', 'POST');
 
 $app->get('/teacher/signup', function()use($app){
@@ -56,7 +56,7 @@ $app->get('/teacher/signup', function()use($app){
  	$teacher = new Teacher();
 	$status = $teacher->addTeacher($_POST);
  }
-	$app->render("teachersignup.php");
+	$app->render("teacher/signup.php");
 })->via('GET', 'POST');
 
 $app->get('/teacher/invite', function()use($app){
@@ -72,7 +72,7 @@ $app->get('/teacher/invite', function()use($app){
  	$teacherid = $_SESSION["userId"];
  	$teacher->assignTeacher($teacherid, $studentid);
  }
- 	$app->render("teacherinvite.php");
+ 	$app->render("teacher/invite.php");
 })->via('GET', 'POST');
 
 
@@ -89,7 +89,7 @@ $app->get('/teacher/login', function()use($app){
  		error_log("not allowed");
  	}
  }
-	$app->render("teacherlogin.php");
+	$app->render("teacher/login.php");
 })->via('GET', 'POST');
 
 $app->get('/teacher/home', function()use($app){
@@ -99,7 +99,7 @@ $app->get('/teacher/home', function()use($app){
 	$teacher = new Teacher();
 	$students = $teacher->getStudents($teacherid);
 	$params = array("username"=>$_SESSION['userName'], "students"=>$students);
-	$app->render("teacherhome.php", $params);
+	$app->render("teacher/home.php", $params);
 })->via('GET', 'POST');
 
 $app->get('/teacher/logout', function()use($app){
