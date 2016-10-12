@@ -308,6 +308,7 @@ class AssignedTask{
 		if($result)
 		{
 			return $row=mysql_fetch_array($result);
+
 		}
 		else
 		 return array("status"=>"Error","message"=>"Query Error");	

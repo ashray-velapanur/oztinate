@@ -40,9 +40,9 @@
                         <div class="form-group">
                             <label for="clips">Clips</label>
                             <div classs="clips">
-                                <audio src="horse.ogg" controls></audio>
-                                <audio src="horse.ogg" controls></audio>
-                                <audio src="horse.ogg" controls></audio>
+                                <?php foreach ($data["clips"] as $clip) { ?>
+                                    <audio src=<?php echo $clip ?> controls></audio>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
@@ -52,12 +52,11 @@
                         <div class="form-group">
                             <label for="comments">Comments</label>
                             <div id="comments" name="comments">
-                                <div class="panel">
-                                    <h5>This is a comment</h5>
-                                </div>
-                                <div class="panel">
-                                    <h5>This is a comment too</h5>
-                                </div>
+                                    <?php foreach ($data["comments"] as $comment) { ?>
+                                    <div class="panel">
+                                        <h5><?php echo $comment ?></h5>
+                                    </div>
+                                    <?php } ?>
                             </div>
                             <textarea class="form-control" rows="3"></textarea>
                         </div>

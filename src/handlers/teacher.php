@@ -18,8 +18,28 @@ $app->get('/teacher/get_exercise', function()use($app){
  })->via('GET');
 
 $app->get('/teacher/review_exercise', function()use($app){
-	var_dump($_GET["taskId"]);
-	$app->render("teacher/exercise/review.php");
+	$taskId = $_GET["taskId"];
+	$assignedTask = new AssignedTask();
+	
+	$task = $assignedTask->getDetails($taskId);
+	$clips = $assignedTask->getSoundClips($taskId);
+	$comments = $assignedTask->getComments($taskId);
+
+	$response = array();
+	$response["task"] = $task;
+	$response["comments"] = array();
+	while($row=mysql_fetch_assoc($comments)) {
+		array_push($response["comments"], $row["commentText"]);
+	}
+
+	$response["clips"] = array();
+	var_dump($response);
+	while($row=mysql_fetch_assoc($clips)) {
+		array_push($response["clips"], $row["clipUrl"]);
+	}
+
+	//$params = array("task"=>$task, "clipUrls"=>$clipUrls, "comments"=>$comments);
+	$app->render("teacher/exercise/review.php", $response);
  })->via('GET');
 
 $app->get('/teacher/student_details', function()use($app){
