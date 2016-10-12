@@ -33,7 +33,7 @@ $app->get('/teacher/review_exercise', function()use($app){
 	}
 
 	$response["clips"] = array();
-	var_dump($response);
+
 	while($row=mysql_fetch_assoc($clips)) {
 		array_push($response["clips"], $row["clipUrl"]);
 	}
