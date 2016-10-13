@@ -72,15 +72,20 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="rating">Rating</label>
-                            <h2 class="rating">☆☆☆☆☆</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <input type="submit" value="Submit" class="btn btn-lg btn-success btn-block"/>
+                        <form role="form" method="post" action="">
+                            <div class="form-group">
+                                <label for="rating">Rating</label>
+                                <input class="hidden" name="assTaskId" id="assTaskId" value="<?php echo $data["task"]["Id"]; ?>">
+                                <select class="form-control" name="rating" id="rating">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                                <button type="submit" class="btn btn-md btn-success pull-right">Rate</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

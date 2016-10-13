@@ -18,6 +18,12 @@ $app->get('/teacher/get_exercise', function()use($app){
  })->via('GET');
 
 $app->get('/teacher/review_exercise', function()use($app){
+	if($_SERVER['REQUEST_METHOD']=="POST")
+	{
+		$rating = new Rating();
+		$rating->rate($_POST["assTaskId"], $_POST["rating"]);
+	}
+	
 	$taskId = $_GET["taskId"];
 	$assignedTask = new AssignedTask();
 	
@@ -40,7 +46,7 @@ $app->get('/teacher/review_exercise', function()use($app){
 
 	//$params = array("task"=>$task, "clipUrls"=>$clipUrls, "comments"=>$comments);
 	$app->render("teacher/exercise/review.php", $response);
- })->via('GET');
+ })->via('GET', 'POST');
 
 $app->get('/teacher/student_details', function()use($app){
 	$assTasks = new AssignedTask();
