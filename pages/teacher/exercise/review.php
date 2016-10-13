@@ -58,11 +58,16 @@
                                     </div>
                                     <?php } ?>
                             </div>
-                            <textarea class="form-control" rows="3"></textarea>
                         </div>
-                        <div class="form-group">
-                            <input type="submit" value="Add Comment" class="btn btn-md btn-success pull-right"/>
-                        </div>
+                        <form role="form" method="post" action="/oztinate_dev/admin/addComment">
+                            <div class="form-group">
+                                <input class="hidden" name="assTaskId" id="assTaskId" value="<?php echo $data["task"]["Id"]; ?>">
+                                <input class="hidden" name="userId" id="userId" value="3">
+                                <textarea id="comment" name="comment" class="form-control" rows="3"></textarea>
+                                <button type="submit" class="btn btn-md btn-success pull-right">Add Comment</button>
+                                <!-- <input type="submit" value="Add Comment" class="btn btn-md btn-success pull-right"/> -->
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <div class="row">
