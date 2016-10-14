@@ -5,62 +5,64 @@
 
 <body>
     <div class="container">
-        <div class="row" style="display: flex; align-items: center;">
-            <div class="col-md-11">
-                <h1>Oztinate</h1>
-            </div>
-            <div class="col-md-1">
-                <form action="/oztinate_dev/teacher/logout">
-                    <button type="submit" class="btn btn-primary">Logout</button>
-                </form>
-            </div>
-        </div>
-        <div class="row" style="display: flex; align-items: center;">
-            <div class="col-md-8">
-                <h3>Students</h3>
-            </div>
-            <div class="col-md-8">
-            </div>
-            <div class="col-md-1">
-                <form action="/oztinate_dev/teacher/create_exercise">
-                    <button type="submit" class="btn btn-primary">Exercises</button>
-                </form>
-            </div>
-            <div class="col-md-1">
-                <button type="submit" class="btn btn-primary">Button 2</button>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="h1 pull-left">Oztinate</div>
+                <div class="pull-right">
+                    <a href="/oztinate_dev/teacher/logout" class="h3 pull-left">Logout</a>
+                </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
-        		<table class="table">
-            		<tr>
-            			<th>Name</th>
-                        <th>Name</th>
-                        <th>Password</th>
-                        <th></th>
-            		</tr>
-				    <?php foreach($data["students"] as $student): ?>
-				    <tr>
-				        <td><?php echo $student["username"]; ?></td>
-                        <td><?php echo $student["username"]; ?></td>
-				        <td>pass</td>
-                        <td>
-                            <form action="/oztinate_dev/teacher/assign_exercise">
-                                <input class="hidden" name="userId" id="userId" value="<?php echo $student["userid"]; ?>">
-                                <button type="submit" class="btn btn-primary">Assign Exercise</button>
-                            </form>
-                        </td>
-                        <td>
-                            <form action="/oztinate_dev/teacher/student_details">
-                                <input class="hidden" name="userId" id="userId" value="<?php echo $student["userid"]; ?>">
-                                <button type="submit" class="btn btn-primary">Details</button>
-                            </form>
-                        </td>
-				    </tr>
-				    <?php endforeach; ?>
-            	</table>
+            <div class="col-md-1">
             </div>
-            <div class="col-md-6"></div>
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="h3 pull-left">Students</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10"></div>
+                    <div class="col-md-2">
+                        <a href="/oztinate_dev/teacher/create_exercise" type="button" class="btn btn-block btn-primary">Exercises</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="col-md-8">Name</th>
+                                    <th class="col-md-2"></th>
+                                    <th class="col-md-2"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($data["students"] as $student): ?>
+                                <tr>
+                                    <td class="col-md-8"><?php echo $student["username"]; ?></td>
+                                    <td class="col-md-2">
+                                        <form action="/oztinate_dev/teacher/assign_exercise">
+                                            <input class="hidden" name="userId" id="userId" value="<?php echo $student["userid"]; ?>">
+                                            <button type="submit" class="btn btn-primary btn-block">Assign Exercise</button>
+                                        </form>
+                                    </td>
+                                    <td class="col-md-2">
+                                        <form action="/oztinate_dev/teacher/student_details">
+                                            <input class="hidden" name="userId" id="userId" value="<?php echo $student["userid"]; ?>">
+                                            <button type="submit" class="btn btn-primary btn-block">Details</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1">
+            </div>
         </div>
     </div>
 
