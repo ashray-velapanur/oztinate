@@ -4,15 +4,8 @@
 <?php include("base.php") ?>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="h1 pull-left">Oztinate</div>
-                <div class="pull-right">
-                    <a href="/oztinate_dev/teacher/logout" class="h3 pull-left">Logout</a>
-                </div>
-            </div>
-        </div>
+    <?php include("nav.php") ?>
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-1">
             </div>
@@ -20,12 +13,6 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="h3 pull-left">Students</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-10"></div>
-                    <div class="col-md-2">
-                        <a href="/oztinate_dev/teacher/create_exercise" type="button" class="btn btn-block btn-primary">Exercises</a>
                     </div>
                 </div>
                 <div class="row">
