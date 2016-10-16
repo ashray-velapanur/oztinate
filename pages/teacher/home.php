@@ -7,16 +7,17 @@
     <?php include(ROOT_DIR."/pages/teacher/nav.php") ?>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-1">
             </div>
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="h3 pull-left">Students</div>
                     </div>
                 </div>
                 <div class="row">
-                    <div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
                         <table class="table">
                             <thead>
                                 <tr>
@@ -46,9 +47,10 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="col-md-1"></div>
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
             </div>
         </div>
     </div>
