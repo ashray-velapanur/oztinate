@@ -8,5 +8,5 @@
     <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
     <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="../assets/css/teacherdashboard.css" rel="stylesheet" type="text/css">
+    <link href="../assets/css/navbar.css" rel="stylesheet" type="text/css">
 </head>

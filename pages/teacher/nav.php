@@ -9,6 +9,8 @@
         <li class="nav-item">
             <a class="nav-link" href="/oztinate_dev/teacher/create_exercise">Exercises</a>
         </li>
+    </ul>
+    <ul class="nav navbar-nav pull-right">
         <li class="nav-item">
             <a class="nav-link" href="/oztinate_dev/teacher/logout">Logout</a>
         </li>
