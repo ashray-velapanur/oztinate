@@ -1,11 +1,12 @@
 <?php
+define( 'ROOT_DIR', dirname(__FILE__) );
+
 include("src/includes.php");
 require("libs/paginator.php");
 require 'Slim/Slim.php';
  \Slim\Slim::registerAutoloader();
 //echo $approot = dirname(__FILE__); die;
 $app = new \Slim\Slim(array('templates.path' => $_SERVER["DOCUMENT_ROOT"].'/oztinate_dev/pages'));
-
 
 require 'src/handlers/teacher.php';
 

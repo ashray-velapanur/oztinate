@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include("base.php") ?>
+<?php include(ROOT_DIR."/pages/teacher/base.php") ?>
 
 <body>
-    <?php include("nav.php") ?>
+    <?php include(ROOT_DIR."/pages/teacher/nav.php") ?>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2">

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<?php include("base.php") ?>
+<?php include(ROOT_DIR."/pages/teacher/base.php") ?>
 
 <body>
     <div class="container">
