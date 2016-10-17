@@ -7,7 +7,7 @@
             <a class="nav-link" href="/oztinate_dev/teacher/home">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/oztinate_dev/teacher/create_exercise">Exercises</a>
+            <a class="nav-link" href="/oztinate_dev/teacher/exercises">Exercises</a>
         </li>
     </ul>
       <form class="navbar-form navbar-right">
