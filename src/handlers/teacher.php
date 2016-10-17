@@ -9,6 +9,33 @@ $app->get('/teacher/create_exercise', function()use($app){
 	$app->render("teacher/exercise/create.php");
 })->via('GET', 'POST');
 
+$app->get('/teacher/update_exercise', function()use($app){
+ if($_SERVER['REQUEST_METHOD']=="POST")
+ {
+	$task = new Task();
+	$templateDetails = $task->updateTask($_POST);
+
+ }	
+	$id = $_GET["id"];
+	$task = new Task();
+	$templateDetails = $task->getDetails($id);
+	$app->render("teacher/exercise/update.php", $templateDetails);
+})->via('GET', 'POST');
+
+$app->get('/teacher/exercises', function()use($app){
+	$task = new Task();
+	$userId = $_SESSION["userId"];
+	$taskNames = $task->getTaskNames($userId);
+
+	$response = array();
+	$response["tasks"] = array();
+
+	while($row=mysql_fetch_assoc($taskNames)) {
+		array_push($response["tasks"], array("name"=>$row["taskName"], "id"=>$row["taskId"]));
+	}
+
+	$app->render("teacher/exercise/list.php", $response);
+})->via('GET', 'POST');
 
 $app->get('/teacher/get_exercise', function()use($app){
 	$id = $_GET["id"];
