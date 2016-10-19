@@ -18,6 +18,12 @@ $app->get('/teacher/students', function()use($app){
 	$app->render("teacher/student/manage.php", $params);
 })->via('GET', 'POST');
 
+$app->get('/teacher/students/:id/delete', function($id)use($app){
+	isTeacherLoggedin($app);
+	$teacher = new Teacher();
+	$students = $teacher->deleteTeacher($id);
+})->via('POST');
+
 $app->get('/teacher/update_exercise', function()use($app){
  if($_SERVER['REQUEST_METHOD']=="POST")
  {

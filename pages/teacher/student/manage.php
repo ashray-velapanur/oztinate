@@ -30,7 +30,7 @@
                                 <tr>
                                     <td class="col-md-10"><?php echo $student["username"]; ?></td>
                                     <td class="col-md-2">
-                                        <form action="">
+                                        <form action="/oztinate_dev/teacher/students/<?php echo $student["userid"]; ?>/delete">
                                             <button type="submit" class="btn btn-primary btn-block">Remove</button>
                                         </form>
                                     </td>

@@ -9,6 +9,16 @@ class Teacher{
 		error_log($status);
 	}
 
+	function deleteTeacher($studentid) {
+		$query = "DELETE FROM teachers WHERE studentid=".$studentid;
+		$result = mysql_query($query)or die(mysql_error());
+		if($result) {
+	        return true;
+		} else {
+			return false;
+		}		
+	}
+
 	function assignTeacher($teacherid, $studentid) {
 		$query = "INSERT INTO teachers (teacherid, studentid) VALUES (".$teacherid.", ".$studentid.")";		
 		$result = mysql_query($query)or die(mysql_error());
