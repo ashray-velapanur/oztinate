@@ -4,6 +4,7 @@
 <?php include(ROOT_DIR."/pages/teacher/base.php") ?>
 
 <body>
+    <?php include(ROOT_DIR."/pages/teacher/nav.php") ?>
     <div class="container">
         <div class="row">
             <div class="col-md-4 col-md-offset-4">

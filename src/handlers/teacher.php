@@ -9,6 +9,15 @@ $app->get('/teacher/create_exercise', function()use($app){
 	$app->render("teacher/exercise/create.php");
 })->via('GET', 'POST');
 
+$app->get('/teacher/students', function()use($app){
+	isTeacherLoggedin($app);
+	$teacherid = $_SESSION["userId"];
+	$teacher = new Teacher();
+	$students = $teacher->getStudents($teacherid);
+	$params = array("username"=>$_SESSION['userName'], "students"=>$students);
+	$app->render("teacher/student/manage.php", $params);
+})->via('GET', 'POST');
+
 $app->get('/teacher/update_exercise', function()use($app){
  if($_SERVER['REQUEST_METHOD']=="POST")
  {
