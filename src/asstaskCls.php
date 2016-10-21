@@ -324,12 +324,19 @@ class AssignedTask{
 					return "2";
 	}
 	
-	function getAssTaskNames($userId){
+	function getAssTaskNames($status = null, $userId = null){
 		//select id, task.taskName, status from assignedtask join task on assignedtask.taskId = task.taskId where userId = 13;
-		$query = mysql_query("SELECT id, task.taskName, status FROM assignedtask JOIN task on assignedtask.taskId = task.taskId where userId = ".$userId);
+		//$query = mysql_query("SELECT id, task.taskName, status FROM assignedtask JOIN task on assignedtask.taskId = task.taskId where userId = ".$userId);
+		if ($userId) {
+			$query = "SELECT id, task.taskName, status FROM assignedtask JOIN task on assignedtask.taskId = task.taskId where userId = ".$userId;
+		} elseif ($status) {
+			$query = "SELECT id, task.taskName, status FROM assignedtask JOIN task on assignedtask.taskId = task.taskId where status = ".$status;
+		}
+
+		$result = mysql_query($query);
 		$assignedTasks = array();
 
-		while($row=mysql_fetch_assoc($query)) {
+		while($row=mysql_fetch_assoc($result)) {
 			array_push($assignedTasks, array("id"=>$row["id"], "taskName"=>$row["taskName"], "status"=>$row["status"]));
 		}
 

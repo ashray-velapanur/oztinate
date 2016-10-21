@@ -12,6 +12,40 @@
             <div class="col-md-10">
                 <div class="row">
                     <div class="col-md-12">
+                        <div class="h3 pull-left">Exercises</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th class="col-md-8">Name</th>
+                                    <th class="col-md-2"></th>
+                                    <th class="col-md-2"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($data["tasks"] as $task): ?>
+                                <tr>
+                                    <td class="col-md-8"><?php echo $task["taskName"]; ?></td>
+                                    <td class="col-md-2"></td>
+                                    <td class="col-md-2">
+                                        <form action="/oztinate_dev/teacher/review_exercise">
+                                            <input class="hidden" name="taskId" id="taskId" value="<?php echo $task["id"]; ?>">
+                                            <button type="submit" class="btn btn-primary btn-block">Review</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
                         <div class="h3 pull-left">Students</div>
                     </div>
                 </div>

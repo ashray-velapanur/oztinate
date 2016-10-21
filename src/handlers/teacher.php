@@ -92,7 +92,7 @@ $app->get('/teacher/review_exercise', function()use($app){
 
 $app->get('/teacher/student_details', function()use($app){
 	$assTasks = new AssignedTask();
-	$assignedTasks = $assTasks->getAssTaskNames($_GET["userId"]);
+	$assignedTasks = $assTasks->getAssTaskNames(null, $_GET["userId"]);
 	$params = array("userId"=>$_GET["userId"], "assignedTasks"=>$assignedTasks);
 	$app->render("teacher/student/details.php", $params);
  })->via('GET');
@@ -166,7 +166,11 @@ $app->get('/teacher/home', function()use($app){
 	error_log($_SESSION["userId"]);
 	$teacher = new Teacher();
 	$students = $teacher->getStudents($teacherid);
-	$params = array("username"=>$_SESSION['userName'], "students"=>$students);
+
+	$assTasks = new AssignedTask();
+	$assignedTasks = $assTasks->getAssTaskNames(3, null);
+
+	$params = array("username"=>$_SESSION['userName'], "students"=>$students, "tasks"=>$assignedTasks);
 	$app->render("teacher/home.php", $params);
 })->via('GET', 'POST');
 
