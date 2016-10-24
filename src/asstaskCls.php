@@ -329,15 +329,20 @@ class AssignedTask{
 		//$query = mysql_query("SELECT id, task.taskName, status FROM assignedtask JOIN task on assignedtask.taskId = task.taskId where userId = ".$userId);
 		if ($userId) {
 			$query = "SELECT id, task.taskName, status FROM assignedtask JOIN task on assignedtask.taskId = task.taskId where userId = ".$userId;
+			$result = mysql_query($query);
+			$assignedTasks = array();
+
+			while($row=mysql_fetch_assoc($result)) {
+				array_push($assignedTasks, array("id"=>$row["id"], "taskName"=>$row["taskName"], "status"=>$row["status"]));
+			}
 		} elseif ($status) {
 			$query = "SELECT id, task.taskName, users.userName, status FROM assignedtask JOIN task on assignedtask.taskId = task.taskId LEFT JOIN users ON assignedtask.userId=users.userId where status = ".$status;
-		}
+			$result = mysql_query($query);
+			$assignedTasks = array();
 
-		$result = mysql_query($query);
-		$assignedTasks = array();
-
-		while($row=mysql_fetch_assoc($result)) {
-			array_push($assignedTasks, array("userName"=>$row["userName"], "id"=>$row["id"], "taskName"=>$row["taskName"], "status"=>$row["status"]));
+			while($row=mysql_fetch_assoc($result)) {
+				array_push($assignedTasks, array("userName"=>$row["userName"], "id"=>$row["id"], "taskName"=>$row["taskName"], "status"=>$row["status"]));
+			}
 		}
 
 		return $assignedTasks;
