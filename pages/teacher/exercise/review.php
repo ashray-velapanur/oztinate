@@ -4,24 +4,15 @@
 <?php include(ROOT_DIR."/pages/teacher/base.php") ?>
 
 <body>
-    <div class="container">
-        <div class="row" style="display: flex; align-items: center;">
-            <div class="col-md-11">
-                <h1>Oztinate</h1>
-            </div>
-            <div class="col-md-1">
-                <form action="/oztinate_dev/teacher/logout">
-                    <button type="submit" class="btn btn-primary">Logout</button>
-                </form>
-            </div>
-        </div>
+    <?php include(ROOT_DIR."/pages/teacher/nav.php") ?>
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
             </div>
-            <div class="col-md-6">
-                <div class="row" style="display: flex; align-items: center;">
-                    <div class="col-md-12 pull-left">
-                        <h2 class="page-header">Review Exercise</h2>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-12  page-header">
+                        <div class="h3 pull-left">Review Exercise</div>
                     </div>
                 </div>
                 <div class="row">
@@ -41,11 +32,11 @@
                         <div class="form-group">
                             <label for="comments">Comments</label>
                             <div id="comments" name="comments">
-                                    <?php foreach ($data["comments"] as $comment) { ?>
-                                    <div class="panel">
-                                        <h5><?php echo $comment ?></h5>
-                                    </div>
-                                    <?php } ?>
+                                <?php foreach ($data["comments"] as $comment) { ?>
+                                <div class="panel">
+                                    <h5><?php echo $comment ?></h5>
+                                </div>
+                                <?php } ?>
                             </div>
                         </div>
                         <form role="form" method="post" action="/oztinate_dev/admin/addComment">
@@ -78,7 +69,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
             </div>
         </div>
     </div>
