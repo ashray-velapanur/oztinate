@@ -21,16 +21,18 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th class="col-md-8">Name</th>
-                                    <th class="col-md-2">Assigned To</th>
+                                    <th class="col-md-4">Name</th>
+                                    <th class="col-md-4">Assigned To</th>
+                                    <th class="col-md-2"></th>                                    
                                     <th class="col-md-2"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach($data["tasks"] as $task): ?>
                                 <tr>
-                                    <td class="col-md-8"><?php echo $task["taskName"]; ?></td>
-                                    <td class="col-md-2"><?php echo $task["userName"]; ?></td>
+                                    <td class="col-md-4"><?php echo $task["taskName"]; ?></td>
+                                    <td class="col-md-4"><?php echo $task["userName"]; ?></td>
+                                    <td class="col-md-2"></td>
                                     <td class="col-md-2">
                                         <form action="/oztinate_dev/teacher/review_exercise">
                                             <input class="hidden" name="taskId" id="taskId" value="<?php echo $task["id"]; ?>">
