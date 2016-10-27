@@ -35,7 +35,9 @@ class Teacher{
 		if($result) {
 			$students = array();
 			while ($row = mysql_fetch_assoc($result)) {
-				$student = array("username"=>$row["username"], "userid"=>$row["userid"]);
+				$assignedTask = new AssignedTask();
+				$unreviewdCount = $assignedTask->getAssignedTaskCount($row["userid"], 3);
+				$student = array("username"=>$row["username"], "userid"=>$row["userid"], "unreviewdCount"=>$unreviewdCount);
 	       		array_push($students, $student);
 	        }
 	        return $students;

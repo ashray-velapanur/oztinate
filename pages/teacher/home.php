@@ -57,7 +57,9 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th class="col-md-8">Name</th>
+                                    <th class="col-md-4">Name</th>
+                                    <th class="col-md-2">Unreviewd</th>
+                                    <th class="col-md-2"></th>
                                     <th class="col-md-2"></th>
                                     <th class="col-md-2"></th>
                                 </tr>
@@ -65,7 +67,22 @@
                             <tbody>
                                 <?php foreach($data["students"] as $student): ?>
                                 <tr>
-                                    <td class="col-md-8"><?php echo $student["username"]; ?></td>
+                                    <td class="col-md-4">
+                                        <div class="h5">
+                                            <?php echo $student["username"]; ?>
+                                        </div>
+                                    </td>
+                                    <td class="col-md-2">
+                                        <div class="h5">
+                                            <?php echo $student["unreviewdCount"]; ?>
+                                        </div>
+                                    </td>
+                                    <td class="col-md-2">
+                                        <form action="">
+                                            <input class="hidden" name="userId" id="userId" value="<?php echo $student["userid"]; ?>">
+                                            <button type="submit" class="btn btn-primary btn-block">Goals</button>
+                                        </form>
+                                    </td>
                                     <td class="col-md-2">
                                         <form action="/oztinate_dev/teacher/assign_exercise">
                                             <input class="hidden" name="userId" id="userId" value="<?php echo $student["userid"]; ?>">

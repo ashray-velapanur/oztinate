@@ -1,6 +1,13 @@
 <?php
 class AssignedTask{
 
+	function getAssignedTaskCount($userId, $status) {
+		$query = "SELECT count(*) AS count FROM assignedtask WHERE userId=".$userId." AND status=".$status;
+		$result = mysql_query($query)or die(mysql_error());
+		$data = mysql_fetch_assoc($result);
+		return $data["count"];
+	}
+
 	function assignTask($data,$createdByUser){
 	
 
