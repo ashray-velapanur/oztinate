@@ -3,6 +3,10 @@
 $app->get('/teacher/create_exercise', function()use($app){
  if($_SERVER['REQUEST_METHOD']=="POST")
  {
+	$tagNames = explode(",",$_POST["tags"]);
+	foreach ($tagNames as $tagName) {
+		$status = Tag::createTag($tagName);
+	}
 	$task=new Task();
 	$status = $task->addTask($_POST);
  }

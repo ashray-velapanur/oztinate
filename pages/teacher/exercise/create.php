@@ -35,6 +35,10 @@
                         <label for="details">Details</label>
                         <input class="form-control" name="details" type="text">
                     </div>
+                    <div class="form-group">
+                        <label for="tags">Tags</label>
+                        <input class="form-control" name="tags" type="text">
+                    </div>
                     <input type="submit" value="Create" class="btn btn-lg btn-success btn-block"/>
                 </form>
             </div>
