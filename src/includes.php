@@ -15,6 +15,7 @@ include_once('teacherCls.php');
 include_once('ratingCls.php');
 include_once('tabCls.php');
 include_once('taskCls.php');
+include_once('tagCls.php');
 include_once('asstaskCls.php');
 include_once('pns/pusher.php');
 
