@@ -5,7 +5,7 @@ $app->get('/teacher/create_exercise', function()use($app){
  {
 	$tagNames = explode(",",$_POST["tags"]);
 	foreach ($tagNames as $tagName) {
-		$status = Tag::createTag($tagName);
+		$status = Tag::getOrCreateTag($tagName);
 	}
 	$task=new Task();
 	$status = $task->addTask($_POST);
