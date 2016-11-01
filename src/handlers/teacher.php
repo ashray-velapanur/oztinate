@@ -1,15 +1,17 @@
 <?php
 
 $app->get('/teacher/create_exercise', function()use($app){
- if($_SERVER['REQUEST_METHOD']=="POST")
- {
-	$tagNames = explode(",",$_POST["tags"]);
-	foreach ($tagNames as $tagName) {
-		$status = Tag::getOrCreateTag($tagName);
+	if($_SERVER['REQUEST_METHOD']=="POST")
+	{
+		$task=new Task();
+		$response = $task->addTask($_POST);
+
+		$tagNames = explode(",",$_POST["tags"]);
+		foreach ($tagNames as $tagName) {
+			$tagId = Tag::getOrCreateTag($tagName);
+			Tag::assignTag($tagId, $response["taskId"]);
+		}
 	}
-	$task=new Task();
-	$status = $task->addTask($_POST);
- }
 	$app->render("teacher/exercise/create.php");
 })->via('GET', 'POST');
 

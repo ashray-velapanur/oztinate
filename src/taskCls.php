@@ -41,7 +41,7 @@ function addTask($data)
 
     if($data["taskName"]==$lastRecord["taskName"]&&$data["instruction"]==$lastRecord["instruction"]&&$data["minDuration"]==$lastRecord["minDuration"]&&$data["practiceDuration"]==$lastRecord["practiceDuration"]){
 
-    	return array("status"=>"Error","message"=>"We have already added this task");
+    	return array("taskId"=>$lastRecord["taskId"], "status"=>"Error","message"=>"We have already added this task");
     }
 
 
@@ -85,7 +85,7 @@ function addTask($data)
 				
 			} 
 		}		 
-		return array("status"=>"Success","message"=>"Exercises Added Successfully..!!!");
+		return array("taskId"=>$id, "status"=>"Success","message"=>"Exercises Added Successfully..!!!");
 	}
 	else{
 

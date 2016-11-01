@@ -16,7 +16,7 @@ class Tag{
 	}
 
 	public static function assignTag($tagId, $taskId) {
-		$query = "INSERT INTO assignedtag (tagid, taskid) VALUES (".$tagid.", ".$taskid.")";
+		$query = "INSERT INTO assignedtag (tagid, taskid) VALUES (".$tagId.", ".$taskId.")";
 		$result = mysql_query($query) or die(mysql_error());
 		if($result) 
 			return true;
