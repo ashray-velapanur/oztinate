@@ -30,6 +30,16 @@ $app->get('/teacher/students/:id/delete', function($id)use($app){
 	$students = $teacher->deleteTeacher($id);
 })->via('POST');
 
+$app->get('/teacher/goals', function()use($app){
+	if($_SERVER['REQUEST_METHOD']=="POST")
+	{
+		Goal::createGoal($_POST["tagId"], $_POST["duration"], $_POST["rating"], $_POST["userId"]);
+	}	
+ 	$tags = Tag::getTags();
+ 	$params = array("tags"=>$tags, "userId"=>$_GET["userId"]);
+	$app->render("teacher/goal/create.php", $params);
+})->via('GET', 'POST');
+
 $app->get('/teacher/update_exercise', function()use($app){
  if($_SERVER['REQUEST_METHOD']=="POST")
  {

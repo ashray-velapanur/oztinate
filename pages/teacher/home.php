@@ -78,7 +78,7 @@
                                         </div>
                                     </td>
                                     <td class="col-md-2">
-                                        <form action="">
+                                        <form action="/oztinate_dev/teacher/goals">
                                             <input class="hidden" name="userId" id="userId" value="<?php echo $student["userid"]; ?>">
                                             <button type="submit" class="btn btn-primary btn-block">Goals</button>
                                         </form>

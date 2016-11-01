@@ -1,6 +1,15 @@
 <?php
 class Tag{
 
+	public static function getTags() {
+		$query = mysql_query("SELECT * FROM tag");
+		$tags = array();
+		while ($row = mysql_fetch_assoc($query)) {
+       		array_push($tags, array("id"=>$row["id"], "name"=>$row["name"]));
+        }
+        return $tags;
+	}
+
 	public static function getOrCreateTag($name) {
 		$query = mysql_query("SELECT id FROM tag WHERE name='".$name."'");
 		$result = mysql_fetch_assoc($query);
