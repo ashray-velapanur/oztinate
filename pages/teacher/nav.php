@@ -13,7 +13,7 @@
             <a class="nav-link" href="/oztinate_dev/teacher/students">Students</a>
         </li>
     </ul>
-      <form class="navbar-form navbar-right">
+      <form class="navbar-form pull-right">
         <a href="/oztinate_dev/teacher/logout" type="submit" class="btn btn-primary">Logout</a>
       </form>
     </ul>
