@@ -7,40 +7,40 @@
     <?php include(ROOT_DIR."/pages/teacher/nav.php") ?>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-1">
+            <div class="col-md-2">
             </div>
-            <div class="col-md-10">
+            <div class="col-md-8">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="h3 pull-left">Exercises</div>
+                        <div class="h3">Exercises</div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3"></div>
-                    <div class="col-md-6">
+                    <!-- <div class="col-md-3"></div> -->
+                    <div class="col-md-12">
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th class="col-md-5">Name</th>
-                                    <th class="col-md-5">Assigned To</th>
-                                    <!-- <th class="col-md-2"></th>                                     -->
+                                    <th class="col-md-4">Name</th>
+                                    <th class="col-md-4">Assigned To</th>
+                                    <th class="col-md-2"></th>                                    
                                     <th class="col-md-2"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach($data["tasks"] as $task): ?>
                                 <tr>
-                                    <td class="col-md-5">
+                                    <td class="col-md-4">
                                         <div class="h5">
                                             <?php echo $task["taskName"]; ?>
                                         </div>
                                     </td>
-                                    <td class="col-md-5">
+                                    <td class="col-md-4">
                                         <div class="h5">
                                             <?php echo $task["userName"]; ?>
                                         </div>
                                     </td>
-                                    <!-- <td class="col-md-2"></td> -->
+                                    <td class="col-md-2"></td>
                                     <td class="col-md-2">
                                         <form action="/oztinate_dev/teacher/review_exercise">
                                             <input class="hidden" name="taskId" id="taskId" value="<?php echo $task["id"]; ?>">
@@ -52,7 +52,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-md-3"></div>
+                    <!-- <div class="col-md-3"></div> -->
                 </div>
                 <div class="row">
                     <div class="col-md-12">
@@ -60,8 +60,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-1"></div>
-                    <div class="col-md-10">
+                    <!-- <div class="col-md-1"></div> -->
+                    <div class="col-md-12">
                         <table class="table">
                             <thead>
                                 <tr>
@@ -108,10 +108,10 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-md-1"></div>
+                    <!-- <div class="col-md-1"></div> -->
                 </div>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-2">
             </div>
         </div>
     </div>
