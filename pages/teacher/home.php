@@ -44,7 +44,9 @@
                                     <td class="col-md-2">
                                         <form action="/oztinate_dev/teacher/review_exercise">
                                             <input class="hidden" name="taskId" id="taskId" value="<?php echo $task["id"]; ?>">
-                                            <button type="submit" class="btn btn-primary btn-block">Review</button>
+                                            <button type="submit" class="btn">
+                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                            </button>
                                         </form>
                                     </td>
                                 </tr>
@@ -86,21 +88,27 @@
                                         </div>
                                     </td>
                                     <td class="col-md-2">
-                                        <form action="/oztinate_dev/teacher/goals">
+<!--                                         <form action="/oztinate_dev/teacher/goals">
                                             <input class="hidden" name="userId" id="userId" value="<?php echo $student["userid"]; ?>">
-                                            <button type="submit" class="btn btn-primary btn-block">Goals</button>
+                                            <button type="submit" class="btn">
+                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                            </button>
                                         </form>
-                                    </td>
+ -->                                    </td>
                                     <td class="col-md-2">
-                                        <form action="/oztinate_dev/teacher/assign_exercise">
+<!--                                         <form action="/oztinate_dev/teacher/assign_exercise">
                                             <input class="hidden" name="userId" id="userId" value="<?php echo $student["userid"]; ?>">
-                                            <button type="submit" class="btn btn-primary btn-block">Assign Exercise</button>
+                                            <button type="submit" class="btn">
+                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                            </button>
                                         </form>
-                                    </td>
+ -->                                    </td>
                                     <td class="col-md-2">
                                         <form action="/oztinate_dev/teacher/student_details">
                                             <input class="hidden" name="userId" id="userId" value="<?php echo $student["userid"]; ?>">
-                                            <button type="submit" class="btn btn-primary btn-block">Details</button>
+                                            <button type="submit" class="btn">
+                                                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                                            </button>
                                         </form>
                                     </td>
                                 </tr>
