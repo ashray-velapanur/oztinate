@@ -1,9 +1,7 @@
 <nav class="navbar navbar-dark navbar-static-top">
     <div class="container">
         <div class="row">
-            <div class="col-md-1">
-            </div>
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="/oztinate_dev/teacher/home">Oztinate</a>
                 </div>
@@ -22,8 +20,6 @@
                     <a href="/oztinate_dev/teacher/logout" type="submit" class="btn btn-primary">Logout</a>
                   </form>
                 </ul>
-            </div>
-            <div class="col-md-1">
             </div>
         </div>
     </div>
