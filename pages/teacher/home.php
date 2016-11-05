@@ -7,17 +7,17 @@
     <?php include(ROOT_DIR."/pages/teacher/nav.php") ?>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-2">
+            <div class="col-md-3">
             </div>
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="h3">Exercises</div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-8">
+                    <!-- <div class="col-md-2"></div> -->
+                    <div class="col-md-12">
                         <table class="table">
                             <thead>
                                 <tr>
@@ -54,7 +54,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-md-2"></div>
+                    <!-- <div class="col-md-2"></div> -->
                 </div>
                 <div class="row">
                     <div class="col-md-12">
@@ -62,8 +62,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-2"></div>
-                    <div class="col-md-8">
+                    <!-- <div class="col-md-2"></div> -->
+                    <div class="col-md-12">
                         <table class="table">
                             <thead>
                                 <tr>
@@ -117,10 +117,10 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-md-2"></div>
+                    <!-- <div class="col-md-2"></div> -->
                 </div>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3">
             </div>
         </div>
     </div>
@@ -131,5 +131,6 @@
     <script src="../dist/js/sb-admin-2.js"></script>
 
 </body>
+
 
 </html>
