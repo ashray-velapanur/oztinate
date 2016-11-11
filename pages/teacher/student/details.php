@@ -7,50 +7,12 @@
     <?php include(ROOT_DIR."/pages/teacher/nav.php") ?>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-1">
+            <div class="col-md-3">
             </div>
-            <div class="col-md-10">
+            <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="h3 pull-left">Exercises</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h1>Practice Time</h1>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h3>15 Hours</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h1>Practice Time</h1>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h3>15 Hours</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h1>Practice Time</h1>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <h3>15 Hours</h3>
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -60,23 +22,33 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
-                                    <th>Name</th>
-                                    <th>Status</th>
-                                    <th></th>
+                                    <th class="col-md-6">Name</th>
+                                    <th class="col-md-4">Status</th>
+                                    <th class="col-md-2"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($data["assignedTasks"] as $task) {?>
                                 <tr>
-                                    <td><?php echo $task["id"]; ?></td>
-                                    <td><?php echo $task["taskName"]; ?></td>
-                                    <td><?php echo $task["status"]; ?></td>
-                                    <td>
-                                        <form action="/oztinate_dev/teacher/review_exercise">
-                                            <input class="hidden" name="taskId" id="taskId" value="<?php echo $task["id"]; ?>">
-                                            <button type="submit" class="btn btn-primary">Review</button>
-                                        </form>
+                                    <td class="col-md-6">
+                                        <div class="h5">
+                                            <?php echo $task["taskName"]; ?>
+                                        </div>
+                                    </td>
+                                    <td class="col-md-4">
+                                        <div class="h5">
+                                            <?php echo $task["status"]; ?>
+                                        </div>
+                                    </td>
+                                    <td class="col-md-2">
+                                        <div class="pull-right">
+                                            <form action="/oztinate_dev/teacher/review_exercise">
+                                                <input class="hidden" name="taskId" id="taskId" value="<?php echo $task["id"]; ?>">
+                                                    <button type="submit" class="btn">
+                                                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                                                    </button>
+                                            </form>
+                                        </div>
                                     </td>
                                 <?php } ?>
                             </tbody>
@@ -86,7 +58,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-3">
             </div>
         </div>
     </div>
