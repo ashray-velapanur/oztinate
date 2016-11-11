@@ -12,6 +12,34 @@
             <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-12">
+                        <div class="h3 pull-left">Goals</div>
+                    </div>
+                </div>
+                <?php foreach ($data["goals"] as $goal) {?>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="h3 pull-right">
+                                    <?php echo $goal["name"]; ?>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="h3 pull-right">
+                                    <?php echo $goal["rating"]; ?>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="h3 pull-right">
+                                    <?php echo $goal["progress"]; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php } ?>
+                <div class="row">
+                    <div class="col-md-12">
                         <div class="h3 pull-left">Exercises</div>
                     </div>
                 </div>

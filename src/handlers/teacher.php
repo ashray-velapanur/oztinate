@@ -109,7 +109,8 @@ $app->get('/teacher/review_exercise', function()use($app){
 $app->get('/teacher/student_details', function()use($app){
 	$assTasks = new AssignedTask();
 	$assignedTasks = $assTasks->getAssTaskNames(null, $_GET["userId"]);
-	$params = array("userId"=>$_GET["userId"], "assignedTasks"=>$assignedTasks);
+	$goals = Goal::getProgress($_GET["userId"]);
+	$params = array("userId"=>$_GET["userId"], "assignedTasks"=>$assignedTasks, "goals"=>$goals);
 	$app->render("teacher/student/details.php", $params);
  })->via('GET');
 

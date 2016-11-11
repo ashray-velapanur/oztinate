@@ -1,6 +1,23 @@
 <?php
 class Tag{
 
+	public static function getAssignedTasksWithTag($tagId) {
+		$queryString = "SELECT assignedtask.practiceDuration FROM assignedtag INNER JOIN assignedtask ON assignedtag.taskid = assignedtask.id WHERE tagid = ".$tagId;
+		$query = mysql_query($queryString);
+		$tasks = array();
+		while ($row = mysql_fetch_assoc($query)) {
+       		array_push($tasks, array("duration"=>$row["practiceDuration"]));
+        }
+        return $tasks;
+	}
+
+	public static function getTagDetails($tagId) {
+		$query = mysql_query("SELECT name FROM tag WHERE id = ".$tagId);
+		$result = mysql_fetch_assoc($query);
+		$details = array("name"=>$result["name"]);
+		return $details;
+	}
+
 	public static function getTags() {
 		$query = mysql_query("SELECT * FROM tag");
 		$tags = array();
