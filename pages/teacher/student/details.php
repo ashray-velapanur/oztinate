@@ -16,9 +16,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-1">
-                    </div>
-                    <div class="col-md-10">
+                    <!-- <div class="col-md-1"></div> -->
+                    <div class="col-md-12">
                         <table class="table">
                             <thead>
                                 <tr>
@@ -54,8 +53,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="col-md-1">
-                    </div>
+                    <!-- <div class="col-md-1"></div> -->
                 </div>
             </div>
             <div class="col-md-3">
