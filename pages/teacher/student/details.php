@@ -16,22 +16,43 @@
                     </div>
                 </div>
                 <?php foreach ($data["goals"] as $goal) {?>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="h3 pull-right">
-                                    <?php echo $goal["name"]; ?>
+                <div class="row panel panel-default">
+                    <div class="panel-body">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="h5 pull-left">
+                                        <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
+                                    </div>
+                                    <div class="h4 pull-left">
+                                        <?php echo $goal["name"]; ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="h5 pull-left">
+                                        <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                    </div>
+                                    <div class="h4 pull-left">
+                                        <?php echo $goal["rating"]; ?>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="h5 pull-left">
+                                        <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+                                    </div>
+                                    <div class="h4 pull-left">
+                                        <?php echo $goal["duration"]; ?>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="h3 pull-right">
-                                    <?php echo $goal["rating"]; ?>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="h3 pull-right">
-                                    <?php echo $goal["progress"]; ?>
+                            <div class="row vertical-center">
+                                <div class="col-md-12">
+                                    
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: <?php echo $goal["progress"]; ?>%;">
+                                        </div>
+                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
