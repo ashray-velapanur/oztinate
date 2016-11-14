@@ -29,7 +29,7 @@ class Goal{
 			}
 			$progress = ($totalDuration/$targetDuration) >= 1.0 ? 1.0 : $totalDuration/$targetDuration;
 			$progress = $progress * 100.0;
-			array_push($goals, array("tagId"=>$tagId, "duration"=>$targetDuration, "rating"=>$rating, "progress"=>$progress, "name"=>$tagDetails["name"]));
+			array_push($goals, array("tagId"=>$tagId, "totalDuration"=>$totalDuration, "targetDuration"=>$targetDuration, "rating"=>$rating, "progress"=>$progress, "name"=>$tagDetails["name"]));
         }
         return $goals;
 
