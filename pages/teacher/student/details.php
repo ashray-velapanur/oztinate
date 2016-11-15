@@ -11,8 +11,14 @@
             </div>
             <div class="col-md-6">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-10">
                         <div class="h3 pull-left">Goals</div>
+                    </div>
+                    <div class="col-md-2">
+                        <form action="/oztinate_dev/teacher/goals">
+                            <input class="hidden" name="userId" id="userId" value="<?php echo $data["userId"]; ?>">
+                            <button type="submit" class="btn btn-primary btn-block">New</button>
+                        </form>
                     </div>
                 </div>
                 <?php foreach ($data["goals"] as $goal) {?>
@@ -20,22 +26,23 @@
                     <div class="panel-body">
                         <div class="col-md-12">
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="h5 pull-left">
+                                <div class="col-md-2">
+                                    <div class="h4 pull-left">
                                         <span class="glyphicon glyphicon-tag" aria-hidden="true"></span>
                                     </div>
                                     <div class="h4 pull-left">
                                         <?php echo $goal["name"]; ?>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="h5 pull-left">
+                                <div class="col-md-2">
+                                    <div class="h4 pull-left">
                                         <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                     </div>
                                     <div class="h4 pull-left">
                                         <?php echo $goal["rating"]; ?>
                                     </div>
                                 </div>
+                                <div class="col-md-8"></div>
                             </div>
                             <div class="row vertical-center">
                                 <div class="col-md-12">
