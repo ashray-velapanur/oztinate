@@ -11,13 +11,13 @@
             </div>
             <div class="col-md-6">
                 <div class="row">
-                    <div class="col-md-10">
+                    <div class="col-md-9">
                         <div class="h3 pull-left">Goals</div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <form action="/oztinate_dev/teacher/goals">
                             <input class="hidden" name="userId" id="userId" value="<?php echo $data["userId"]; ?>">
-                            <button type="submit" class="btn btn-primary btn-block">New</button>
+                            <button type="submit" class="btn btn-primary btn-block">New Goal</button>
                         </form>
                     </div>
                 </div>
@@ -61,11 +61,17 @@
                 </div>
                 <?php } ?>
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-9">
                         <div class="h3 pull-left">Exercises</div>
                     </div>
+                    <div class="col-md-3">
+                        <form action="/oztinate_dev/teacher/assign_exercise">
+                            <input class="hidden" name="userId" id="userId" value="<?php echo $data["userId"]; ?>">
+                            <button type="submit" class="btn btn-primary btn-block">Assign Exercise</button>
+                        </form>
+                    </div>
                 </div>
-                <div class="row">
+                    <div class="row">
                     <!-- <div class="col-md-1"></div> -->
                     <div class="col-md-12">
                         <table class="table">
@@ -94,7 +100,7 @@
                                             <form action="/oztinate_dev/teacher/review_exercise">
                                                 <input class="hidden" name="taskId" id="taskId" value="<?php echo $task["id"]; ?>">
                                                     <button type="submit" class="btn">
-                                                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                                     </button>
                                             </form>
                                         </div>
