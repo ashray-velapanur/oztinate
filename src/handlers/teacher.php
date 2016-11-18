@@ -188,7 +188,7 @@ $app->get('/teacher/home', function()use($app){
 	$assignedTasks = $assTasks->getAssTaskNames(3, null);
 
 	$params = array("username"=>$_SESSION['userName'], "students"=>$students, "tasks"=>$assignedTasks);
-	$app->render("teacher/home.php", $params);
+	$app->render("teacher/home2.php", $params);
 })->via('GET', 'POST');
 
 $app->get('/teacher/logout', function()use($app){
