@@ -4,15 +4,30 @@ $app->get('/teacher/create_exercise', function()use($app){
 	if($_SERVER['REQUEST_METHOD']=="POST")
 	{
 		$task=new Task();
-		$response = $task->addTask($_POST);
-
-		$tagNames = explode(",",$_POST["tags"]);
-		foreach ($tagNames as $tagName) {
-			$tagId = Tag::getOrCreateTag($tagName);
-			Tag::assignTag($tagId, $response["taskId"]);
+		if ($_POST['template'] == "newExercise") {
+			$response = $task->addTask($_POST);	
+			$tagNames = explode(",",$_POST["tags"]);
+			foreach ($tagNames as $tagName) {
+				$tagId = Tag::getOrCreateTag($tagName);
+				Tag::assignTag($tagId, $response["taskId"]);
+			}
+		} else {
+			$response = $task->updateTask($_POST);
 		}
 	}
-	$app->render("teacher/exercise/create.php");
+
+	$task = new Task();
+	$userId = $_SESSION["userId"];
+	$taskNames = $task->getTaskNames($userId);
+
+	$response = array();
+	$response["tasks"] = array();
+
+	while($row=mysql_fetch_assoc($taskNames)) {
+		array_push($response["tasks"], array("name"=>$row["taskName"], "id"=>$row["taskId"]));
+	}
+
+	$app->render("teacher/exercise/create.php", $response);
 })->via('GET', 'POST');
 
 $app->get('/teacher/students', function()use($app){
@@ -53,7 +68,7 @@ $app->get('/teacher/update_exercise', function()use($app){
 	$app->render("teacher/exercise/update.php", $templateDetails);
 })->via('GET', 'POST');
 
-$app->get('/teacher/exercises', function()use($app){
+$app->get('/teacher/list_exercises', function()use($app){
 	$task = new Task();
 	$userId = $_SESSION["userId"];
 	$taskNames = $task->getTaskNames($userId);
@@ -169,7 +184,7 @@ $app->get('/teacher/login', function()use($app){
  	if($userdata) {
 		$_SESSION["userName"] = $_POST["userName"];
 		$_SESSION["userId"] = $userdata["userId"];
- 		$app->redirect("/oztinate_dev/teacher/home"); 		
+ 		$app->redirect("/oztinate_dev/teacher/exercises"); 		
  	} else {
  		error_log("not allowed");
  	}
@@ -177,7 +192,7 @@ $app->get('/teacher/login', function()use($app){
 	$app->render("teacher/login.php");
 })->via('GET', 'POST');
 
-$app->get('/teacher/home', function()use($app){
+$app->get('/teacher/exercises', function()use($app){
 	isTeacherLoggedin($app);
 	$teacherid = $_SESSION["userId"];
 	error_log($_SESSION["userId"]);

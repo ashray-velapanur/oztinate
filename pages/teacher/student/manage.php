@@ -7,42 +7,50 @@
     <?php include(ROOT_DIR."/pages/teacher/nav.php") ?>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="h3 page-header">Students</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th class="col-md-10">Name</th>
-                                    <th class="col-md-2"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="h3">
+                                    Students
+                                </div>
+                            </div>
+                            <ul class="list-group">
                                 <?php foreach($data["students"] as $student): ?>
-                                <tr>
-                                    <td class="col-md-10"><?php echo $student["username"]; ?></td>
-                                    <td class="col-md-2">
-                                        <form action="/oztinate_dev/teacher/students/<?php echo $student["userid"]; ?>/delete">
-                                            <button type="submit" class="btn btn-primary btn-block">Remove</button>
-                                        </form>
-                                    </td>
-                                </tr>
+                                <li class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="h5">
+                                                <?php echo $student["username"]; ?>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="h5">
+                                                <?php echo $student["unreviewdCount"]; ?>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="pull-right">
+                                                <form action="/oztinate_dev/teacher/student_details">
+                                                    <input class="hidden" name="userId" id="userId" value="<?php echo $student["userid"]; ?>">
+                                                    <button type="submit" class="btn">
+                                                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
                                 <?php endforeach; ?>
-                                </tr>
-                            </tbody>
-                        </table>
+                            </ul>
+                        </div>        
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
             </div>
         </div>
     </div>
