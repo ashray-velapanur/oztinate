@@ -282,10 +282,10 @@ class AssignedTask{
 		foreach($soundClips as $soundClip){
 				
 				//echo  "select clipId from soundclip where clipName='".$soundClip["name"]."' and assignedTaskId=".$assTaskId;	
-				$result = mysql_query("select clipId from soundclip where clipName='".$soundClip["name"]."' and assignedTaskId=".$assTaskId);
+				$result = mysql_query('select clipId from soundclip where clipName="'.$soundClip["name"].'" and assignedTaskId='.$assTaskId);
 				if(!mysql_num_rows($result))
 				{
-					$result = mysql_query("insert into soundclip (assignedTaskId,clipName,updatedId,createdDate) values(".$assTaskId.",'".$soundClip["name"]."','".$soundClip["dateCreated"]."','".$soundClip["dateCreated"]."')");
+					$result = mysql_query('insert into soundclip (assignedTaskId,clipName,updatedId,createdDate) values('.$assTaskId.',"'.$soundClip["name"].'","'.$soundClip["dateCreated"].'","'.$soundClip["dateCreated"].'")');
 					if($result)
 					{
 						$id = mysql_insert_id();
