@@ -9,48 +9,53 @@
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="h3 page-header">Create Exercise Template</div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="h3">Exercise Templates</div>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" method="post" action="">
+                            <div class="form-group">
+                                <label for="template">Template</label>
+                                <select name="template" id="template" onChange="updateTemplate(this)">
+                                    <option value="newExercise">New Exercise</option>
+                                    <?php foreach ($data["tasks"] as $task) { ?>
+                                        <option value=<?php echo $task["id"] ?>><?php echo $task["name"] ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input class="form-control" id="taskName" name="taskName" type="text" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Instruction</label>
+                                <textarea class="form-control" name="instruction" id="instruction" type="text"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="minimumDuration">Minimim Duration</label>
+                                <input class="form-control" name="minDuration" id="minDuration" type="number" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="practiceDuration">Practice Duration</label>
+                                <input class="form-control" name="practiceDuration" id="practiceDuration" type="number" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label for="details">Details</label>
+                                <input class="form-control" name="details" id="details" type="text">
+                            </div>
+                            <div class="form-group">
+                                <label for="tags">Tags</label>
+                                <input class="form-control" name="tags" id="tags" type="text">
+                            </div>
+                            <input name="txtTaskId" id="txtTaskId" class="hidden">
+                            <input type="submit" value="Save" class="btn btn-lg btn-success btn-block"/>
+                        </form>
+
                     </div>
                 </div>
-                <form role="form" method="post" action="">
-                    <div class="form-group">
-                        <label for="template">Template</label>
-                        <select name="template" id="template" onChange="updateTemplate(this)">
-                            <option value="newExercise">New Exercise</option>
-                            <?php foreach ($data["tasks"] as $task) { ?>
-                                <option value=<?php echo $task["id"] ?>><?php echo $task["name"] ?></option>
-                            <?php } ?>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input class="form-control" id="taskName" name="taskName" type="text" autofocus>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Instruction</label>
-                        <textarea class="form-control" name="instruction" id="instruction" type="text"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="minimumDuration">Minimim Duration</label>
-                        <input class="form-control" name="minDuration" id="minDuration" type="number" min="0">
-                    </div>
-                    <div class="form-group">
-                        <label for="practiceDuration">Practice Duration</label>
-                        <input class="form-control" name="practiceDuration" id="practiceDuration" type="number" min="0">
-                    </div>
-                    <div class="form-group">
-                        <label for="details">Details</label>
-                        <input class="form-control" name="details" id="details" type="text">
-                    </div>
-                    <div class="form-group">
-                        <label for="tags">Tags</label>
-                        <input class="form-control" name="tags" id="tags" type="text">
-                    </div>
-                    <input name="txtTaskId" id="txtTaskId" class="hidden">
-                    <input type="submit" value="Save" class="btn btn-lg btn-success btn-block"/>
-                </form>
+
+
             </div>
             <div class="col-md-4"></div>
         </div>
