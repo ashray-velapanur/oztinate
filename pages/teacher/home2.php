@@ -38,6 +38,7 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="h5">
+                                        <div class="glyphicon glyphicon-user" aria-hidden="true"></div>
                                         <?php echo $task["userName"]; ?>
                                     </div>
                                 </div>
