@@ -200,7 +200,7 @@ $app->get('/teacher/exercises', function()use($app){
 	$students = $teacher->getStudents($teacherid);
 
 	$assTasks = new AssignedTask();
-	$assignedTasks = $assTasks->getAssTaskNames(3, null);
+	$assignedTasks = $assTasks->getAssTaskNames(4, null);
 
 	$params = array("username"=>$_SESSION['userName'], "students"=>$students, "tasks"=>$assignedTasks);
 	$app->render("teacher/home2.php", $params);
