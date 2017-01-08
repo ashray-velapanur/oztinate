@@ -151,12 +151,12 @@ $app->get('/teacher/assign_exercise', function()use($app){
 })->via('GET', 'POST');
 
 $app->get('/teacher/signup', function()use($app){
- if($_SERVER['REQUEST_METHOD']=="POST")
- {
-    $teacher = new Teacher();
-    $status = $teacher->addTeacher($_POST);
-    $app->redirect("/oztinate_dev/teacher/login");
- }
+    if($_SERVER['REQUEST_METHOD']=="POST")
+    {
+        $teacher = new Teacher();
+        $status = $teacher->addTeacher($_POST);
+        $app->redirect($app->urlFor('teacher_login'));
+    }
     $app->render("teacher/signup.php");
 })->via('GET', 'POST');
 
@@ -178,20 +178,18 @@ $app->get('/teacher/invite', function()use($app){
 
 
 $app->get('/teacher/login', function()use($app){
- if($_SERVER['REQUEST_METHOD']=="POST")
- {
-    $user = new User();
-    $userdata=$user->teacherLogin($_POST);
-    if($userdata) {
-        $_SESSION["userName"] = $_POST["userName"];
-        $_SESSION["userId"] = $userdata["userId"];
-        $app->redirect("/oztinate_dev/teacher/exercises");      
-    } else {
-        error_log("not allowed");
+    if($_SERVER['REQUEST_METHOD']=="POST")
+    {
+        $user = new User();
+        $userdata=$user->teacherLogin($_POST);
+        if($userdata) {
+            $_SESSION["userName"] = $_POST["userName"];
+            $_SESSION["userId"] = $userdata["userId"];
+            $app->redirect("/oztinate_dev/teacher/exercises");      
+        }
     }
- }
     $app->render("teacher/login.php");
-})->via('GET', 'POST');
+})->via('GET', 'POST')->name('teacher_login');
 
 $app->get('/teacher/exercises', function()use($app){
     isTeacherLoggedin($app);
