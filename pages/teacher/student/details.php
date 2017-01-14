@@ -17,10 +17,9 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="h3 pull-right">
-                                    <form action="/oztinate_dev/teacher/goals">
-                                        <input class="hidden" name="userId" id="userId" value="<?php echo $data["userId"]; ?>">
+                                    <form action="/oztinate_dev/students/<?php echo $data["userId"]; ?>/goals">
                                         <button type="submit" class="btn">
-                                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                         </button>
                                     </form>
                                 </div>
@@ -75,10 +74,9 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="h3 pull-right">
-                                    <form action="/oztinate_dev/teacher/assign_exercise">
-                                        <input class="hidden" name="userId" id="userId" value="<?php echo $data["userId"]; ?>">
+                                    <form action="/oztinate_dev/students/<?php echo $data["userId"]; ?>/exercises">
                                         <button type="submit" class="btn">
-                                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                         </button>
                                     </form>
                                 </div>

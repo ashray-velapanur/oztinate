@@ -45,13 +45,13 @@ $app->get('/teacher/students/:id/delete', function($id)use($app){
     $students = $teacher->deleteTeacher($id);
 })->via('POST');
 
-$app->get('/teacher/goals', function()use($app){
+$app->get('/students/:id/goals', function($id)use($app){
     if($_SERVER['REQUEST_METHOD']=="POST")
     {
         Goal::createGoal($_POST["tagId"], $_POST["duration"], $_POST["rating"], $_POST["userId"]);
     }   
     $tags = Tag::getTags();
-    $params = array("tags"=>$tags, "userId"=>$_GET["userId"]);
+    $params = array("tags"=>$tags, "userId"=>$id);
     $app->render("teacher/goal/create.php", $params);
 })->via('GET', 'POST');
 
@@ -121,15 +121,15 @@ $app->get('/teacher/review_exercise', function()use($app){
     $app->render("teacher/exercise/review.php", $response);
  })->via('GET', 'POST');
 
-$app->get('/teacher/student_details', function()use($app){
+$app->get('/students/:id/details', function($id)use($app){
     $assTasks = new AssignedTask();
-    $assignedTasks = $assTasks->getAssTaskNames(null, $_GET["userId"]);
-    $goals = Goal::getProgress($_GET["userId"]);
-    $params = array("userId"=>$_GET["userId"], "assignedTasks"=>$assignedTasks, "goals"=>$goals);
+    $assignedTasks = $assTasks->getAssTaskNames(null, $id);
+    $goals = Goal::getProgress($id);
+    $params = array("userId"=>$id, "assignedTasks"=>$assignedTasks, "goals"=>$goals);
     $app->render("teacher/student/details.php", $params);
  })->via('GET');
 
-$app->get('/teacher/assign_exercise', function()use($app){
+$app->get('/students/:id/exercises', function($id)use($app){
  if($_SERVER['REQUEST_METHOD']=="POST")
  {
     //$data["taskId"].",".$data["userId"].",".$data["status"].",".$data["createdUserId"].",".$data["minDuration"].",".$data["practiceDuration"].",".$data["dateOfAssign"].",'".$newformat."','".$createdByUser."',".$data["updatedId"]
@@ -146,7 +146,7 @@ $app->get('/teacher/assign_exercise', function()use($app){
         array_push($tasks, array("name"=>$row["taskName"], "id"=>$row["taskId"]));
     }
 
-    $params = array("tasks"=>$tasks, "userId"=>$_GET["userId"]);
+    $params = array("tasks"=>$tasks, "userId"=>$id);
     $app->render("teacher/exercise/assign.php", $params);
 })->via('GET', 'POST');
 

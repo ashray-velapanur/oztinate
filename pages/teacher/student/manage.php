@@ -45,8 +45,7 @@
                                         </div>
                                         <div class="col-md-2">
                                             <div class="pull-right">
-                                                <form action="/oztinate_dev/teacher/student_details">
-                                                    <input class="hidden" name="userId" id="userId" value="<?php echo $student["userid"]; ?>">
+                                                <form action="/oztinate_dev/students/<?php echo $student["userid"]; ?>/details">
                                                     <button type="submit" class="btn">
                                                         <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                                                     </button>
