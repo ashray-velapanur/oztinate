@@ -30,14 +30,14 @@ $app->get('/teacher/create_exercise', function()use($app){
     $app->render("teacher/exercise/create.php", $response);
 })->via('GET', 'POST');
 
-$app->get('/teacher/students', function()use($app){
+$app->get('/students', function()use($app){
     isTeacherLoggedin($app);
     $teacherid = $_SESSION["userId"];
     $teacher = new Teacher();
     $students = $teacher->getStudents($teacherid);
     $params = array("username"=>$_SESSION['userName'], "students"=>$students);
     $app->render("teacher/student/manage.php", $params);
-})->via('GET', 'POST');
+})->via('GET', 'POST')->name('students');
 
 $app->get('/teacher/students/:id/delete', function($id)use($app){
     isTeacherLoggedin($app);
