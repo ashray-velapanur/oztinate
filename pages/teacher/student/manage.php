@@ -22,7 +22,7 @@
                                         <div class="h3 pull-right">
                                             <form action="/oztinate_dev/invite">
                                                 <button type="submit" class="btn">
-                                                    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                                 </button>
                                             </form>
                                         </div>

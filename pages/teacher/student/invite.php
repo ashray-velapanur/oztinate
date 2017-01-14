@@ -4,7 +4,8 @@
 <?php include(ROOT_DIR."/pages/teacher/base.php") ?>
 
 <body>
-    <div class="container">
+    <?php include(ROOT_DIR."/pages/teacher/nav.php") ?>
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
