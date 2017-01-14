@@ -14,8 +14,19 @@
                     <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <div class="h3">
-                                    Students
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="h3">Students</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="h3 pull-right">
+                                            <form action="/oztinate_dev/invite">
+                                                <button type="submit" class="btn">
+                                                    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <ul class="list-group">
