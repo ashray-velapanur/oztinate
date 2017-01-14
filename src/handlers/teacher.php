@@ -150,17 +150,17 @@ $app->get('/teacher/assign_exercise', function()use($app){
     $app->render("teacher/exercise/assign.php", $params);
 })->via('GET', 'POST');
 
-$app->get('/teacher/signup', function()use($app){
+$app->get('/signup', function()use($app){
     if($_SERVER['REQUEST_METHOD']=="POST")
     {
         $teacher = new Teacher();
         $status = $teacher->addTeacher($_POST);
-        $app->redirect($app->urlFor('teacher_login'));
+        $app->redirect($app->urlFor('login'));
     }
     $app->render("teacher/signup.php");
 })->via('GET', 'POST');
 
-$app->get('/teacher/invite', function()use($app){
+$app->get('/invite', function()use($app){
  if($_SERVER['REQUEST_METHOD']=="POST")
  {
     $user = new User();
@@ -177,7 +177,7 @@ $app->get('/teacher/invite', function()use($app){
 })->via('GET', 'POST');
 
 
-$app->get('/teacher/login', function()use($app){
+$app->get('/login', function()use($app){
     if($_SERVER['REQUEST_METHOD']=="POST")
     {
         $user = new User();
@@ -185,13 +185,13 @@ $app->get('/teacher/login', function()use($app){
         if($userdata) {
             $_SESSION["userName"] = $_POST["userName"];
             $_SESSION["userId"] = $userdata["userId"];
-            $app->redirect("/oztinate_dev/teacher/exercises");      
+            $app->redirect($app->urlFor('home'));
         }
     }
     $app->render("teacher/login.php");
-})->via('GET', 'POST')->name('teacher_login');
+})->via('GET', 'POST')->name('login');
 
-$app->get('/teacher/exercises', function()use($app){
+$app->get('/home', function()use($app){
     isTeacherLoggedin($app);
     $teacherid = $_SESSION["userId"];
     error_log($_SESSION["userId"]);
@@ -203,7 +203,7 @@ $app->get('/teacher/exercises', function()use($app){
 
     $params = array("username"=>$_SESSION['userName'], "students"=>$students, "tasks"=>$assignedTasks);
     $app->render("teacher/home2.php", $params);
-})->via('GET', 'POST');
+})->via('GET', 'POST')->name('home');
 
 $app->get('/teacher/logout', function()use($app){
    if(isset($_SESSION["userId"]))
