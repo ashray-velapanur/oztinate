@@ -1,6 +1,6 @@
 <?php
 
-$app->get('/create_exercise', function()use($app){
+$app->get('/exercises/create', function()use($app){
     if($_SERVER['REQUEST_METHOD']=="POST")
     {
         $task=new Task();

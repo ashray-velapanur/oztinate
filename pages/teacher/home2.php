@@ -17,7 +17,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="h3 pull-right">
-                                    <form action="/oztinate_dev/teacher/create_exercise">
+                                    <form action="/oztinate_dev/exercises/create">
                                         <button type="submit" class="btn">
                                             <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                                         </button>
