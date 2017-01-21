@@ -109,8 +109,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="pull-right">
-                                            <form action="/oztinate_dev/teacher/review_exercise">
-                                                <input class="hidden" name="taskId" id="taskId" value="<?php echo $task["id"]; ?>">
+                                            <form action="/oztinate_dev/exercises/<?php echo $task["id"]; ?>/review">
                                                 <button type="submit" class="btn">
                                                     <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                                 </button>

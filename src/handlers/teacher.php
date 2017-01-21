@@ -85,19 +85,18 @@ $app->get('/teacher/get_exercise', function()use($app){
     response($templateDetails);
  })->via('GET');
 
-$app->get('/teacher/review_exercise', function()use($app){
+$app->get('/exercises/:id/review', function($id)use($app){
     if($_SERVER['REQUEST_METHOD']=="POST")
     {
         $rating = new Rating();
         $rating->rate($_POST["assTaskId"], $_POST["rating"]);
     }
     
-    $taskId = $_GET["taskId"];
     $assignedTask = new AssignedTask();
     
-    $task = $assignedTask->getDetails($taskId);
-    $clips = $assignedTask->getSoundClips($taskId);
-    $comments = $assignedTask->getComments($taskId);
+    $task = $assignedTask->getDetails($id);
+    $clips = $assignedTask->getSoundClips($id);
+    $comments = $assignedTask->getComments($id);
 
     $response = array();
     $response["task"] = $task;
