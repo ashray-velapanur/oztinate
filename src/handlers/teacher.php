@@ -200,14 +200,14 @@ $app->get('/home', function()use($app){
     $assignedTasks = $assTasks->getAssTaskNames(4, null);
 
     $params = array("username"=>$_SESSION['userName'], "students"=>$students, "tasks"=>$assignedTasks);
-    $app->render("teacher/home2.php", $params);
+    $app->render("teacher/home.php", $params);
 })->via('GET', 'POST')->name('home');
 
-$app->get('/teacher/logout', function()use($app){
+$app->get('/logout', function()use($app){
    if(isset($_SESSION["userId"]))
    {
      session_unset();
-     $app->redirect("/oztinate_dev/teacher/login");
+     $app->redirect($app->urlFor("login"));
    }
   
 });
