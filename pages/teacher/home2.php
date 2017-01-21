@@ -26,36 +26,39 @@
                             </div>
                         </div>
                     </div>
-
-                    <ul class="list-group">
-                        <?php foreach($data["tasks"] as $task): ?>
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="h5">
-                                        <?php echo $task["taskName"]; ?>
+                    <?php if ($data["tasks"] != null) {?>
+                        <ul class="list-group">
+                            <?php foreach($data["tasks"] as $task): ?>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="h5">
+                                            <?php echo $task["taskName"]; ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="h5">
+                                            <div class="glyphicon glyphicon-user" aria-hidden="true"></div>
+                                            <?php echo $task["userName"]; ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="pull-right">
+                                            <form action="/oztinate_dev/teacher/review_exercise">
+                                                <input class="hidden" name="taskId" id="taskId" value="<?php echo $task["id"]; ?>">
+                                                <button type="submit" class="btn">
+                                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="h5">
-                                        <div class="glyphicon glyphicon-user" aria-hidden="true"></div>
-                                        <?php echo $task["userName"]; ?>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="pull-right">
-                                        <form action="/oztinate_dev/teacher/review_exercise">
-                                            <input class="hidden" name="taskId" id="taskId" value="<?php echo $task["id"]; ?>">
-                                            <button type="submit" class="btn">
-                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <?php endforeach; ?>
-                    </ul>
+                            </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php } else { ?>
+                        <p><small>No Exercises to Review.</small></p>
+                    <?php } ?>
                 </div>        
             </div>
             </div>

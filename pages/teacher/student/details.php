@@ -26,7 +26,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="panel-body"> -->
+                    <?php if ($data["goals"] != null) {?>
                         <ul class="list-group">
                             <?php foreach ($data["goals"] as $goal) {?>
                                 <li class="list-group-item">
@@ -63,7 +63,9 @@
                                 </li>
                             <?php } ?>
                         </ul>
-                    <!-- </div> -->
+                    <?php } else { ?>
+                        <p><small>No Goals Assigned.</small></p>
+                    <?php } ?>
                 </div>
 
                 <div class="panel panel-default">
@@ -83,34 +85,38 @@
                             </div>
                         </div>
                     </div>
-                    <ul class="list-group">
-                        <?php foreach ($data["assignedTasks"] as $task) {?>
-                        <li class="list-group-item">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="h5">
-                                        <?php echo $task["taskName"]; ?>
+                    <?php if ($data["assignedTasks"] != null) {?>
+                        <ul class="list-group">
+                            <?php foreach ($data["assignedTasks"] as $task) {?>
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="h5">
+                                            <?php echo $task["taskName"]; ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="h5">
+                                            <?php echo $task["status"]; ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="pull-right">
+                                            <form action="/oztinate_dev/teacher/review_exercise">
+                                                <input class="hidden" name="taskId" id="taskId" value="<?php echo $task["id"]; ?>">
+                                                <button type="submit" class="btn">
+                                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="h5">
-                                        <?php echo $task["status"]; ?>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="pull-right">
-                                        <form action="/oztinate_dev/teacher/review_exercise">
-                                            <input class="hidden" name="taskId" id="taskId" value="<?php echo $task["id"]; ?>">
-                                            <button type="submit" class="btn">
-                                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <?php } ?>
-                    </ul>
+                            </li>
+                            <?php } ?>
+                        </ul>
+                    <?php } else { ?>
+                        <p><small>No Exercises Assigned.</small></p>
+                    <?php } ?>
                 </div>
             </div>
             <div class="col-md-3">
