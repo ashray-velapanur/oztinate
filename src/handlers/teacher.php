@@ -120,7 +120,9 @@ $app->get('/students/:id/details', function($id)use($app){
     $assTasks = new AssignedTask();
     $assignedTasks = $assTasks->getAssTaskNames(null, $id);
     $goals = Goal::getProgress($id);
-    $params = array("userId"=>$id, "assignedTasks"=>$assignedTasks, "goals"=>$goals);
+    $user = new User();
+    $name = $user->getNameById($id);
+    $params = array("name"=>$name, "userId"=>$id, "assignedTasks"=>$assignedTasks, "goals"=>$goals);
     $app->render("teacher/student/details.php", $params);
  })->via('GET');
 

@@ -161,6 +161,17 @@ class User{
 		}	
 	}
 	
+	function getNameById($id) {
+		$result = mysql_query("select name from users where userId=".$id);
+		if(mysql_num_rows($result))
+		{
+			$data =mysql_fetch_array($result);
+			return $data['name'];
+		}else{
+			return false;
+		}
+	}
+
 	function getUserById($id)
 	{
 		$result = mysql_query("select userName from users where userId=".$id);

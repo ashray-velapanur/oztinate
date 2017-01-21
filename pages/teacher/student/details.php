@@ -9,6 +9,13 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
+                <div class="h2">
+                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                    <?php echo $data["name"] ?>
+                </div>
+                <div class="row">
+                    <div class="col-md-12" style="height:25px;"></div>
+                </div>
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <div class="row">
