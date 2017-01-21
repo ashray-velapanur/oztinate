@@ -167,6 +167,8 @@ $app->get('/invite', function()use($app){
     $data["password"] = "pass";
     $data["userType"] = 2;
     $data["userName"] = $_POST["email"];
+    $data["name"] = $_POST["name"];
+
     $studentid = $user->addUser($data);
 
     $teacher = new Teacher();

@@ -81,7 +81,7 @@ class User{
 
 		$password = sha1($data["password"]);
 		//$password = $data["password"];
-		$query = "INSERT INTO users (userName,password,userType,createdDate) values('".$data["userName"]."','".$password."',".$data["userType"].",NOW())";
+		$query = "INSERT INTO users (userName,name,password,userType,createdDate) values('".$data["userName"]."','".$data['name']."','".$password."',".$data["userType"].",NOW())";
 		$result = mysql_query($query)or die(mysql_error());
 		
 		if($result) 
