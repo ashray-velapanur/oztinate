@@ -6,11 +6,6 @@ $app->get('/exercises/create', function()use($app){
         $task=new Task();
         if ($_POST['template'] == "newExercise") {
             $response = $task->addTask($_POST); 
-            $tagNames = explode(",",$_POST["tags"]);
-            foreach ($tagNames as $tagName) {
-                $tagId = Tag::getOrCreateTag($tagName);
-                Tag::assignTag($tagId, $response["taskId"]);
-            }
         } else {
             $response = $task->updateTask($_POST);
         }

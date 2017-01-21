@@ -44,10 +44,6 @@
                                 <label for="details">Details</label>
                                 <input class="form-control" name="details" id="details" type="text">
                             </div>
-                            <div class="form-group">
-                                <label for="tags">Tags</label>
-                                <input class="form-control" name="tags" id="tags" type="text">
-                            </div>
                             <input name="txtTaskId" id="txtTaskId" class="hidden">
                             <input type="submit" value="Save" class="btn btn-lg btn-success btn-block"/>
                         </form>
