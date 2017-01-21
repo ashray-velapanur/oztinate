@@ -17,9 +17,43 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
+                                <label for="name">Name</label>
+                                <div class="name">
+                                    <div class="h5">
+                                        <?php echo $task['taskName'] ?>
+                                    </div>
+                                </div>
+                                <label for="minDuration">Minimum Duration</label>
+                                <div class="minDuration">
+                                    <div class="h5">
+                                        <?php echo $task['minDuration'] ?> minutes
+                                    </div>
+                                </div>
+                                <label for="practiceDuration">Practice Duration</label>
+                                <div class="practiceDuration">
+                                    <div class="h5">
+                                        <?php echo $task['practiceDuration'] ?>  minutes
+                                    </div>
+                                </div>
+                                <label for="assignedDate">Assigned Date</label>
+                                <div class="assignedDate">
+                                    <div class="h5">
+                                        <?php echo $task['assignedDate'] ?>
+                                    </div>
+                                </div>
+                                <label for="completionDate">Completion Date</label>
+                                <div class="completionDate">
+                                    <div class="h5">
+                                        <?php echo $task['completionDate'] ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="clips">Clips</label>
-                                    <div classs="clips">
+                                    <div class="clips">
                                         <?php foreach ($data["clips"] as $clip) { ?>
                                             <audio src=<?php echo $clip ?> controls></audio>
                                         <?php } ?>
