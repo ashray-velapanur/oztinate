@@ -156,6 +156,26 @@ $app->get('/signup', function()use($app){
     $app->render("teacher/signup.php");
 })->via('GET', 'POST');
 
+$app->get('/invites/:id/accept', function($id)use($app){
+    if($_SERVER['REQUEST_METHOD']=="POST")
+    {
+        $invite = Invite::getInviteById($id);
+
+        $data["userType"] = 2;
+        $data["name"] = $_POST['name'];
+        $data["password"] = $_POST['password'];
+        $data["userName"] = $invite["email"];
+        $data["name"] = $_POST["name"];
+
+        $user = new User();
+        $studentid = $user->addUser($data);
+
+        $teacher = new Teacher();
+        $teacher->assignTeacher($invite['userId'], $studentid);
+    }
+    $app->render("teacher/student/accept_invite.php");
+})->via('GET', 'POST');
+
 $app->get('/invites', function()use($app){
     if($_SERVER['REQUEST_METHOD']=="POST")
     {

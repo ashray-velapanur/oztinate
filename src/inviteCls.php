@@ -10,5 +10,16 @@ class Invite{
 		else
 			return false;
 	}
+
+	public static function getInviteById($id)
+	{
+		$result = mysql_query("select * from invite where id=".$id);
+		if(mysql_num_rows($result))
+		{
+			return mysql_fetch_array($result);
+		} else {
+			return false;
+		}		
+	}
 }
 ?>
