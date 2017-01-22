@@ -157,23 +157,13 @@ $app->get('/signup', function()use($app){
 })->via('GET', 'POST');
 
 $app->get('/invite', function()use($app){
- if($_SERVER['REQUEST_METHOD']=="POST")
- {
-    $user = new User();
-    $data["password"] = "pass";
-    $data["userType"] = 2;
-    $data["userName"] = $_POST["email"];
-    $data["name"] = $_POST["name"];
-
-    $studentid = $user->addUser($data);
-
-    $teacher = new Teacher();
-    $teacherid = $_SESSION["userId"];
-    $teacher->assignTeacher($teacherid, $studentid);
- }
+    if($_SERVER['REQUEST_METHOD']=="POST")
+    {
+        Invite::createInvite($_POST["email"], $_SESSION["userId"]);
+        $app->redirect($app->urlFor('invite'));
+    }
     $app->render("teacher/student/invite.php");
-})->via('GET', 'POST');
-
+})->via('GET', 'POST')->name('invite');
 
 $app->get('/login', function()use($app){
     if($_SERVER['REQUEST_METHOD']=="POST")

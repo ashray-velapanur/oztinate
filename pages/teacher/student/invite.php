@@ -16,10 +16,6 @@
                         <form role="form" method="post" action="">
                             <!-- <fieldset> -->
                                 <div class="form-group">
-                                    <label for="name">Name</label>
-                                    <input class="form-control" name="name" type="text" autofocus>
-                                </div>
-                                <div class="form-group">
                                     <label for="email">Email</label>
                                     <input class="form-control" name="email" type="text" autofocus>
                                 </div>
