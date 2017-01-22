@@ -156,14 +156,14 @@ $app->get('/signup', function()use($app){
     $app->render("teacher/signup.php");
 })->via('GET', 'POST');
 
-$app->get('/invite', function()use($app){
+$app->get('/invites', function()use($app){
     if($_SERVER['REQUEST_METHOD']=="POST")
     {
         Invite::createInvite($_POST["email"], $_SESSION["userId"]);
-        $app->redirect($app->urlFor('invite'));
+        $app->redirect($app->urlFor('invites'));
     }
     $app->render("teacher/student/invite.php");
-})->via('GET', 'POST')->name('invite');
+})->via('GET', 'POST')->name('invites');
 
 $app->get('/login', function()use($app){
     if($_SERVER['REQUEST_METHOD']=="POST")
