@@ -115,6 +115,30 @@ $app->get('/exercises/:id/review', function($id)use($app){
     $app->render("teacher/exercise/review.php", $response);
  })->via('GET', 'POST');
 
+$app->get('/exercises/:id/details', function($id)use($app){
+    $assignedTask = new AssignedTask();
+
+    $task = $assignedTask->getDetails($id);
+    $clips = $assignedTask->getSoundClips($id);
+    $comments = $assignedTask->getComments($id);
+
+    $response = array();
+    $response["task"] = $task;
+    $response["comments"] = array();
+    while($row=mysql_fetch_assoc($comments)) {
+        array_push($response["comments"], $row["commentText"]);
+    }
+
+    $response["clips"] = array();
+
+    while($row=mysql_fetch_assoc($clips)) {
+        array_push($response["clips"], $row["clipUrl"]);
+    }
+
+    //$params = array("task"=>$task, "clipUrls"=>$clipUrls, "comments"=>$comments);
+    $app->render("teacher/exercise/details.php", $response);
+ })->via('GET', 'POST');
+
 $app->get('/students/:id/details', function($id)use($app){
     $assTasks = new AssignedTask();
     $assignedTasks = $assTasks->getAssTaskNames(null, $id, null);

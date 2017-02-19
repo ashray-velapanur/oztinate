@@ -109,11 +109,19 @@
                                     </div>
                                     <div class="col-md-2">
                                         <div class="pull-right">
-                                            <form action="/oztinate_dev/exercises/<?php echo $task["id"]; ?>/review">
-                                                <button type="submit" class="btn">
-                                                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-                                                </button>
-                                            </form>
+                                            <?php if($task["status"] == "ReadyForReview") { ?>
+                                                <form action="/oztinate_dev/exercises/<?php echo $task["id"]; ?>/review">
+                                                    <button type="submit" class="btn">
+                                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                                    </button>
+                                                </form>
+                                            <?php } elseif ($task["status"] == "Open") { ?>
+                                                <form action="/oztinate_dev/exercises/<?php echo $task["id"]; ?>/details">
+                                                    <button type="submit" class="btn">
+                                                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                                                    </button>
+                                                </form>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                 </div>
