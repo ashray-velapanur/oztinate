@@ -117,7 +117,7 @@ $app->get('/exercises/:id/review', function($id)use($app){
 
 $app->get('/students/:id/details', function($id)use($app){
     $assTasks = new AssignedTask();
-    $assignedTasks = $assTasks->getAssTaskNames(null, $id);
+    $assignedTasks = $assTasks->getAssTaskNames(null, $id, null);
     $goals = Goal::getProgress($id);
     $user = new User();
     $name = $user->getNameById($id);
@@ -207,7 +207,7 @@ $app->get('/home', function()use($app){
     $students = $teacher->getStudents($teacherid);
 
     $assTasks = new AssignedTask();
-    $assignedTasks = $assTasks->getAssTaskNames(4, null);
+    $assignedTasks = $assTasks->getAssTaskNames(4, null, $teacherid);
 
     $params = array("username"=>$_SESSION['userName'], "students"=>$students, "tasks"=>$assignedTasks);
     $app->render("teacher/home.php", $params);
