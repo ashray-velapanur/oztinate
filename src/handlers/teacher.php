@@ -43,10 +43,21 @@ $app->get('/teacher/students/:id/delete', function($id)use($app){
 $app->get('/students/:id/goals', function($id)use($app){
     if($_SERVER['REQUEST_METHOD']=="POST")
     {
-        Goal::createGoal($_POST["tagId"], $_POST["duration"], $_POST["rating"], $_POST["userId"]);
+        Goal::createGoal($_POST["exercise"], $_POST["duration"], $_POST["rating"], $_POST["userId"]);
     }   
-    $tags = Tag::getTags();
-    $params = array("tags"=>$tags, "userId"=>$id);
+
+    $task = new Task();
+
+    $userId = $_SESSION["userId"];
+    $params = array("userId"=>$userId);
+
+    $taskNames = $task->getTaskNames($userId);
+
+    $params["tasks"] = array();
+
+    while($row=mysql_fetch_assoc($taskNames)) {
+        array_push($params["tasks"], array("name"=>$row["taskName"], "id"=>$row["taskId"]));
+    }
     $app->render("teacher/goal/create.php", $params);
 })->via('GET', 'POST');
 

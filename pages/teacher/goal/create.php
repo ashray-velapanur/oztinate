@@ -14,14 +14,14 @@
                         <div class="h3 page-header">Create Goals</div>
                     </div>
                 </div>
+
                 <form role="form" method="post" action="">
                     <input class="hidden" name="userId" id="userId" type="text" value="<?php echo $data["userId"];?>">
                     <div class="form-group">
-                        <label for="name">Tag</label>
-                        <select name="tagId" id="tagId">
-                            <option>Select Tag</option>
-                            <?php foreach ($data["tags"] as $tag) { ?>
-                                <option value=<?php echo $tag["id"] ?>><?php echo $tag["name"] ?></option>
+                        <label for="exercise">Exercise</label>
+                        <select name="exercise" id="exercise">
+                            <?php foreach ($data["tasks"] as $task) { ?>
+                                <option value=<?php echo $task["id"] ?>><?php echo $task["name"] ?></option>
                             <?php } ?>
                         </select>
                     </div>
