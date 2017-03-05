@@ -181,6 +181,31 @@ $app->get('/students/:id/exercises', function($id)use($app){
     $app->render("teacher/exercise/assign.php", $params);
 })->via('GET', 'POST');
 
+$app->get('/students/exercises', function()use($app){
+    if($_SERVER['REQUEST_METHOD']=="POST")
+    {
+        $assTasks=new AssignedTask();
+        $data = $_POST;
+        $status = $assTasks->assignTask($data,'N');
+    }
+
+    $task = new Task();
+    $userId = $_SESSION["userId"];
+    $taskNames = $task->getTaskNames($userId);
+
+    $teacher = new Teacher();
+    $students = $teacher->getStudents($userId);
+
+    $tasks = array();
+    while($row=mysql_fetch_assoc($taskNames)) {
+        array_push($tasks, array("name"=>$row["taskName"], "id"=>$row["taskId"]));
+    }
+
+    $params = array("tasks"=>$tasks, "students"=>$students);
+    $app->render("teacher/exercise/multi_assign.php", $params);
+})->via('GET', 'POST');
+
+
 $app->get('/signup', function()use($app){
     if($_SERVER['REQUEST_METHOD']=="POST")
     {
